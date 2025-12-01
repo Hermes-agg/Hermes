@@ -1,0 +1,384 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Smooth modern milky soft theme with professional refinement and superior contrast */
+:root {
+  /* <CHANGE> Updated to light theme inspired by the DeFi app image */
+  --background: oklch(0.98 0.002 240);
+  --foreground: oklch(0.12 0.01 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.01 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.01 240);
+  --primary: oklch(0.25 0.08 240);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.005 240);
+  --secondary-foreground: oklch(0.12 0.01 240);
+  --muted: oklch(0.92 0.004 240);
+  --muted-foreground: oklch(0.45 0.01 240);
+  --accent: oklch(0.6 0.15 95);
+  --accent-foreground: oklch(0.12 0.01 240);
+  /* <CHANGE> Added green for success/positive status (like "Low" risk) */
+  --success: oklch(0.55 0.14 142);
+  --success-foreground: oklch(1 0 0);
+  /* <CHANGE> Added yellow/orange for warning status (like "Medium" risk) */
+  --warning: oklch(0.65 0.18 75);
+  --warning-foreground: oklch(0.12 0.01 240);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.94 0.003 240);
+  --input: oklch(0.96 0.003 240);
+  --ring: oklch(0.25 0.08 240);
+  --chart-1: oklch(0.6 0.15 95);
+  --chart-2: oklch(0.65 0.18 75);
+  --chart-3: oklch(0.55 0.14 142);
+  --chart-4: oklch(0.25 0.08 240);
+  --chart-5: oklch(0.577 0.245 27.325);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.96 0.003 240);
+  --sidebar-foreground: oklch(0.12 0.01 240);
+  --sidebar-primary: oklch(0.25 0.08 240);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.92 0.004 240);
+  --sidebar-accent-foreground: oklch(0.12 0.01 240);
+  --sidebar-border: oklch(0.94 0.003 240);
+  --sidebar-ring: oklch(0.25 0.08 240);
+}
+
+.dark {
+  --background: oklch(0.05 0.01 260);
+  --foreground: oklch(0.98 0.008 260);
+  --card: oklch(0.09 0.015 260);
+  --card-foreground: oklch(0.98 0.008 260);
+  --popover: oklch(0.09 0.015 260);
+  --popover-foreground: oklch(0.98 0.008 260);
+  --primary: oklch(0.72 0.18 195);
+  --primary-foreground: oklch(0.05 0.01 260);
+  --secondary: oklch(0.12 0.022 260);
+  --secondary-foreground: oklch(0.92 0.01 260);
+  --muted: oklch(0.22 0.015 260);
+  --muted-foreground: oklch(0.6 0.025 260);
+  --accent: oklch(0.72 0.18 195);
+  --accent-foreground: oklch(0.05 0.01 260);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.18 0.02 260);
+  --input: oklch(0.12 0.022 260);
+  --ring: oklch(0.72 0.18 195);
+  --chart-1: oklch(0.72 0.18 195);
+  --chart-2: oklch(0.68 0.14 85);
+  --chart-3: oklch(0.62 0.2 280);
+  --chart-4: oklch(0.58 0.16 150);
+  --chart-5: oklch(0.52 0.14 320);
+  --sidebar: oklch(0.07 0.015 260);
+  --sidebar-foreground: oklch(0.98 0.008 260);
+  --sidebar-primary: oklch(0.72 0.18 195);
+  --sidebar-primary-foreground: oklch(0.05 0.01 260);
+  --sidebar-accent: oklch(0.12 0.022 260);
+  --sidebar-accent-foreground: oklch(0.92 0.01 260);
+  --sidebar-border: oklch(0.18 0.02 260);
+  --sidebar-ring: oklch(0.72 0.18 195);
+}
+
+@theme inline {
+  --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  /* Greek Tech God Fonts */
+  .font-orbitron {
+    font-family: var(--font-orbitron), sans-serif;
+    letter-spacing: -0.5px;
+  }
+
+  .font-audiowide {
+    font-family: var(--font-audiowide), sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  /* Heroic heading styles */
+  h1 {
+    @apply font-orbitron font-bold;
+  }
+
+  h2 {
+    @apply font-orbitron font-bold;
+  }
+
+  h3 {
+    @apply font-orbitron font-semibold;
+  }
+
+  /* Brand text - use audiowide for epic feel */
+  .brand {
+    @apply font-audiowide text-lg tracking-wider;
+  }
+
+  /* Tech emphasis text */
+  .tech-text {
+    @apply font-orbitron text-sm font-bold tracking-tight uppercase;
+  }
+
+  /* Hero section styling */
+  .hero-title {
+    @apply font-audiowide text-5xl md:text-6xl font-bold tracking-wide;
+    background: linear-gradient(
+      135deg,
+      oklch(0.72 0.18 195),
+      oklch(0.68 0.14 85)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    @apply font-orbitron text-xl md:text-2xl font-semibold tracking-tight;
+  }
+
+  /* Stats/metrics styling */
+  .stat-label {
+    @apply font-orbitron text-xs font-bold uppercase tracking-widest;
+    color: oklch(0.6 0.025 260);
+  }
+
+  .dark .stat-label {
+    color: oklch(0.72 0.18 195 / 0.8);
+  }
+
+  .stat-value {
+    @apply font-audiowide text-3xl font-bold;
+  }
+
+  /* Badge styling */
+  .badge-text {
+    @apply font-orbitron text-xs font-bold uppercase tracking-wide;
+  }
+
+  /* Navigation styling */
+  nav a {
+    @apply font-orbitron text-sm font-semibold tracking-tight;
+  }
+
+  /* Button text styling */
+  button {
+    @apply font-orbitron font-semibold tracking-tight;
+  }
+
+  /* Code/mono styling remains unchanged */
+  code,
+  pre {
+    @apply font-mono;
+  }
+}
+
+/* Keyframes for futuristic border animations */
+@keyframes scan {
+  0%,
+  100% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    left: 50%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes packet-left {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  45% {
+    left: 50%;
+    opacity: 1;
+  }
+  50% {
+    left: 50%;
+    opacity: 0;
+  }
+  100% {
+    left: 50%;
+    opacity: 0;
+  }
+}
+
+@keyframes packet-right {
+  0% {
+    right: 0%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  45% {
+    right: 50%;
+    opacity: 1;
+  }
+  50% {
+    right: 50%;
+    opacity: 0;
+  }
+  100% {
+    right: 50%;
+    opacity: 0;
+  }
+}
+
+/* Refined glow effects and utilities for better visibility and modern aesthetic */
+/* Refined glow effects and utilities for better visibility and modern aesthetic */
+@layer utilities {
+  /* Quick utility classes */
+  .text-heroic {
+    @apply font-audiowide text-4xl font-bold tracking-wider;
+  }
+
+  .text-epic {
+    @apply font-orbitron text-2xl font-bold tracking-tight;
+  }
+
+  .text-tech {
+    @apply font-orbitron text-sm font-bold uppercase tracking-widest;
+  }
+
+  /* Primary glow - uses primary color from theme */
+  .glow-primary {
+    box-shadow: 0 0 20px var(--primary) / 0.25,
+      0 0 40px var(--primary) / 0.08;
+  }
+
+  /* Gold/accent glow - uses accent color from theme */
+  .glow-gold {
+    box-shadow: 0 0 20px var(--accent) / 0.25,
+      0 0 40px var(--accent) / 0.08;
+  }
+
+  /* Success glow - uses success color for positive states */
+  .glow-success {
+    box-shadow: 0 0 20px var(--success) / 0.25,
+      0 0 40px var(--success) / 0.08;
+  }
+
+  /* Warning glow - uses warning color for alerts */
+  .glow-warning {
+    box-shadow: 0 0 20px var(--warning) / 0.25,
+      0 0 40px var(--warning) / 0.08;
+  }
+
+  /* Destructive glow - uses destructive color for errors */
+  .glow-destructive {
+    box-shadow: 0 0 20px var(--destructive) / 0.25,
+      0 0 40px var(--destructive) / 0.08;
+  }
+
+  /* Border glow - inset and outset glow on borders */
+  .border-glow {
+    border-color: var(--primary) / 0.4;
+    box-shadow: inset 0 0 20px var(--primary) / 0.05,
+      0 0 15px var(--primary) / 0.08;
+  }
+
+  .border-glow-accent {
+    border-color: var(--accent) / 0.4;
+    box-shadow: inset 0 0 20px var(--accent) / 0.05,
+      0 0 15px var(--accent) / 0.08;
+  }
+
+  /* Text gradient - uses primary and accent colors */
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--primary),
+      var(--accent)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Grid background - adapts to theme */
+  .bg-grid {
+    background-image: linear-gradient(
+        var(--border) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Soft card glow for modern milky aesthetic */
+  .card-glow {
+    box-shadow: 0 4px 20px var(--primary) / 0.08,
+      inset 0 1px 0 var(--foreground) / 0.1;
+  }
+
+  .card-glow-accent {
+    box-shadow: 0 4px 20px var(--accent) / 0.08,
+      inset 0 1px 0 var(--foreground) / 0.1;
+  }
+
+  button:hover,
+  [role="button"]:hover,
+  a:hover {
+    cursor: pointer;
+  }
+}

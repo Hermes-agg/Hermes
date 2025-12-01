@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react"
 import { TokenSelector, type Token } from "@/components/app/token-selector"
 import { YieldRoutes } from "@/components/app/yield-routes"
 import { Zap } from "lucide-react"
+import { useLoading } from "./layout/loading-context"
 
 const tokens: Token[] = [
   { symbol: "SOL", name: "Solana", icon: "/solana-logo.png", balance: "12.5" },
@@ -16,7 +17,7 @@ const tokens: Token[] = [
 export function YieldPanel() {
   const [selectedToken, setSelectedToken] = useState(tokens[0])
   const [amount, setAmount] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const { isLoading, setIsLoading } = useLoading()
   const [showRoutes, setShowRoutes] = useState(false)
 
   const numericAmount = useMemo(() => {
@@ -40,10 +41,19 @@ export function YieldPanel() {
   }, [numericAmount, selectedToken])
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="">
-        <div className="">
-          <div className="mb-4 flex gap-2 sm:mb-6 flex-row sm:items-center justify-between">
+    <div className="flex flex-col gap-6 mx-auto max-w-2xl">
+      {/* Main input card - Angular blocky design */}
+      <div className="relative overflow-hidden bg-card/80 backdrop-blur-sm border-2 border-primary/20">
+        {/* Sharp corner accents */}
+        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
+        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary" />
+        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary" />
+        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
+
+        {/* Decorative glow */}
+        <div className="pointer-events-none absolute -top-20 left-1/2 h-40 w-80 -translate-x-1/2 bg-primary/20 blur-3xl" />
+        <div className="relative py-5 sm:py-6">
+          <div className="flex gap-2 mb-4 flex-row sm:items-center justify-between p-3 sm:p-4">
             <div className="min-w-0">
               <h1 className="truncate text-base sm:text-lg font-semibold text-foreground">Find Yield Opportunities</h1>
               <p className="text-xs sm:text-sm text-muted-foreground">Trusted protocols only</p>
@@ -55,15 +65,15 @@ export function YieldPanel() {
           </div>
 
           {/* Token input */}
-          <div className="rounded-xl border border-border/50 bg-secondary/50 p-3 sm:p-4">
+          <div className="border-2 border-border/50 bg-secondary/50 p-3 sm:p-4 mx-3 sm:mx-4">
             <div className="mb-2 sm:mb-3 flex gap-1 sm:items-center justify-between text-xs sm:text-sm">
-              <span className="text-muted-foreground">You deposit</span>
+              <span className="text-muted-foreground font-mono uppercase tracking-wide">You deposit</span>
               <button
                 onClick={() => setAmount(selectedToken.balance.replace(",", ""))}
-                className="text-muted-foreground transition-colors hover:text-primary text-left"
+                className="text-muted-foreground transition-colors hover:text-primary text-left font-mono"
               >
                 Balance:{" "}
-                <span className="font-medium text-foreground">
+                <span className="font-bold text-foreground">
                   {selectedToken.balance} {selectedToken.symbol}
                 </span>
               </button>
@@ -74,12 +84,14 @@ export function YieldPanel() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                className="min-w-0 flex-1 bg-transparent text-xl sm:text-3xl font-semibold text-foreground outline-none placeholder:text-muted-foreground/50"
+                className="min-w-0 flex-1 bg-transparent text-xl sm:text-3xl font-bold text-foreground outline-none placeholder:text-muted-foreground/50 font-mono"
               />
+
               <TokenSelector tokens={tokens} selectedToken={selectedToken} onSelect={setSelectedToken} />
             </div>
+
             {/* Quick amount buttons */}
-            <div className="mt-3 sm:mt-4 flex gap-1.5 sm:gap-2">
+            <div className="mt-3 sm:mt-4 grid grid-cols-4 gap-1.5 sm:gap-2">
               {["25%", "50%", "75%", "Max"].map((pct) => (
                 <button
                   key={pct}
@@ -88,7 +100,7 @@ export function YieldPanel() {
                     const percentage = pct === "Max" ? 100 : Number.parseInt(pct)
                     setAmount(((balance * percentage) / 100).toFixed(2))
                   }}
-                  className="flex-1 rounded-lg border border-border/50 bg-background/50 py-1.5 sm:py-2 text-xs font-medium text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-foreground"
+                  className="border-2 border-border/50 bg-background/50 py-1.5 sm:py-2.5 text-xs font-bold text-muted-foreground transition-all hover:border-primary/50 hover:bg-primary/5 hover:text-foreground uppercase tracking-wide"
                 >
                   {pct}
                 </button>
@@ -98,19 +110,26 @@ export function YieldPanel() {
         </div>
       </div>
 
+      {/* Loading state - Angular design */}
       {isLoading && (
-        <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 rounded-2xl border border-border/50 bg-card/80 p-4 sm:p-8 backdrop-blur-sm card-glow">
+        <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 border-2 border-border/50 bg-card/80 p-4 sm:p-8 backdrop-blur-sm relative">
+          {/* Corner accents */}
+          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary" />
+          <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary" />
+          <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary" />
+          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary" />
+
           <div className="relative h-10 w-10 sm:h-12 sm:w-12">
-            <div className="absolute inset-0 rounded-full border-2 border-primary/20" />
-            <div className="absolute inset-0 animate-spin rounded-full border-2 border-transparent border-t-primary" />
+            <div className="absolute inset-0 border-2 border-primary/20" />
+            <div className="absolute inset-0 animate-spin border-2 border-transparent border-t-primary" />
             <div
-              className="absolute inset-2 animate-spin rounded-full border-2 border-transparent border-t-primary/60"
+              className="absolute inset-2 animate-spin border-2 border-transparent border-t-primary/60"
               style={{ animationDirection: "reverse", animationDuration: "0.8s" }}
             />
           </div>
           <div className="text-center">
-            <p className="text-sm sm:text-base font-medium text-foreground">Finding best routes...</p>
-            <p className="text-xs sm:text-sm text-muted-foreground">
+            <p className="text-sm sm:text-base font-bold text-foreground uppercase tracking-wide">Finding best routes...</p>
+            <p className="text-xs sm:text-sm text-muted-foreground font-mono">
               Scanning {selectedToken.symbol} yield opportunities
             </p>
           </div>

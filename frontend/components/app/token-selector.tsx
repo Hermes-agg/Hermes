@@ -29,9 +29,9 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
 
   return (
     <div className="relative">
-      <button
+      {/* <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 rounded-xl border border-border/50 bg-background/80 px-3 py-2.5 transition-all hover:border-primary/30 hover:bg-secondary"
+        className="flex items-center rounded-xl border border-border/50 bg-background/80 py-2.5 transition-all hover:border-primary/30 hover:bg-secondary h-8 gap-1.5 px-3 has-[>svg]:px-2.5"
       >
         <img
           src={selectedToken.icon || "/placeholder.svg"}
@@ -39,6 +39,21 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
           className="h-6 w-6 rounded-full"
         />
         <span className="font-semibold text-foreground">{selectedToken.symbol}</span>
+        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+      </button> */}
+
+      <button
+        onClick={() => setIsOpen(true)}
+        className="flex items-center gap-2 border-2 border-border/50 bg-background/50 px-3 sm:px-4 py-2 sm:py-2.5 hover:border-primary/30 hover:bg-primary/5 transition-all group">
+        <div className="h-6 w-6 sm:h-7 sm:w-7 bg-primary/20 border border-primary/30 flex items-center justify-center">
+          <img
+            src={selectedToken.icon || "/placeholder.svg"}
+            alt={selectedToken.symbol}
+            className="h-5 w-5 rounded-full"
+          />
+          {/* <span className="font-semibold text-foreground">{selectedToken.symbol}</span> */}
+        </div>
+        <span className="font-bold text-foreground text-sm sm:text-base">{selectedToken.symbol}</span>
         <ChevronDown className="h-4 w-4 text-muted-foreground" />
       </button>
 
