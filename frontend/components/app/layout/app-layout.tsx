@@ -7,6 +7,7 @@ import { LoadingProvider, useLoading } from "./loading-context"
 
 import WalletAdapterProvider from '@/components/app/providers/WalletAdapterProvider'
 import { WalletProvider } from "../providers/WalletProvider"
+import BackgroundDecor from "@/components/decor/BackgroundDecor"
 
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
     const { isLoading, setIsLoading } = useLoading()
@@ -37,6 +38,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                     <main className={`mx-auto max-w-5xl px-4 py-8 transition-opacity duration-300 ${
                         isLoading ? 'opacity-50' : 'opacity-100'
                     }`}>
+                        {/* <BackgroundDecor /> */}
                         {children}
                     </main>
                 </div>
