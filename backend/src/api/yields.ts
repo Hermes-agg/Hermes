@@ -8,6 +8,7 @@ import dpoEngine from '../engine/dpo';
 import lstService from '../services/lst';
 import marinadeService from '../services/marinade';
 import jitoService from '../services/jito';
+import stablecoinService from '../services/stablecoins';
 
 const router = Router();
 
@@ -30,14 +31,14 @@ router.get('/', async (req: Request, res: Response) => {
       distinct: ['protocol', 'asset'],
     });
     
-    res.json({
+    return res.json({
       success: true,
       count: yields.length,
       data: yields,
     });
   } catch (error) {
     logger.error('Error fetching yields:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch yields',
     });
@@ -68,13 +69,13 @@ router.get('/best', async (req: Request, res: Response) => {
     
     const result = await routerEngine.findBestRoute(criteria);
     
-    res.json({
+    return res.json({
       success: true,
       data: result,
     });
   } catch (error) {
     logger.error('Error finding best yield:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to find best yield',
     });
@@ -116,7 +117,7 @@ router.get('/protocol/:protocol', async (req: Request, res: Response) => {
       orderBy: { timestamp: 'asc' },
     });
     
-    res.json({
+    return res.json({
       success: true,
       protocol,
       timeframe,
@@ -125,7 +126,7 @@ router.get('/protocol/:protocol', async (req: Request, res: Response) => {
     });
   } catch (error) {
     logger.error('Error fetching protocol yields:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch protocol yields',
     });
@@ -181,7 +182,7 @@ router.post('/simulate', async (req: Request, res: Response) => {
       amount
     );
     
-    res.json({
+    return res.json({
       success: true,
       data: {
         protocol,
@@ -198,7 +199,7 @@ router.post('/simulate', async (req: Request, res: Response) => {
     });
   } catch (error) {
     logger.error('Error simulating route:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to simulate route',
     });
@@ -249,14 +250,14 @@ router.get('/compare', async (req: Request, res: Response) => {
     
     const validComparisons = comparisons.filter(c => c !== null);
     
-    res.json({
+    return res.json({
       success: true,
       count: validComparisons.length,
       data: validComparisons.sort((a, b) => (b?.riskScore || 0) - (a?.riskScore || 0)),
     });
   } catch (error) {
     logger.error('Error comparing protocols:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to compare protocols',
     });
@@ -273,13 +274,13 @@ router.get('/risk/:protocol/:asset', async (req: Request, res: Response) => {
     
     const assessment = await riskEngine.assessRisk(protocol, asset);
     
-    res.json({
+    return res.json({
       success: true,
       data: assessment,
     });
   } catch (error) {
     logger.error('Error assessing risk:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to assess risk',
     });
@@ -303,13 +304,13 @@ router.get('/volatility/:protocol/:asset', async (req: Request, res: Response) =
       });
     }
     
-    res.json({
+    return res.json({
       success: true,
       data: metrics,
     });
   } catch (error) {
     logger.error('Error fetching volatility metrics:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch volatility metrics',
     });
@@ -335,14 +336,14 @@ router.get('/risk-events', async (req: Request, res: Response) => {
       take: parseInt(limit as string),
     });
     
-    res.json({
+    return res.json({
       success: true,
       count: events.length,
       data: events,
     });
   } catch (error) {
     logger.error('Error fetching risk events:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch risk events',
     });
@@ -374,13 +375,13 @@ router.get('/portfolio/:id', async (req: Request, res: Response) => {
       });
     }
     
-    res.json({
+    return res.json({
       success: true,
       data: portfolio,
     });
   } catch (error) {
     logger.error('Error fetching portfolio:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch portfolio',
     });
@@ -397,13 +398,13 @@ router.post('/portfolio/:id/evaluate', async (req: Request, res: Response) => {
     
     const evaluation = await dpoEngine.evaluatePortfolio(id);
     
-    res.json({
+    return res.json({
       success: true,
       data: evaluation,
     });
   } catch (error) {
     logger.error('Error evaluating portfolio:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to evaluate portfolio',
     });
@@ -428,13 +429,13 @@ router.post('/portfolio/:id/execute', async (req: Request, res: Response) => {
     
     await dpoEngine.executeActions(id, actions);
     
-    res.json({
+    return res.json({
       success: true,
       message: `${actions.length} actions scheduled for execution`,
     });
   } catch (error) {
     logger.error('Error executing portfolio actions:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to execute portfolio actions',
     });
@@ -478,7 +479,7 @@ router.get('/stats', async (_req: Request, res: Response) => {
       },
     });
     
-    res.json({
+    return res.json({
       success: true,
       data: {
         totalProtocols,
@@ -490,7 +491,7 @@ router.get('/stats', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     logger.error('Error fetching stats:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch statistics',
     });
@@ -506,14 +507,14 @@ router.get('/lst', async (_req: Request, res: Response) => {
     logger.info('Fetching all LST yields...');
     const lstYields = await lstService.fetchAllLSTYields();
     
-    res.json({
+    return res.json({
       success: true,
       count: lstYields.length,
       data: lstYields,
     });
   } catch (error) {
     logger.error('Error fetching LST yields:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch LST yields',
     });
@@ -528,14 +529,14 @@ router.get('/lst/supported', (_req: Request, res: Response) => {
   try {
     const supported = lstService.getSupportedLSTs();
     
-    res.json({
+    return res.json({
       success: true,
       count: supported.length,
       data: supported,
     });
   } catch (error) {
     logger.error('Error fetching supported LSTs:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch supported LSTs',
     });
@@ -551,14 +552,14 @@ router.get('/lst/top/tvl', async (req: Request, res: Response) => {
     const { limit = '10' } = req.query;
     const topLSTs = await lstService.getTopLSTs(parseInt(limit as string));
     
-    res.json({
+    return res.json({
       success: true,
       count: topLSTs.length,
       data: topLSTs,
     });
   } catch (error) {
     logger.error('Error fetching top LSTs by TVL:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch top LSTs',
     });
@@ -574,14 +575,14 @@ router.get('/lst/top/apy', async (req: Request, res: Response) => {
     const { limit = '10' } = req.query;
     const topLSTs = await lstService.getBestYieldLSTs(parseInt(limit as string));
     
-    res.json({
+    return res.json({
       success: true,
       count: topLSTs.length,
       data: topLSTs,
     });
   } catch (error) {
     logger.error('Error fetching top LSTs by APY:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch top LSTs by APY',
     });
@@ -600,7 +601,7 @@ router.get('/lst/:symbol', async (req: Request, res: Response) => {
     const riskScore = lstService.calculateRiskScore(lstYield);
     const fees = lstService.getFees(symbol);
     
-    res.json({
+    return res.json({
       success: true,
       data: {
         ...lstYield,
@@ -610,7 +611,7 @@ router.get('/lst/:symbol', async (req: Request, res: Response) => {
     });
   } catch (error) {
     logger.error(`Error fetching LST ${req.params.symbol}:`, error);
-    res.status(404).json({
+    return res.status(404).json({
       success: false,
       error: 'LST not found or data unavailable',
     });
@@ -634,13 +635,13 @@ router.post('/lst/compare', async (req: Request, res: Response) => {
     
     const comparison = await lstService.compareLSTs(symbols);
     
-    res.json({
+    return res.json({
       success: true,
       data: comparison,
     });
   } catch (error) {
     logger.error('Error comparing LSTs:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to compare LSTs',
     });
@@ -661,7 +662,7 @@ router.get('/lst/:symbol/slippage', async (req: Request, res: Response) => {
       parseFloat(amount as string)
     );
     
-    res.json({
+    return res.json({
       success: true,
       data: {
         symbol,
@@ -672,7 +673,7 @@ router.get('/lst/:symbol/slippage', async (req: Request, res: Response) => {
     });
   } catch (error) {
     logger.error(`Error estimating slippage for ${req.params.symbol}:`, error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to estimate slippage',
     });
@@ -696,7 +697,7 @@ router.get('/validators/health', async (_req: Request, res: Response) => {
       }),
     ]);
 
-    res.json({
+    return res.json({
       success: true,
       data: {
         marinade: marinade
@@ -717,7 +718,360 @@ router.get('/validators/health', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     logger.error('Error fetching validators health:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch validators health' });
+    return res.status(500).json({ success: false, error: 'Failed to fetch validators health' });
+  }
+});
+
+/**
+ * GET /api/stables
+ * Get all stablecoin yields across lending, AMM, and perp protocols
+ */
+router.get('/stables', async (_req: Request, res: Response) => {
+  try {
+    logger.info('Fetching all stablecoin yields...');
+    const stableYields = await stablecoinService.fetchAllStablecoinYields();
+    
+    return res.json({
+      success: true,
+      count: stableYields.length,
+      data: stableYields,
+    });
+  } catch (error) {
+    logger.error('Error fetching stablecoin yields:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to fetch stablecoin yields',
+    });
+  }
+});
+
+/**
+ * GET /api/stables/top
+ * Get top stablecoin yields by APY
+ */
+router.get('/stables/top', async (req: Request, res: Response) => {
+  try {
+    const { limit = '10' } = req.query;
+    const topYields = await stablecoinService.getTopYields(parseInt(limit as string));
+    
+    return res.json({
+      success: true,
+      count: topYields.length,
+      data: topYields,
+    });
+  } catch (error) {
+    logger.error('Error fetching top stablecoin yields:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to fetch top stablecoin yields',
+    });
+  }
+});
+
+/**
+ * GET /api/stables/category/:category
+ * Get stablecoin yields by category (lending, lp, perp)
+ */
+router.get('/stables/category/:category', async (req: Request, res: Response) => {
+  try {
+    const { category } = req.params;
+    
+    const validCategories = ['stablecoin-lending', 'stable-lp', 'stable-perp'];
+    if (!validCategories.includes(category)) {
+      return res.status(400).json({
+        success: false,
+        error: `Invalid category. Must be one of: ${validCategories.join(', ')}`,
+      });
+    }
+    
+    const yields = await stablecoinService.getYieldsByCategory(
+      category as 'stablecoin-lending' | 'stable-lp' | 'stable-perp'
+    );
+    
+    return res.json({
+      success: true,
+      category,
+      count: yields.length,
+      data: yields,
+    });
+  } catch (error) {
+    logger.error(`Error fetching stablecoin yields for category ${req.params.category}:`, error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to fetch stablecoin yields for category',
+    });
+  }
+});
+
+/**
+ * GET /api/stables/protocol/:protocol
+ * Get stablecoin yields by protocol
+ */
+router.get('/stables/protocol/:protocol', async (req: Request, res: Response) => {
+  try {
+    const { protocol } = req.params;
+    const yields = await stablecoinService.getYieldsByProtocol(protocol);
+    
+    return res.json({
+      success: true,
+      protocol,
+      count: yields.length,
+      data: yields,
+    });
+  } catch (error) {
+    logger.error(`Error fetching stablecoin yields for protocol ${req.params.protocol}:`, error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to fetch stablecoin yields for protocol',
+    });
+  }
+});
+
+/**
+ * POST /api/stables/compare
+ * Compare stablecoin yields across multiple protocols
+ */
+router.post('/stables/compare', async (req: Request, res: Response) => {
+  try {
+    const { protocols } = req.body;
+    
+    if (!protocols || !Array.isArray(protocols)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid protocols array',
+      });
+    }
+    
+    const comparison = await stablecoinService.compareProtocols(protocols);
+    
+    return res.json({
+      success: true,
+      data: comparison,
+    });
+  } catch (error) {
+    logger.error('Error comparing stablecoin protocols:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to compare stablecoin protocols',
+    });
+  }
+});
+
+/**
+ * GET /api/hermes-index
+ * Unified Hermes Index - Complete yield index across LSTs and Stablecoins
+ * Returns comprehensive data for the "Google of Yields"
+ */
+router.get('/hermes-index', async (req: Request, res: Response) => {
+  try {
+    logger.info('Fetching complete Hermes Index...');
+    
+    const { category, minAPY, minRiskScore, sortBy = 'apy' } = req.query;
+    
+    // Fetch all data in parallel
+    const [lstYields, stablecoinYields, validatorHealth, protocolStats] = await Promise.allSettled([
+      lstService.fetchAllLSTYields(),
+      stablecoinService.fetchAllStablecoinYields(),
+      Promise.all([
+        marinadeService.getValidatorMetrics().catch(() => null),
+        jitoService.getStakePoolInfo().catch(() => null),
+      ]),
+      prisma.protocolMetadata.findMany({
+        where: { isActive: true },
+        select: {
+          protocol: true,
+          healthScore: true,
+          hasEmissions: true,
+          emissionSchedule: true,
+          nextEmissionChange: true,
+          incentivePrograms: true,
+          auditScore: true,
+        },
+      }),
+    ]);
+
+    // Process LST yields
+    const lstData = lstYields.status === 'fulfilled' ? lstYields.value : [];
+    const lstWithRisk = lstData.map(lst => ({
+      ...lst,
+      category: 'LST',
+      riskScore: lstService.calculateRiskScore(lst),
+      fees: lstService.getFees(lst.symbol),
+    }));
+
+    // Process stablecoin yields
+    const stableData = stablecoinYields.status === 'fulfilled' ? stablecoinYields.value : [];
+
+    // Combine all yields
+    let allYields = [
+      ...lstWithRisk.map(lst => ({
+        protocol: lst.protocol,
+        asset: lst.asset,
+        symbol: lst.symbol,
+        category: 'LST',
+        type: 'staking' as const,
+        apy: lst.apy,
+        baseAPY: lst.apy,
+        rewardAPY: 0,
+        tvl: lst.tvl,
+        riskScore: lst.riskScore,
+        liquidityDepth: lst.tvl,
+        validatorCount: lst.metadata.validatorCount,
+        fees: lst.fees,
+      })),
+      ...stableData.map(stable => ({
+        protocol: stable.protocol,
+        asset: stable.asset,
+        symbol: stable.asset,
+        category: stable.category,
+        type: stable.protocolType,
+        apy: stable.apy,
+        baseAPY: stable.baseAPY,
+        rewardAPY: stable.rewardAPY,
+        tvl: stable.tvl,
+        riskScore: stable.riskScore,
+        liquidityDepth: stable.liquidityDepth,
+        utilizationRate: stable.utilizationRate,
+        fundingRate: stable.fundingRate,
+        fees: stable.metadata.fees,
+        emissions: stable.metadata.emissions,
+      })),
+    ];
+
+    // Apply filters
+    if (category) {
+      const cats = (category as string).split(',');
+      allYields = allYields.filter(y => cats.includes(y.category));
+    }
+    if (minAPY) {
+      allYields = allYields.filter(y => y.apy >= parseFloat(minAPY as string));
+    }
+    if (minRiskScore) {
+      allYields = allYields.filter(y => y.riskScore >= parseFloat(minRiskScore as string));
+    }
+
+    // Sort
+    if (sortBy === 'apy') {
+      allYields.sort((a, b) => b.apy - a.apy);
+    } else if (sortBy === 'tvl') {
+      allYields.sort((a, b) => b.tvl - a.tvl);
+    } else if (sortBy === 'risk') {
+      allYields.sort((a, b) => b.riskScore - a.riskScore);
+    }
+
+    // Calculate aggregate metrics
+    const aggregateMetrics = {
+      totalProtocols: new Set(allYields.map(y => y.protocol)).size,
+      totalTVL: allYields.reduce((sum, y) => sum + y.tvl, 0),
+      averageAPY: allYields.length > 0 
+        ? allYields.reduce((sum, y) => sum + y.apy, 0) / allYields.length 
+        : 0,
+      averageRiskScore: allYields.length > 0
+        ? allYields.reduce((sum, y) => sum + y.riskScore, 0) / allYields.length
+        : 0,
+      highestAPY: allYields.length > 0 
+        ? Math.max(...allYields.map(y => y.apy))
+        : 0,
+      safestProtocol: allYields.length > 0
+        ? allYields.reduce((best, y) => y.riskScore > best.riskScore ? y : best).protocol
+        : null,
+      categories: {
+        LST: allYields.filter(y => y.category === 'LST').length,
+        lending: allYields.filter(y => y.category === 'stablecoin-lending').length,
+        stableLP: allYields.filter(y => y.category === 'stable-lp').length,
+        perps: allYields.filter(y => y.category === 'stable-perp').length,
+      },
+    };
+
+    // Protocol metadata with emissions
+    const protocolMetadata = protocolStats.status === 'fulfilled' ? protocolStats.value : [];
+    const emissionData = protocolMetadata
+      .filter(p => p.hasEmissions)
+      .map(p => ({
+        protocol: p.protocol,
+        healthScore: p.healthScore,
+        auditScore: p.auditScore,
+        emissionSchedule: p.emissionSchedule,
+        nextEmissionChange: p.nextEmissionChange,
+        incentivePrograms: p.incentivePrograms,
+      }));
+
+    // Validator health data
+    const [marinade, jito] = validatorHealth.status === 'fulfilled' ? validatorHealth.value : [null, null];
+    const validatorMetrics = {
+      marinade: marinade ? {
+        totalValidators: marinade.totalValidators,
+        avgScore: marinade.avgScore,
+        topValidators: marinade.topValidators.slice(0, 5),
+      } : null,
+      jito: jito ? {
+        totalStaked: jito.totalStaked,
+        numberOfValidators: jito.numberOfValidators,
+        averageValidatorPerformance: jito.averageValidatorPerformance,
+      } : null,
+    };
+
+    // Top opportunities
+    const topByAPY = [...allYields]
+      .sort((a, b) => b.apy - a.apy)
+      .slice(0, 5)
+      .map(y => ({
+        protocol: y.protocol,
+        asset: y.asset,
+        category: y.category,
+        apy: y.apy,
+        riskScore: y.riskScore,
+      }));
+
+    const topByRiskAdjusted = [...allYields]
+      .sort((a, b) => (b.apy * b.riskScore) - (a.apy * a.riskScore))
+      .slice(0, 5)
+      .map(y => ({
+        protocol: y.protocol,
+        asset: y.asset,
+        category: y.category,
+        apy: y.apy,
+        riskScore: y.riskScore,
+        riskAdjustedScore: y.apy * y.riskScore,
+      }));
+
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      index: {
+        name: 'HERMES INDEX',
+        description: 'Comprehensive yield aggregator for Solana LSTs and Stablecoins',
+        version: '1.0',
+      },
+      metrics: aggregateMetrics,
+      yields: allYields,
+      topOpportunities: {
+        highestAPY: topByAPY,
+        bestRiskAdjusted: topByRiskAdjusted,
+      },
+      validatorHealth: validatorMetrics,
+      emissionsAndIncentives: emissionData,
+      filters: {
+        applied: {
+          category: category || 'all',
+          minAPY: minAPY ? parseFloat(minAPY as string) : null,
+          minRiskScore: minRiskScore ? parseFloat(minRiskScore as string) : null,
+          sortBy: sortBy as string,
+        },
+        available: {
+          categories: ['LST', 'stablecoin-lending', 'stable-lp', 'stable-perp'],
+          sortOptions: ['apy', 'tvl', 'risk'],
+        },
+      },
+    });
+
+    logger.info(`Hermes Index returned ${allYields.length} yield opportunities`);
+  } catch (error) {
+    logger.error('Error fetching Hermes Index:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch Hermes Index',
+    });
   }
 });
 

@@ -3,6 +3,7 @@ import { createApp } from './api';
 import { logger } from './utils/logger';
 import { startYieldCollector } from './workers/yieldCollector';
 import { startDPOWorker } from './workers/dpoWorker';
+import { yieldRefresher } from './workers/yield-refresher';
 
 // Load environment variables
 dotenv.config();
@@ -28,6 +29,9 @@ async function main() {
       startYieldCollector(),
       startDPOWorker(),
     ]);
+    
+    // Yield refresher auto-starts on import (every 10 minutes)
+    logger.info('Yield refresher status:', yieldRefresher.getStatus());
     
     logger.info('HERMES backend started successfully');
     

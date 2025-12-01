@@ -105,6 +105,12 @@ model ProtocolMetadata {
   tvlRank           Int?
   ageInDays         Int?
   
+  // Emission & Incentive Tracking
+  hasEmissions      Boolean  @default(false)
+  emissionSchedule  Json?    // { token, dailyRate, vestingEnd, totalRemaining }
+  nextEmissionChange DateTime?
+  incentivePrograms Json?    // Array of active incentive programs
+  
   // API endpoints
   apiEndpoint       String?
   requiresAuth      Boolean  @default(false)
@@ -173,4 +179,20 @@ model RiskEvent {
   @@index([protocol, timestamp])
   @@index([severity, resolved])
   @@map("risk_events")
+}
+
+// Funding rate tracking for perpetual protocols
+model FundingRate {
+  id              String   @id @default(cuid())
+  protocol        String   // "drift", "zeta", "goosefx"
+  market          String   // "SOL-PERP", "BTC-PERP", etc.
+  fundingRate     Float    // Current hourly funding rate
+  fundingRate8h   Float?   // 8-hour funding rate
+  openInterest    Float?   // Total open interest in USD
+  volume24h       Float?   // 24h trading volume
+  
+  timestamp       DateTime @default(now())
+  
+  @@index([protocol, market, timestamp])
+  @@map("funding_rates")
 }

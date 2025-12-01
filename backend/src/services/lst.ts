@@ -3,6 +3,7 @@ import axiosRetry from 'axios-retry';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { logger } from '../utils/logger';
 import { aprToApy } from '../utils/math';
+import { withCache } from '../utils/cache';
 
 /**
  * Liquid Staking Token (LST) Provider Configuration
@@ -358,33 +359,40 @@ export class LiquidStakingService {
 
   /**
    * Fetch all LST yields
+   * Cached for 5 minutes to improve performance
    */
   async fetchAllLSTYields(): Promise<LSTYieldData[]> {
-    logger.info('Fetching all LST yields...');
-    
-    const results: LSTYieldData[] = [];
-    
-    // Fetch in parallel with error handling
-    const promises = Object.keys(this.providers).map(async (symbol) => {
-      try {
-        const data = await this.fetchLSTYield(symbol);
-        return data;
-      } catch (error) {
-        logger.error(`Failed to fetch ${symbol}:`, error);
-        return null;
-      }
-    });
+    return withCache(
+      'lst-yields-all',
+      async () => {
+        logger.info('Fetching all LST yields...');
+        
+        const results: LSTYieldData[] = [];
+        
+        // Fetch in parallel with error handling
+        const promises = Object.keys(this.providers).map(async (symbol) => {
+          try {
+            const data = await this.fetchLSTYield(symbol);
+            return data;
+          } catch (error) {
+            logger.error(`Failed to fetch ${symbol}:`, error);
+            return null;
+          }
+        });
 
-    const settled = await Promise.all(promises);
-    
-    for (const result of settled) {
-      if (result) {
-        results.push(result);
-      }
-    }
+        const settled = await Promise.all(promises);
+        
+        for (const result of settled) {
+          if (result) {
+            results.push(result);
+          }
+        }
 
-    logger.info(`Successfully fetched ${results.length}/${Object.keys(this.providers).length} LST yields`);
-    return results;
+        logger.info(`Successfully fetched ${results.length}/${Object.keys(this.providers).length} LST yields`);
+        return results;
+      },
+      5 * 60 * 1000 // 5 minutes cache
+    );
   }
 
   /**
