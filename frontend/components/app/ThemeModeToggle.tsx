@@ -2,8 +2,8 @@
 "use client";
 
 import { useEffect } from 'react'
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from 'next-themes';
+import { useTheme } from 'next-themes'
+import { MoonStar, Sun } from 'lucide-react'
 
 export function ThemeModeToggle() {
     const { resolvedTheme, setTheme } = useTheme();
@@ -11,19 +11,16 @@ export function ThemeModeToggle() {
     const isDark = resolvedTheme === 'dark';
 
     const handleToggle = () => {
-        // Toggle using next-themes setTheme
         try {
-            console.debug('[ThemeModeToggle] before toggle resolvedTheme=', resolvedTheme, 'html.classList=', typeof window !== 'undefined' ? Array.from(document.documentElement.classList).join(' ') : 'ssr');
             setTheme(isDark ? 'light' : 'dark');
-            console.debug('[ThemeModeToggle] after setTheme called');
         } catch (e) {
-            // ignore in case setTheme not available during SSR
+            // ignore SSR issues
         }
     };
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            console.debug('[ThemeModeToggle] resolvedTheme changed=', resolvedTheme, 'html.classList=', Array.from(document.documentElement.classList).join(' '));
+            console.debug('[ThemeModeToggle] resolvedTheme changed=', resolvedTheme);
         }
     }, [resolvedTheme]);
 
@@ -33,30 +30,34 @@ export function ThemeModeToggle() {
             role="switch"
             aria-checked={isDark}
             aria-label="Toggle dark mode"
-            className="relative inline-flex items-center justify-center w-14 h-8 sm:w-18 sm:h-10 bg-secondary border border-border transition-all duration-200 hover:border-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
         >
-            <span className="sr-only">Toggle dark mode</span>
+            <div className="flex relative items-center justify-center gap-2 w-16 h-8 transition-colors duration-300 overflow-hidden">
 
-            {/* Track - subtle background */}
-            <span
-                className={`absolute inset-0 transition-colors duration-200 ${isDark ? 'bg-primary/80' : 'bg-secondary'}`}
-            />
+                {/* Sharp corner accents */}
+                <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary" />
+                <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary" />
+                <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary" />
+                <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary" />
 
-            {/* Knob */}
-            <span
-                className={`absolute left-1 top-1/2 -translate-y-1/2 z-10 h-6 w-6 sm:h-8 sm:w-8 bg-background shadow-md transition-transform duration-300 ${isDark ? 'translate-x-6 sm:translate-x-8' : 'translate-x-0'}`}
-            />
+                {/* Thick Filled Moon */}
+                <MoonStar
+                    size={24}
+                    strokeWidth={0}
+                    fill="currentColor"
+                    className={`text-foreground transition-all duration-300 flex-shrink-0 ${isDark ? 'opacity-100 translate-x-4' : 'opacity-0 -translate-x-4'
+                        }`}
+                />
 
-            {/* Icons */}
-            <Sun
-                size={14}
-                className={`absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 transition-opacity duration-200 ${isDark ? 'opacity-40' : 'opacity-100 text-primary-foreground'}`}
-            />
-            <Moon
-                size={14}
-                className={`absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 transition-opacity duration-200 ${isDark ? 'opacity-100 text-primary-foreground' : 'opacity-40'}`}
-            />
+                {/* Thick Filled Sun */}
+                <Sun
+                    size={54}
+                    strokeWidth={0}
+                    fill="currentColor"
+                    className={`text-primary transition-all duration-300 flex-shrink-0 ${!isDark ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                        }`}
+                />
+            </div>
         </button>
     );
 }
-

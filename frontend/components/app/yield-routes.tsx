@@ -129,11 +129,11 @@ export function YieldRoutes({ token, amount }: YieldRoutesProps) {
 
   return (
     <div className="rounded-2xl backdrop-blur-sm">
-      <div className="p-3 sm:p-4">
+      <div className="py-3 sm:py-4">
         <div className="flex gap-1 flex-row sm:items-center justify-between">
           <div className="min-w-0">
-            <h2 className="truncate text-base sm:text-lg font-semibold text-foreground">Best Routes</h2>
-            <p className="text-xs sm:text-sm text-muted-foreground">Sorted by highest yield</p>
+            <h2 className="truncate text-base sm:text-lg font-semibold text-foreground text-heroic">Best Routes</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground text-epic">Sorted by highest yield</p>
           </div>
 
           <div className="min-w-0 flex flex-col items-end justify-end">

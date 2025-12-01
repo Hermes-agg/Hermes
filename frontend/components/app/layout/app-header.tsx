@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { X, ChevronDown } from "lucide-react"
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ThemeModeToggle } from "../ThemeModeToggle"
+import { ConnectWalletButton } from '@/components/app/connect/ConnectWalletButton'
+import { CustomConnectButton } from '@/components/app/connect/CustomConnectButton'
 
 interface AppHeaderProps {
   isLoading?: boolean
@@ -46,6 +48,8 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
     { label: "Analytics", href: "/analytics" },
   ]
 
+  // Wallet modal button will handle connection via wallet-adapter
+
   return (
     <>
       <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl">
@@ -63,12 +67,26 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
               <span className="text-xl font-bold tracking-tight text-foreground hidden md:inline">Hermes</span>
             </Link>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu button - Thick Menu Icon */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary md:hidden"
             >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" strokeWidth={3} />
+              ) : (
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={3}
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              )}
             </button>
 
             {/* Desktop Nav */}
@@ -105,20 +123,19 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
           <div className="flex items-center gap-3">
             <ThemeModeToggle />
 
+
             {/* Network selector */}
             <button className="hidden items-center gap-2 border border-border/50 bg-secondary/50 px-3 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/30 hover:bg-secondary sm:flex">
               <div className="h-4 w-4 rounded-full bg-gradient-to-r from-[#9945FF] to-[#14F195]" />
               <span className="hidden lg:inline">Solana</span>
-              <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </button>
 
-            {/* Connect wallet button */}
-            <Button
-              size="sm"
-              className="gap-2 bg-primary text-xs font-semibold text-primary-foreground shadow-lg transition-all hover:bg-primary/90 glow-primary sm:text-sm"
-            >
-              Connect
-            </Button>
+            {/* wallet (modal-based) - custom UI */}
+            <CustomConnectButton />
+
+
+
+
           </div>
         </div>
 
@@ -151,26 +168,9 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 <div className="absolute h-full w-1 animate-[scan_3s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-primary to-transparent blur-sm" />
               </div>
 
-              {/* Left node - always visible */}
-              {/* <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
-                <div className="relative h-2 w-2">
-                  <div className="absolute inset-0 animate-ping rounded-full bg-primary/50" />
-                  <div className="relative h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(114,197,232,0.6)]" />
-                </div>
-              </div> */}
-
-              {/* Right node - always visible */}
-              {/* <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
-                <div className="relative h-2 w-2">
-                  <div className="absolute inset-0 animate-ping rounded-full bg-primary/50" style={{ animationDelay: '0.5s' }} />
-                  <div className="relative h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(114,197,232,0.6)]" />
-                </div>
-              </div> */}
-
               {/* Data packets traveling - spawn from nodes and disappear */}
               <div className="absolute inset-0">
                 <div className="absolute left-0 top-1/2 h-1 w-3 -translate-y-1/2 animate-[packet-left_2s_ease-in-out_infinite] rounded-full bg-gradient-to-r from-primary to-primary/50 blur-[1px]" />
-                {/* <div className="absolute right-0 top-1/2 h-1 w-3 -translate-y-1/2 animate-[packet-right_2s_ease-in-out_infinite] rounded-full bg-gradient-to-l from-primary to-primary/50 blur-[1px]" style={{ animationDelay: '1s' }} /> */}
               </div>
             </div>
           )}
@@ -205,7 +205,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             onClick={() => setMobileMenuOpen(false)}
             className="flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary"
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5" strokeWidth={3} />
           </button>
         </div>
 
@@ -235,8 +235,10 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
           <button className="flex w-full items-center gap-2 border border-border/50 bg-secondary/50 px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-primary/30">
             <div className="h-4 w-4 rounded-full bg-gradient-to-r from-[#9945FF] to-[#14F195]" />
             <span>Solana</span>
-            <ChevronDown className="ml-auto h-4 w-4 text-muted-foreground" />
           </button>
+        </div>
+        <div className="p-4 border-t border-border/50">
+          <ConnectWalletButton />
         </div>
       </div>
     </>
