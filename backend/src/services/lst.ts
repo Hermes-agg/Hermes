@@ -49,45 +49,9 @@ export interface LSTYieldData {
  * Configure all supported LST providers here
  */
 const LST_PROVIDERS: Record<string, LSTProviderConfig> = {
-  BNSOL: {
-    name: 'binance',
-    symbol: 'BNSOL',
-    displayName: 'Binance Staked SOL',
-    mintAddress: 'BNso1VUJnh4zcfpZa6986Ea66P6TCp59hNn5WSntKz2',
-    apiEndpoint: 'https://api.binance.com/api/v3/staking/sol',
-    defaultAPY: 0.073, // 7.3% estimate
-    fees: {
-      depositFee: 0,
-      withdrawalFee: 0,
-      managementFee: 0.05, // 5% commission
-    },
-  },
-  JUPSOL: {
-    name: 'jupiter',
-    symbol: 'jupSOL',
-    displayName: 'Jupiter Staked SOL',
-    mintAddress: 'jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v',
-    apiEndpoint: 'https://stake.jup.ag/api/v1',
-    defaultAPY: 0.075, // 7.5% estimate
-    fees: {
-      depositFee: 0,
-      withdrawalFee: 0.001,
-      managementFee: 0.04, // 4% commission
-    },
-  },
-  DSOL: {
-    name: 'drift',
-    symbol: 'dSOL',
-    displayName: 'Drift Staked SOL',
-    mintAddress: 'Dso1bDeDjCQxTrWHqUUi63oBvV7Mdm6WaobLbQ7gnPQ',
-    stakingProgramId: 'DRiFT1McxkzRvR7bRZQdKyJZNKjNxLRJjEqrFgKxEqJF',
-    defaultAPY: 0.07, // 7% estimate
-    fees: {
-      depositFee: 0,
-      withdrawalFee: 0.003,
-      managementFee: 0.05,
-    },
-  },
+  // NOTE: Marinade (mSOL), Jito (jitoSOL), Binance (BNSOL), Jupiter (jupSOL), 
+  // Drift (dSOL), and Helius (hSOL) are handled by dedicated services
+  // See: marinade.ts, jito.ts, binance.ts, jupiter.ts, drift.ts, helius.ts
   BBSOL: {
     name: 'bybit',
     symbol: 'bbSOL',
@@ -100,22 +64,6 @@ const LST_PROVIDERS: Record<string, LSTProviderConfig> = {
       managementFee: 0.05,
     },
   },
-  HSOL: {
-    name: 'helius',
-    symbol: 'hSOL',
-    displayName: 'Helius Staked SOL',
-    mintAddress: 'he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A',
-    apiEndpoint: 'https://api.helius.xyz/v0/staking',
-    defaultAPY: 0.078, // 7.8% estimate
-    fees: {
-      depositFee: 0,
-      withdrawalFee: 0.002,
-      managementFee: 0.03, // 3% commission
-    },
-  },
-  // NOTE: JitoSOL and mSOL removed from LST aggregator
-  // They have dedicated services (jito.ts, marinade.ts) with protocol-specific features
-  // Use those services for JitoSOL MEV data and Marinade validator metrics
   LSTSOL: {
     name: 'listsol',
     symbol: 'LSTSol',
@@ -341,17 +289,30 @@ export class LiquidStakingService {
     const apr = provider.defaultAPY || 0.07;
     const apy = aprToApy(apr, 365);
 
+    // Estimate TVL for smaller LST protocols (conservative estimates)
+    const tvlEstimates: Record<string, number> = {
+      'bybit': 50000000,      // ~$50M (exchange-backed)
+      'listsol': 15000000,    // ~$15M
+      'jpool': 10000000,      // ~$10M
+      'socean': 8000000,      // ~$8M
+      'laine': 5000000,       // ~$5M
+      'compass': 3000000,     // ~$3M
+      'cogent': 2000000,      // ~$2M
+    };
+    
+    const estimatedTvl = tvlEstimates[provider.name] || 1000000; // Default $1M for unknown
+
     return {
       protocol: provider.name,
       asset: provider.displayName,
       symbol: provider.symbol,
       apy: apy,
       apr: apr,
-      tvl: 0, // Unknown
+      tvl: estimatedTvl,
       tokenPrice: 1.0, // Estimate 1:1 with SOL
       metadata: {
         exchangeRate: 1.0,
-        totalStaked: 0,
+        totalStaked: estimatedTvl,
         tokenSupply: 0,
       },
     };

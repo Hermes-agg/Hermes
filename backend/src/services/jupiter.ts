@@ -46,15 +46,16 @@ export class JupiterService {
 
   /**
    * Fetch Jupiter Staked SOL yield data
+   * PRIMARY: Jupiter API | FALLBACK: CoinGecko | REMOVED: Sanctum
    */
   async fetchYieldData(): Promise<JupiterYieldData> {
     try {
       logger.info('Fetching Jupiter jupSOL yield data...');
 
-      // Try Jupiter Stake API
+      // Try Jupiter Stake API first
       const jupiterData = await this.fetchFromJupiterAPI();
       if (jupiterData) {
-        // Enhance with CoinGecko market cap (verified working)
+        // Enhance with CoinGecko TVL (verified reliable)
         const cgData = await coinGeckoService.getLSTData('jupiter');
         if (cgData && cgData.marketCap > 0) {
           jupiterData.tvl = cgData.marketCap;
@@ -64,13 +65,7 @@ export class JupiterService {
         return jupiterData;
       }
 
-      // Fallback to Sanctum
-      const sanctumData = await this.fetchFromSanctum();
-      if (sanctumData) {
-        return sanctumData;
-      }
-
-      // Final fallback
+      // Fallback to CoinGecko if Jupiter API fails
       return await this.getFallbackData();
     } catch (error) {
       logger.error('Error fetching Jupiter yield data:', error);
@@ -107,36 +102,8 @@ export class JupiterService {
     }
   }
 
-  /**
-   * Fetch from Sanctum aggregator
-   */
-  private async fetchFromSanctum(): Promise<JupiterYieldData | null> {
-    try {
-      const response = await axios.get('https://sanctum-api.fly.dev/v1/lst');
-      const jupsol = response.data.find((lst: any) => lst.symbol === 'jupSOL');
-
-      if (!jupsol) return null;
-
-      return {
-        protocol: 'jupiter',
-        asset: 'jupSOL',
-        apy: aprToApy(jupsol.apr || 0.075),
-        apr: jupsol.apr || 0.075,
-        tvl: jupsol.tvl || 0,
-        jupsolPrice: jupsol.price || 1,
-        exchangeRate: jupsol.exchangeRate || 1,
-        metadata: {
-          totalStaked: jupsol.totalStaked || 0,
-          tokenSupply: jupsol.supply || 0,
-          validatorCount: jupsol.validatorCount || 0,
-          commission: 0.04,
-        },
-      };
-    } catch (error) {
-      logger.warn('Sanctum API unavailable for jupSOL');
-      return null;
-    }
-  }
+  // REMOVED: fetchFromSanctum() - Sanctum API is unreliable
+  // Now using CoinGecko in getFallbackData() as secondary source
 
   /**
    * Fallback data when APIs unavailable - tries CoinGecko first

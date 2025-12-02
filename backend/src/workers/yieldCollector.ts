@@ -14,6 +14,7 @@ import heliusService from '../services/helius';
 import driftService from '../services/drift';
 import volatilityOracle from '../engine/volatilityOracle';
 import riskEngine from '../engine/risk';
+import { getProtocolEmissions } from '../config/protocolEmissions';
 
 const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 const COLLECTION_INTERVAL = parseInt(
@@ -33,6 +34,36 @@ const queueEvents = new QueueEvents('yield-collector', { connection });
 queueEvents.on('completed', ({ jobId }) => {
   logger.debug(`Queue event: Job ${jobId} completed`);
 });
+
+/**
+ * Helper: Update protocol metadata with emissions and incentives
+ */
+async function updateProtocolMetadata(protocol: string, name: string): Promise<void> {
+  const emissionsConfig = getProtocolEmissions(protocol);
+  
+  const updateData: any = {
+    lastSuccessfulFetch: new Date(),
+    consecutiveFailures: 0,
+  };
+  
+  if (emissionsConfig) {
+    updateData.hasEmissions = emissionsConfig.hasEmissions;
+    updateData.emissionSchedule = emissionsConfig.emissionSchedule;
+    updateData.nextEmissionChange = emissionsConfig.nextEmissionChange;
+    updateData.incentivePrograms = emissionsConfig.incentivePrograms;
+  }
+  
+  await prisma.protocolMetadata.upsert({
+    where: { protocol },
+    update: updateData,
+    create: {
+      protocol,
+      name,
+      isActive: true,
+      ...updateData,
+    },
+  });
+}
 
 /**
  * Collect yield data from all protocols
@@ -59,12 +90,7 @@ async function collectYields(): Promise<void> {
     });
     
     logger.info('Marinade yield collected', { apy: data.apy, tvl: data.tvl });
-    
-    await prisma.protocolMetadata.upsert({
-      where: { protocol: 'marinade' },
-      update: { lastSuccessfulFetch: new Date(), consecutiveFailures: 0 },
-      create: { protocol: 'marinade', name: 'Marinade', isActive: true, lastSuccessfulFetch: new Date() },
-    });
+    await updateProtocolMetadata('marinade', 'Marinade');
   } catch (error) {
     logger.error('Error collecting yield from Marinade:', error);
   }
@@ -88,12 +114,7 @@ async function collectYields(): Promise<void> {
     });
     
     logger.info('Jito yield collected', { apy: data.apy, tvl: data.tvl });
-    
-    await prisma.protocolMetadata.upsert({
-      where: { protocol: 'jito' },
-      update: { lastSuccessfulFetch: new Date(), consecutiveFailures: 0 },
-      create: { protocol: 'jito', name: 'Jito', isActive: true, lastSuccessfulFetch: new Date() },
-    });
+    await updateProtocolMetadata('jito', 'Jito');
   } catch (error) {
     logger.error('Error collecting yield from Jito:', error);
   }

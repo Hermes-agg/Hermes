@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import { logger } from '../utils/logger';
 import yieldsRouter from './yields';
+import emissionsRouter from './emissions';
 
 export function createApp(): Express {
   const app = express();
@@ -47,6 +48,10 @@ export function createApp(): Express {
   app.use('/api/yields', yieldsRouter); // Primary mount point
   app.use('/api', yieldsRouter);         // Also mount at /api for backwards compat
   logger.info(`Yields router mounted successfully`);
+  
+  logger.info(`Mounting emissions router on /api/emissions`);
+  app.use('/api/emissions', emissionsRouter);
+  logger.info(`Emissions router mounted successfully`);
   
   // Debug: List all registered routes
   app._router.stack.forEach((middleware: any) => {

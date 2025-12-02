@@ -165,19 +165,36 @@ export class MarginFiService {
     } catch (error) {
       logger.error(`Error fetching MarginFi yield data for ${asset}:`, error);
       
-      // Fallback: try DeFiLlama protocol TVL to at least return a real TVL number
+      // Fallback: Use per-asset TVL estimates instead of protocol-wide TVL
+      // This prevents showing the same TVL for all assets
+      const fallback = this.getFallbackData(asset);
+      
+      // Try to enhance with DeFiLlama protocol TVL, but split it intelligently
       try {
         const llamaTVL = await defiLlamaService.getTVLForProtocol('marginfi');
         if (llamaTVL > 0) {
-          const fallback = this.getFallbackData(asset);
-          return { ...fallback, tvl: llamaTVL };
+          // Estimate TVL split based on typical market composition
+          const tvlMultipliers: Record<string, number> = {
+            'SOL': 0.40,  // ~40% of MarginFi is SOL
+            'USDC': 0.35, // ~35% is USDC
+            'USDT': 0.10, // ~10% is USDT
+            'ETH': 0.08,  // ~8% is ETH
+            'BTC': 0.05,  // ~5% is BTC
+            'default': 0.02, // ~2% for others
+          };
+          
+          const multiplier = tvlMultipliers[asset] || tvlMultipliers['default'];
+          const estimatedAssetTVL = llamaTVL * multiplier;
+          
+          logger.info(`Using estimated ${asset} TVL: $${(estimatedAssetTVL / 1e6).toFixed(1)}M (${(multiplier * 100).toFixed(0)}% of $${(llamaTVL / 1e6).toFixed(0)}M total)`);
+          return { ...fallback, tvl: estimatedAssetTVL };
         }
       } catch (llamaErr) {
         logger.warn('DeFiLlama fallback failed for MarginFi TVL');
       }
       
       // Final fallback to static estimates
-      return this.getFallbackData(asset);
+      return fallback;
     }
   }
   

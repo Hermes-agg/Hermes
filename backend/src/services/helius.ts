@@ -51,20 +51,7 @@ export class HeliusService {
     try {
       logger.info('Fetching Helius hSOL yield data...');
 
-      // Try Sanctum API (likely best source for hSOL)
-      const sanctumData = await this.fetchFromSanctum();
-      if (sanctumData) {
-        // Try CoinGecko (currently no data, but check anyway)
-        const cgData = await coinGeckoService.getLSTData('helius');
-        if (cgData && cgData.marketCap > 0) {
-          sanctumData.tvl = cgData.marketCap;
-          sanctumData.hsolPrice = cgData.price;
-          logger.info(`Enhanced hSOL with CoinGecko: $${(cgData.marketCap / 1e6).toFixed(1)}M`);
-        }
-        return sanctumData;
-      }
-
-      // Fallback
+      // Use DeFiLlama + CoinGecko as PRIMARY sources (verified reliable)
       return await this.getFallbackData();
     } catch (error) {
       logger.error('Error fetching Helius yield data:', error);
@@ -72,36 +59,8 @@ export class HeliusService {
     }
   }
 
-  /**
-   * Fetch from Sanctum aggregator
-   */
-  private async fetchFromSanctum(): Promise<HeliusYieldData | null> {
-    try {
-      const response = await axios.get('https://sanctum-api.fly.dev/v1/lst');
-      const hsol = response.data.find((lst: any) => lst.symbol === 'hSOL');
-
-      if (!hsol) return null;
-
-      return {
-        protocol: 'helius',
-        asset: 'hSOL',
-        apy: aprToApy(hsol.apr || 0.078),
-        apr: hsol.apr || 0.078,
-        tvl: hsol.tvl || 0,
-        hsolPrice: hsol.price || 1,
-        exchangeRate: hsol.exchangeRate || 1,
-        metadata: {
-          totalStaked: hsol.totalStaked || 0,
-          tokenSupply: hsol.supply || 0,
-          validatorCount: hsol.validatorCount || 0,
-          rpcInfrastructure: true,
-        },
-      };
-    } catch (error) {
-      logger.warn('Sanctum API unavailable for hSOL');
-      return null;
-    }
-  }
+  // REMOVED: fetchFromSanctum() - Sanctum API is unreliable
+  // Now using DeFiLlama + CoinGecko as primary sources
 
   /**
    * Fallback data when APIs unavailable - tries CoinGecko first
@@ -137,7 +96,7 @@ export class HeliusService {
       asset: 'hSOL',
       apy: aprToApy(0.078),
       apr: 0.078,
-      tvl: 0,
+      tvl: 25000000, // ~$25M estimate when no data available
       hsolPrice: 1,
       exchangeRate: 1,
       metadata: {

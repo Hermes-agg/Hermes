@@ -8,33 +8,133 @@ import dpoEngine from '../engine/dpo';
 import lstService from '../services/lst';
 import marinadeService from '../services/marinade';
 import jitoService from '../services/jito';
+import binanceService from '../services/binance';
+import jupiterService from '../services/jupiter';
+import driftService from '../services/drift';
+import heliusService from '../services/helius';
 import stablecoinService from '../services/stablecoins';
+import smartRouter from '../services/smart-router';
 
 const router = Router();
 
 /**
  * GET /api/yields
- * Get all current yields from all protocols
+ * Get all current yields from all protocols (LIVE data from services)
  */
 router.get('/', async (req: Request, res: Response) => {
   try {
     const { protocol, asset, limit = '50' } = req.query;
     
-    const where: any = {};
-    if (protocol) where.protocol = protocol;
-    if (asset) where.asset = asset;
+    // Fetch LIVE data from DEDICATED services first (more reliable)
+    const [marinadeData, jitoData, binanceData, jupiterData, driftData, heliusData, lstYields, stablecoinYields] = await Promise.all([
+      marinadeService.fetchYieldData(),
+      jitoService.fetchYieldData(),
+      binanceService.fetchYieldData(),
+      jupiterService.fetchYieldData(),
+      driftService.fetchYieldData(),
+      heliusService.fetchYieldData(),
+      lstService.fetchAllLSTYields(),
+      stablecoinService.fetchAllStablecoinYields(),
+    ]);
     
-    const yields = await prisma.yieldRecord.findMany({
-      where,
-      orderBy: { timestamp: 'desc' },
-      take: parseInt(limit as string),
-      distinct: ['protocol', 'asset'],
-    });
+    // Combine and normalize data - DEDICATED services FIRST (more reliable)
+    let allYields = [
+      // Dedicated LST services (use their specific data)
+      {
+        protocol: marinadeData.protocol,
+        asset: marinadeData.asset,
+        apy: marinadeData.apy,
+        apr: marinadeData.apr,
+        tvl: marinadeData.tvl,
+        riskScore: marinadeService.calculateRiskScore(marinadeData),
+        timestamp: new Date(),
+      },
+      {
+        protocol: jitoData.protocol,
+        asset: jitoData.asset,
+        apy: jitoData.apy,
+        apr: jitoData.apr,
+        tvl: jitoData.tvl,
+        riskScore: jitoService.calculateRiskScore(jitoData),
+        timestamp: new Date(),
+      },
+      {
+        protocol: binanceData.protocol,
+        asset: binanceData.asset,
+        apy: binanceData.apy,
+        apr: binanceData.apr,
+        tvl: binanceData.tvl,
+        riskScore: binanceService.calculateRiskScore(binanceData),
+        timestamp: new Date(),
+      },
+      {
+        protocol: jupiterData.protocol,
+        asset: jupiterData.asset,
+        apy: jupiterData.apy,
+        apr: jupiterData.apr,
+        tvl: jupiterData.tvl,
+        riskScore: jupiterService.calculateRiskScore(jupiterData),
+        timestamp: new Date(),
+      },
+      {
+        protocol: driftData.protocol,
+        asset: driftData.asset,
+        apy: driftData.apy,
+        apr: driftData.apr,
+        tvl: driftData.tvl,
+        riskScore: driftService.calculateRiskScore(driftData),
+        timestamp: new Date(),
+      },
+      {
+        protocol: heliusData.protocol,
+        asset: heliusData.asset,
+        apy: heliusData.apy,
+        apr: heliusData.apr,
+        tvl: heliusData.tvl,
+        riskScore: heliusService.calculateRiskScore(heliusData),
+        timestamp: new Date(),
+      },
+      // Generic LST service (other LSTs not covered by dedicated services)
+      ...lstYields
+        .filter(lst => !['marinade', 'jito', 'binance', 'jupiter', 'drift', 'helius'].includes(lst.protocol)) // Avoid duplicates
+        .map(lst => ({
+          protocol: lst.protocol,
+          asset: lst.asset,
+          apy: lst.apy,
+          apr: lst.apr,
+          tvl: lst.tvl,
+          riskScore: lstService.calculateRiskScore(lst),
+          timestamp: new Date(),
+        })),
+      // Stablecoin services
+      ...stablecoinYields.map(stable => ({
+        protocol: stable.protocol,
+        asset: stable.asset,
+        apy: stable.apy,
+        apr: stable.apr,
+        tvl: stable.tvl,
+        riskScore: stable.riskScore,
+        timestamp: new Date(),
+      })),
+    ];
+    
+    // Apply filters
+    if (protocol) {
+      allYields = allYields.filter(y => y.protocol === protocol);
+    }
+    if (asset) {
+      allYields = allYields.filter(y => y.asset.toLowerCase().includes((asset as string).toLowerCase()));
+    }
+    
+    // Sort by APY and limit
+    allYields = allYields
+      .sort((a, b) => b.apy - a.apy)
+      .slice(0, parseInt(limit as string));
     
     return res.json({
       success: true,
-      count: yields.length,
-      data: yields,
+      count: allYields.length,
+      data: allYields,
     });
   } catch (error) {
     logger.error('Error fetching yields:', error);
@@ -1035,7 +1135,9 @@ router.get('/hermes-index', async (req: Request, res: Response) => {
         riskAdjustedScore: y.apy * y.riskScore,
       }));
 
-    res.json({
+    logger.info(`Hermes Index returned ${allYields.length} yield opportunities`);
+
+    return res.json({
       success: true,
       timestamp: new Date().toISOString(),
       index: {
@@ -1064,13 +1166,177 @@ router.get('/hermes-index', async (req: Request, res: Response) => {
         },
       },
     });
-
-    logger.info(`Hermes Index returned ${allYields.length} yield opportunities`);
   } catch (error) {
     logger.error('Error fetching Hermes Index:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to fetch Hermes Index',
+    });
+  }
+});
+
+/**
+ * POST /api/smart-route/calculate-real-yield
+ * Calculate REAL yield after all costs (slippage, fees, gas, risk)
+ */
+router.post('/smart-route/calculate-real-yield', async (req: Request, res: Response) => {
+  try {
+    const { protocol, asset, amount, fromToken = 'SOL' } = req.body;
+    
+    if (!protocol || !asset || !amount) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: protocol, asset, amount',
+      });
+    }
+    
+    const realYield = await smartRouter.calculateRealYield(
+      protocol,
+      asset,
+      parseFloat(amount),
+      fromToken
+    );
+    
+    return res.json({
+      success: true,
+      data: realYield,
+      comparison: {
+        advertised_apy: `${(realYield.advertised_apy * 100).toFixed(2)}%`,
+        real_apy: `${(realYield.real_apy * 100).toFixed(2)}%`,
+        yield_loss: `${((realYield.advertised_apy - realYield.real_apy) * 100).toFixed(2)}%`,
+        cost_breakdown: {
+          slippage: `${(realYield.costs.slippage * 100).toFixed(3)}%`,
+          withdrawal_fees: `${(realYield.costs.withdrawal_fees * 100).toFixed(3)}%`,
+          protocol_fees: `${(realYield.costs.protocol_fees * 100).toFixed(2)}%`,
+          gas_costs: `$${realYield.costs.gas_costs_usd.toFixed(4)}`,
+          total_cost: `${(realYield.costs.total_cost_percent * 100).toFixed(2)}%`,
+        },
+      },
+    });
+  } catch (error) {
+    logger.error('Error calculating real yield:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to calculate real yield',
+    });
+  }
+});
+
+/**
+ * POST /api/smart-route/find-optimal
+ * Find optimal capital routing path
+ * Routes through best DEX before depositing into yield vault
+ */
+router.post('/smart-route/find-optimal', async (req: Request, res: Response) => {
+  try {
+    const {
+      from_token,
+      to_protocol,
+      to_asset,
+      amount,
+      user_risk_tolerance = 'moderate',
+      max_slippage_percent,
+      optimize_for = 'yield',
+    } = req.body;
+    
+    if (!from_token || !to_protocol || !to_asset || !amount) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: from_token, to_protocol, to_asset, amount',
+      });
+    }
+    
+    const routes = await smartRouter.findOptimalRoute({
+      from_token,
+      to_protocol,
+      to_asset,
+      amount: parseFloat(amount),
+      user_risk_tolerance,
+      max_slippage_percent: max_slippage_percent ? parseFloat(max_slippage_percent) : undefined,
+      optimize_for,
+    });
+    
+    return res.json({
+      success: true,
+      routes_found: routes.length,
+      recommended_route: routes[0],
+      alternative_routes: routes.slice(1, 3),
+      all_routes: routes,
+    });
+  } catch (error) {
+    logger.error('Error finding optimal route:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to find optimal route',
+    });
+  }
+});
+
+/**
+ * POST /api/smart-route/compare
+ * Compare multiple protocols with real yield calculations
+ */
+router.post('/smart-route/compare', async (req: Request, res: Response) => {
+  try {
+    const { protocols, amount = 1000, fromToken = 'SOL' } = req.body;
+    
+    if (!protocols || !Array.isArray(protocols) || protocols.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Protocols array is required',
+      });
+    }
+    
+    const comparisons = await Promise.all(
+      protocols.map(async (p: any) => {
+        try {
+          const realYield = await smartRouter.calculateRealYield(
+            p.protocol,
+            p.asset,
+            amount,
+            fromToken
+          );
+          
+          return {
+            protocol: p.protocol,
+            asset: p.asset,
+            advertised_apy: realYield.advertised_apy,
+            real_apy: realYield.real_apy,
+            yield_difference: realYield.advertised_apy - realYield.real_apy,
+            total_costs: realYield.costs.total_cost_percent,
+            risk_score: realYield.risks.combined_risk_score,
+            execution_probability: realYield.execution.success_probability,
+          };
+        } catch (error) {
+          logger.warn(`Failed to calculate for ${p.protocol}:`, error);
+          return null;
+        }
+      })
+    );
+    
+    const validComparisons = comparisons.filter(c => c !== null);
+    
+    // Sort by real APY
+    validComparisons.sort((a, b) => (b?.real_apy || 0) - (a?.real_apy || 0));
+    
+    return res.json({
+      success: true,
+      count: validComparisons.length,
+      data: validComparisons,
+      best_protocol: validComparisons[0],
+      summary: {
+        highest_real_apy: validComparisons[0]?.real_apy,
+        lowest_cost: Math.min(...validComparisons.map(c => c?.total_costs || 1)),
+        safest: validComparisons.sort((a, b) => 
+          (b?.risk_score || 0) - (a?.risk_score || 0)
+        )[0],
+      },
+    });
+  } catch (error) {
+    logger.error('Error comparing protocols:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to compare protocols',
     });
   }
 });
