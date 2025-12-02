@@ -12,9 +12,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-client] (ecmascript) <export default as Search>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react-dom/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -23,8 +25,12 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
     const [isOpen, setIsOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [search, setSearch] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const filteredTokens = tokens.filter((token)=>token.symbol.toLowerCase().includes(search.toLowerCase()) || token.name.toLowerCase().includes(search.toLowerCase()));
+    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "TokenSelector.useEffect": ()=>setMounted(true)
+    }["TokenSelector.useEffect"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "relative",
+        className: "relative z-99",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: ()=>setIsOpen(true),
@@ -35,15 +41,15 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                             src: selectedToken.icon || "/placeholder.svg",
                             alt: selectedToken.symbol,
-                            className: "h-5 w-5 rounded-full"
+                            className: "h-full w-full"
                         }, void 0, false, {
                             fileName: "[project]/components/app/token-selector.tsx",
-                            lineNumber: 49,
+                            lineNumber: 53,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/app/token-selector.tsx",
-                        lineNumber: 48,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -51,35 +57,63 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                         children: selectedToken.symbol
                     }, void 0, false, {
                         fileName: "[project]/components/app/token-selector.tsx",
-                        lineNumber: 56,
+                        lineNumber: 60,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                         className: "h-4 w-4 text-muted-foreground"
                     }, void 0, false, {
                         fileName: "[project]/components/app/token-selector.tsx",
-                        lineNumber: 57,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/app/token-selector.tsx",
-                lineNumber: 45,
+                lineNumber: 49,
                 columnNumber: 7
             }, this),
-            isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+            isOpen && mounted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createPortal"])(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm",
                         onClick: ()=>setIsOpen(false)
                     }, void 0, false, {
                         fileName: "[project]/components/app/token-selector.tsx",
-                        lineNumber: 63,
-                        columnNumber: 11
+                        lineNumber: 68,
+                        columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-border/50 bg-card p-5 shadow-2xl",
+                        className: "fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 border border-border/50 bg-card p-5 shadow-2xl",
                         children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary"
+                            }, void 0, false, {
+                                fileName: "[project]/components/app/token-selector.tsx",
+                                lineNumber: 71,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary"
+                            }, void 0, false, {
+                                fileName: "[project]/components/app/token-selector.tsx",
+                                lineNumber: 72,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary"
+                            }, void 0, false, {
+                                fileName: "[project]/components/app/token-selector.tsx",
+                                lineNumber: 73,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary"
+                            }, void 0, false, {
+                                fileName: "[project]/components/app/token-selector.tsx",
+                                lineNumber: 74,
+                                columnNumber: 15
+                            }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "mb-4 flex items-center justify-between",
                                 children: [
@@ -88,8 +122,8 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                                         children: "Select Token"
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/token-selector.tsx",
-                                        lineNumber: 66,
-                                        columnNumber: 15
+                                        lineNumber: 77,
+                                        columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>setIsOpen(false),
@@ -98,19 +132,19 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/components/app/token-selector.tsx",
-                                            lineNumber: 71,
-                                            columnNumber: 17
+                                            lineNumber: 82,
+                                            columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/token-selector.tsx",
-                                        lineNumber: 67,
-                                        columnNumber: 15
+                                        lineNumber: 78,
+                                        columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/app/token-selector.tsx",
-                                lineNumber: 65,
-                                columnNumber: 13
+                                lineNumber: 76,
+                                columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "relative mb-4",
@@ -119,8 +153,8 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                                         className: "absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/token-selector.tsx",
-                                        lineNumber: 77,
-                                        columnNumber: 15
+                                        lineNumber: 88,
+                                        columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "text",
@@ -130,14 +164,14 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                                         className: "w-full rounded-xl border border-border/50 bg-secondary py-3 pl-10 pr-4 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/50 focus:ring-1 focus:ring-primary/50"
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/token-selector.tsx",
-                                        lineNumber: 78,
-                                        columnNumber: 15
+                                        lineNumber: 89,
+                                        columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/app/token-selector.tsx",
-                                lineNumber: 76,
-                                columnNumber: 13
+                                lineNumber: 87,
+                                columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "max-h-64 space-y-1 overflow-y-auto",
@@ -155,8 +189,8 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                                                 className: "h-9 w-9 rounded-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/app/token-selector.tsx",
-                                                lineNumber: 104,
-                                                columnNumber: 19
+                                                lineNumber: 115,
+                                                columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex-1 text-left",
@@ -166,58 +200,58 @@ function TokenSelector({ tokens, selectedToken, onSelect }) {
                                                         children: token.symbol
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/app/token-selector.tsx",
-                                                        lineNumber: 106,
-                                                        columnNumber: 21
+                                                        lineNumber: 117,
+                                                        columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "text-xs text-muted-foreground",
                                                         children: token.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/app/token-selector.tsx",
-                                                        lineNumber: 107,
-                                                        columnNumber: 21
+                                                        lineNumber: 118,
+                                                        columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/app/token-selector.tsx",
-                                                lineNumber: 105,
-                                                columnNumber: 19
+                                                lineNumber: 116,
+                                                columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "text-right text-sm font-medium text-muted-foreground",
                                                 children: token.balance
                                             }, void 0, false, {
                                                 fileName: "[project]/components/app/token-selector.tsx",
-                                                lineNumber: 109,
-                                                columnNumber: 19
+                                                lineNumber: 120,
+                                                columnNumber: 21
                                             }, this)
                                         ]
                                     }, token.symbol, true, {
                                         fileName: "[project]/components/app/token-selector.tsx",
-                                        lineNumber: 90,
-                                        columnNumber: 17
+                                        lineNumber: 101,
+                                        columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/components/app/token-selector.tsx",
-                                lineNumber: 88,
-                                columnNumber: 13
+                                lineNumber: 99,
+                                columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/app/token-selector.tsx",
-                        lineNumber: 64,
-                        columnNumber: 11
+                        lineNumber: 69,
+                        columnNumber: 13
                     }, this)
                 ]
-            }, void 0, true)
+            }, void 0, true), document.body)
         ]
     }, void 0, true, {
         fileName: "[project]/components/app/token-selector.tsx",
-        lineNumber: 31,
+        lineNumber: 35,
         columnNumber: 5
     }, this);
 }
-_s(TokenSelector, "wqGYUe+VCJeiUqsg46PymlKAkIM=");
+_s(TokenSelector, "dQKvT0ha2NOKKDjBE1bJX6GYwro=");
 _c = TokenSelector;
 var _c;
 __turbopack_context__.k.register(_c, "TokenSelector");
@@ -451,7 +485,7 @@ function YieldRoutes({ token, amount }) {
         className: "rounded-2xl backdrop-blur-sm",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "p-3 sm:p-4",
+                className: "py-3 sm:py-4",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex gap-1 flex-row sm:items-center justify-between",
                     children: [
@@ -459,7 +493,7 @@ function YieldRoutes({ token, amount }) {
                             className: "min-w-0",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    className: "truncate text-base sm:text-lg font-semibold text-foreground",
+                                    className: "truncate text-base sm:text-lg font-semibold text-foreground text-heroic",
                                     children: "Best Routes"
                                 }, void 0, false, {
                                     fileName: "[project]/components/app/yield-routes.tsx",
@@ -467,7 +501,7 @@ function YieldRoutes({ token, amount }) {
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-xs sm:text-sm text-muted-foreground",
+                                    className: "text-xs sm:text-sm text-muted-foreground text-epic",
                                     children: "Sorted by highest yield"
                                 }, void 0, false, {
                                     fileName: "[project]/components/app/yield-routes.tsx",
@@ -1216,51 +1250,51 @@ function YieldPanel() {
                         className: "absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 48,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 49,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 50,
+                        lineNumber: 54,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 51,
+                        lineNumber: 55,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "pointer-events-none absolute -top-20 left-1/2 h-40 w-80 -translate-x-1/2 bg-primary/20 blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 54,
+                        lineNumber: 58,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "relative py-5 sm:py-6",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex gap-2 mb-4 flex-row sm:items-center justify-between p-3 sm:p-4",
+                                className: "flex gap-2 mb-4 flex-row sm:items-center justify-between px-3 sm:px-4",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "min-w-0",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                            className: "truncate text-base sm:text-lg font-semibold text-foreground",
+                                            className: "truncate text-base sm:text-lg font-semibold text-foreground text-tech",
                                             children: "Find Yield Opportunities"
                                         }, void 0, false, {
                                             fileName: "[project]/components/app/yield-panel.tsx",
-                                            lineNumber: 58,
+                                            lineNumber: 65,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1268,22 +1302,22 @@ function YieldPanel() {
                                             children: "Trusted protocols only"
                                         }, void 0, false, {
                                             fileName: "[project]/components/app/yield-panel.tsx",
-                                            lineNumber: 59,
+                                            lineNumber: 66,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/app/yield-panel.tsx",
-                                    lineNumber: 57,
+                                    lineNumber: 64,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/app/yield-panel.tsx",
-                                lineNumber: 56,
+                                lineNumber: 63,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "border-2 border-border/50 bg-secondary/50 p-3 sm:p-4 mx-3 sm:mx-4",
+                                className: "border-2 border-border/50 bg-secondary/50 p-3 sm:p-4 mx-3 sm:mx-4 text-tech",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "mb-2 sm:mb-3 flex gap-1 sm:items-center justify-between text-xs sm:text-sm",
@@ -1293,7 +1327,7 @@ function YieldPanel() {
                                                 children: "You deposit"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/app/yield-panel.tsx",
-                                                lineNumber: 70,
+                                                lineNumber: 77,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1311,19 +1345,19 @@ function YieldPanel() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/app/yield-panel.tsx",
-                                                        lineNumber: 76,
+                                                        lineNumber: 83,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/app/yield-panel.tsx",
-                                                lineNumber: 71,
+                                                lineNumber: 78,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/app/yield-panel.tsx",
-                                        lineNumber: 69,
+                                        lineNumber: 76,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1337,7 +1371,7 @@ function YieldPanel() {
                                                 className: "min-w-0 flex-1 bg-transparent text-xl sm:text-3xl font-bold text-foreground outline-none placeholder:text-muted-foreground/50 font-mono"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/app/yield-panel.tsx",
-                                                lineNumber: 82,
+                                                lineNumber: 89,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$app$2f$token$2d$selector$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TokenSelector"], {
@@ -1346,13 +1380,13 @@ function YieldPanel() {
                                                 onSelect: setSelectedToken
                                             }, void 0, false, {
                                                 fileName: "[project]/components/app/yield-panel.tsx",
-                                                lineNumber: 90,
+                                                lineNumber: 97,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/app/yield-panel.tsx",
-                                        lineNumber: 81,
+                                        lineNumber: 88,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1372,30 +1406,30 @@ function YieldPanel() {
                                                 children: pct
                                             }, pct, false, {
                                                 fileName: "[project]/components/app/yield-panel.tsx",
-                                                lineNumber: 96,
+                                                lineNumber: 103,
                                                 columnNumber: 17
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/yield-panel.tsx",
-                                        lineNumber: 94,
+                                        lineNumber: 101,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/app/yield-panel.tsx",
-                                lineNumber: 68,
+                                lineNumber: 75,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 55,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/app/yield-panel.tsx",
-                lineNumber: 46,
+                lineNumber: 50,
                 columnNumber: 7
             }, this),
             isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1405,62 +1439,28 @@ function YieldPanel() {
                         className: "absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 117,
+                        lineNumber: 124,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 118,
+                        lineNumber: 125,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 119,
+                        lineNumber: 126,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary"
                     }, void 0, false, {
                         fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 120,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "relative h-10 w-10 sm:h-12 sm:w-12",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute inset-0 border-2 border-primary/20"
-                            }, void 0, false, {
-                                fileName: "[project]/components/app/yield-panel.tsx",
-                                lineNumber: 123,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute inset-0 animate-spin border-2 border-transparent border-t-primary"
-                            }, void 0, false, {
-                                fileName: "[project]/components/app/yield-panel.tsx",
-                                lineNumber: 124,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute inset-2 animate-spin border-2 border-transparent border-t-primary/60",
-                                style: {
-                                    animationDirection: "reverse",
-                                    animationDuration: "0.8s"
-                                }
-                            }, void 0, false, {
-                                fileName: "[project]/components/app/yield-panel.tsx",
-                                lineNumber: 125,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/components/app/yield-panel.tsx",
-                        lineNumber: 122,
+                        lineNumber: 127,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1495,7 +1495,7 @@ function YieldPanel() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/app/yield-panel.tsx",
-                lineNumber: 115,
+                lineNumber: 122,
                 columnNumber: 9
             }, this),
             showRoutes && numericAmount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$app$2f$yield$2d$routes$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["YieldRoutes"], {

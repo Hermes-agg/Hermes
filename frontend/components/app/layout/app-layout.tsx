@@ -5,6 +5,10 @@ import { usePathname } from "next/navigation"
 import { AppHeader } from "./app-header"
 import { LoadingProvider, useLoading } from "./loading-context"
 
+import WalletAdapterProvider from '@/components/app/providers/WalletAdapterProvider'
+import { WalletProvider } from "../providers/WalletProvider"
+import BackgroundDecor from "@/components/decor/BackgroundDecor"
+
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
     const { isLoading, setIsLoading } = useLoading()
     const pathname = usePathname()
@@ -34,6 +38,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                     <main className={`mx-auto max-w-5xl px-4 py-8 transition-opacity duration-300 ${
                         isLoading ? 'opacity-50' : 'opacity-100'
                     }`}>
+                        {/* <BackgroundDecor /> */}
                         {children}
                     </main>
                 </div>
@@ -44,10 +49,14 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
-        <LoadingProvider>
-            <AppLayoutContent>
-                {children}
-            </AppLayoutContent>
-        </LoadingProvider>
+        <WalletAdapterProvider>
+            <WalletProvider>
+                <LoadingProvider>
+                    <AppLayoutContent>
+                        {children}
+                    </AppLayoutContent>
+                </LoadingProvider>
+            </WalletProvider>
+        </WalletAdapterProvider>
     )
 }

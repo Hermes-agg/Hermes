@@ -212,7 +212,7 @@
   /* Heroic: Audiowide for divine, mythological tech headings */
   .text-heroic {
     font-family: var(--font-heroic, "Audiowide", monospace);
-    font-size: 2.25rem;
+    font-size: 1rem;
     font-weight: 400;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -221,7 +221,7 @@
   /* Epic: Cormorant Garamond for powerful, classical display */
   .text-epic {
     font-family: var(--font-display, "Cormorant Garamond", serif);
-    font-size: 1.875rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: -0.01em;
   }

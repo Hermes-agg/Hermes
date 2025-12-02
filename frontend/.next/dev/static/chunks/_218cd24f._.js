@@ -122,9 +122,9 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$moon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Moon$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/moon.js [app-client] (ecmascript) <export default as Moon>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sun$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sun$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sun.js [app-client] (ecmascript) <export default as Sun>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-themes/dist/index.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$moon$2d$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MoonStar$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/moon-star.js [app-client] (ecmascript) <export default as MoonStar>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sun$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sun$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sun.js [app-client] (ecmascript) <export default as Sun>");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -136,19 +136,16 @@ function ThemeModeToggle() {
     const { resolvedTheme, setTheme } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTheme"])();
     const isDark = resolvedTheme === 'dark';
     const handleToggle = ()=>{
-        // Toggle using next-themes setTheme
         try {
-            console.debug('[ThemeModeToggle] before toggle resolvedTheme=', resolvedTheme, 'html.classList=', ("TURBOPACK compile-time truthy", 1) ? Array.from(document.documentElement.classList).join(' ') : "TURBOPACK unreachable");
             setTheme(isDark ? 'light' : 'dark');
-            console.debug('[ThemeModeToggle] after setTheme called');
         } catch (e) {
-        // ignore in case setTheme not available during SSR
+        // ignore SSR issues
         }
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ThemeModeToggle.useEffect": ()=>{
             if ("TURBOPACK compile-time truthy", 1) {
-                console.debug('[ThemeModeToggle] resolvedTheme changed=', resolvedTheme, 'html.classList=', Array.from(document.documentElement.classList).join(' '));
+                console.debug('[ThemeModeToggle] resolvedTheme changed=', resolvedTheme);
             }
         }
     }["ThemeModeToggle.useEffect"], [
@@ -159,50 +156,67 @@ function ThemeModeToggle() {
         role: "switch",
         "aria-checked": isDark,
         "aria-label": "Toggle dark mode",
-        className: "relative inline-flex items-center justify-center w-14 h-8 sm:w-18 sm:h-10 bg-secondary border border-border transition-all duration-200 hover:border-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "sr-only",
-                children: "Toggle dark mode"
-            }, void 0, false, {
-                fileName: "[project]/components/app/ThemeModeToggle.tsx",
-                lineNumber: 38,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: `absolute inset-0 transition-colors duration-200 ${isDark ? 'bg-primary/80' : 'bg-secondary'}`
-            }, void 0, false, {
-                fileName: "[project]/components/app/ThemeModeToggle.tsx",
-                lineNumber: 41,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: `absolute left-1 top-1/2 -translate-y-1/2 z-10 h-6 w-6 sm:h-8 sm:w-8 bg-background shadow-md transition-transform duration-300 ${isDark ? 'translate-x-6 sm:translate-x-8' : 'translate-x-0'}`
-            }, void 0, false, {
-                fileName: "[project]/components/app/ThemeModeToggle.tsx",
-                lineNumber: 46,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sun$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sun$3e$__["Sun"], {
-                size: 14,
-                className: `absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 transition-opacity duration-200 ${isDark ? 'opacity-40' : 'opacity-100 text-primary-foreground'}`
-            }, void 0, false, {
-                fileName: "[project]/components/app/ThemeModeToggle.tsx",
-                lineNumber: 51,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$moon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Moon$3e$__["Moon"], {
-                size: 14,
-                className: `absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 transition-opacity duration-200 ${isDark ? 'opacity-100 text-primary-foreground' : 'opacity-40'}`
-            }, void 0, false, {
-                fileName: "[project]/components/app/ThemeModeToggle.tsx",
-                lineNumber: 55,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true, {
+        className: "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex relative items-center justify-center gap-2 w-16 h-8 transition-colors duration-300 overflow-hidden",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary"
+                }, void 0, false, {
+                    fileName: "[project]/components/app/ThemeModeToggle.tsx",
+                    lineNumber: 38,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary"
+                }, void 0, false, {
+                    fileName: "[project]/components/app/ThemeModeToggle.tsx",
+                    lineNumber: 39,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary"
+                }, void 0, false, {
+                    fileName: "[project]/components/app/ThemeModeToggle.tsx",
+                    lineNumber: 40,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary"
+                }, void 0, false, {
+                    fileName: "[project]/components/app/ThemeModeToggle.tsx",
+                    lineNumber: 41,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$moon$2d$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MoonStar$3e$__["MoonStar"], {
+                    size: 24,
+                    strokeWidth: 0,
+                    fill: "currentColor",
+                    className: `text-foreground transition-all duration-300 flex-shrink-0 ${isDark ? 'opacity-100 translate-x-4' : 'opacity-0 -translate-x-4'}`
+                }, void 0, false, {
+                    fileName: "[project]/components/app/ThemeModeToggle.tsx",
+                    lineNumber: 44,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sun$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sun$3e$__["Sun"], {
+                    size: 54,
+                    strokeWidth: 0,
+                    fill: "currentColor",
+                    className: `text-foreground transition-all duration-300 flex-shrink-0 ${!isDark ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`
+                }, void 0, false, {
+                    fileName: "[project]/components/app/ThemeModeToggle.tsx",
+                    lineNumber: 53,
+                    columnNumber: 17
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/components/app/ThemeModeToggle.tsx",
+            lineNumber: 35,
+            columnNumber: 13
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/components/app/ThemeModeToggle.tsx",
-        lineNumber: 31,
+        lineNumber: 28,
         columnNumber: 9
     }, this);
 }
@@ -229,9 +243,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-client] (ecmascript) <export default as ChevronDown>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-themes/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/button.tsx [app-client] (ecmascript)");
@@ -342,17 +354,31 @@ function AppHeader({ isLoading = false }) {
                                         onClick: ()=>setMobileMenuOpen(!mobileMenuOpen),
                                         className: "flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary md:hidden",
                                         children: mobileMenuOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                            className: "h-5 w-5"
+                                            className: "h-6 w-6",
+                                            strokeWidth: 3
                                         }, void 0, false, {
                                             fileName: "[project]/components/app/layout/app-header.tsx",
-                                            lineNumber: 71,
-                                            columnNumber: 33
-                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
-                                            className: "h-5 w-5"
+                                            lineNumber: 72,
+                                            columnNumber: 17
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                            className: "h-6 w-6",
+                                            fill: "none",
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 3,
+                                            viewBox: "0 0 24 24",
+                                            stroke: "currentColor",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                d: "M4 6h16M4 12h16M4 18h16"
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/app/layout/app-header.tsx",
+                                                lineNumber: 83,
+                                                columnNumber: 19
+                                            }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/app/layout/app-header.tsx",
-                                            lineNumber: 71,
-                                            columnNumber: 61
+                                            lineNumber: 74,
+                                            columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
@@ -371,14 +397,14 @@ function AppHeader({ isLoading = false }) {
                                                         className: "absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                                        lineNumber: 87,
+                                                        lineNumber: 101,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                                        lineNumber: 89,
+                                                        lineNumber: 103,
                                                         columnNumber: 21
                                                     }, this),
                                                     item.label,
@@ -387,20 +413,20 @@ function AppHeader({ isLoading = false }) {
                                                             className: "absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/app/layout/app-header.tsx",
-                                                            lineNumber: 95,
+                                                            lineNumber: 109,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false)
                                                 ]
                                             }, item.label, true, {
                                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                                lineNumber: 79,
+                                                lineNumber: 93,
                                                 columnNumber: 19
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 89,
                                         columnNumber: 13
                                     }, this)
                                 ]
@@ -414,7 +440,7 @@ function AppHeader({ isLoading = false }) {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$app$2f$ThemeModeToggle$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ThemeModeToggle"], {}, void 0, false, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                        lineNumber: 106,
+                                        lineNumber: 120,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -424,7 +450,7 @@ function AppHeader({ isLoading = false }) {
                                                 className: "h-4 w-4 rounded-full bg-gradient-to-r from-[#9945FF] to-[#14F195]"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                                lineNumber: 110,
+                                                lineNumber: 124,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -432,20 +458,13 @@ function AppHeader({ isLoading = false }) {
                                                 children: "Solana"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                                lineNumber: 111,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
-                                                className: "h-4 w-4 text-muted-foreground"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/app/layout/app-header.tsx",
-                                                lineNumber: 112,
+                                                lineNumber: 125,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                        lineNumber: 109,
+                                        lineNumber: 123,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -454,13 +473,13 @@ function AppHeader({ isLoading = false }) {
                                         children: "Connect"
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 129,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 105,
+                                lineNumber: 119,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -476,14 +495,14 @@ function AppHeader({ isLoading = false }) {
                                 className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("absolute left-0 top-0 h-full w-[15%] bg-gradient-to-r from-primary/80 to-primary/20 transition-opacity duration-300", isLoading ? "opacity-100" : "opacity-100")
                             }, void 0, false, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 128,
+                                lineNumber: 141,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("absolute right-0 top-0 h-full w-[15%] bg-gradient-to-l from-primary/80 to-primary/20 transition-opacity duration-300", isLoading ? "opacity-100" : "opacity-100")
                             }, void 0, false, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 136,
+                                lineNumber: 149,
                                 columnNumber: 11
                             }, this),
                             isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -493,7 +512,7 @@ function AppHeader({ isLoading = false }) {
                                         className: "absolute inset-0 bg-border/30"
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 160,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -502,12 +521,12 @@ function AppHeader({ isLoading = false }) {
                                             className: "absolute h-full w-1 animate-[scan_3s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-primary to-transparent blur-sm"
                                         }, void 0, false, {
                                             fileName: "[project]/components/app/layout/app-header.tsx",
-                                            lineNumber: 151,
+                                            lineNumber: 164,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 163,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -516,18 +535,18 @@ function AppHeader({ isLoading = false }) {
                                             className: "absolute left-0 top-1/2 h-1 w-3 -translate-y-1/2 animate-[packet-left_2s_ease-in-out_infinite] rounded-full bg-gradient-to-r from-primary to-primary/50 blur-[1px]"
                                         }, void 0, false, {
                                             fileName: "[project]/components/app/layout/app-header.tsx",
-                                            lineNumber: 172,
+                                            lineNumber: 169,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/app/layout/app-header.tsx",
-                                        lineNumber: 171,
+                                        lineNumber: 168,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 145,
+                                lineNumber: 158,
                                 columnNumber: 13
                             }, this),
                             !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -536,18 +555,18 @@ function AppHeader({ isLoading = false }) {
                                     className: "absolute inset-0 bg-border/20"
                                 }, void 0, false, {
                                     fileName: "[project]/components/app/layout/app-header.tsx",
-                                    lineNumber: 181,
+                                    lineNumber: 177,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 180,
+                                lineNumber: 176,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/app/layout/app-header.tsx",
-                        lineNumber: 126,
+                        lineNumber: 139,
                         columnNumber: 9
                     }, this)
                 ]
@@ -561,7 +580,7 @@ function AppHeader({ isLoading = false }) {
                 onClick: ()=>setMobileMenuOpen(false)
             }, void 0, false, {
                 fileName: "[project]/components/app/layout/app-header.tsx",
-                lineNumber: 188,
+                lineNumber: 184,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -575,28 +594,29 @@ function AppHeader({ isLoading = false }) {
                                 children: "Menu"
                             }, void 0, false, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 203,
+                                lineNumber: 199,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setMobileMenuOpen(false),
                                 className: "flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                    className: "h-5 w-5"
+                                    className: "h-5 w-5",
+                                    strokeWidth: 3
                                 }, void 0, false, {
                                     fileName: "[project]/components/app/layout/app-header.tsx",
-                                    lineNumber: 208,
+                                    lineNumber: 204,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 204,
+                                lineNumber: 200,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/app/layout/app-header.tsx",
-                        lineNumber: 202,
+                        lineNumber: 198,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -610,13 +630,13 @@ function AppHeader({ isLoading = false }) {
                                 children: item.label
                             }, item.label, false, {
                                 fileName: "[project]/components/app/layout/app-header.tsx",
-                                lineNumber: 216,
+                                lineNumber: 212,
                                 columnNumber: 15
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/components/app/layout/app-header.tsx",
-                        lineNumber: 212,
+                        lineNumber: 208,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -628,38 +648,31 @@ function AppHeader({ isLoading = false }) {
                                     className: "h-4 w-4 rounded-full bg-gradient-to-r from-[#9945FF] to-[#14F195]"
                                 }, void 0, false, {
                                     fileName: "[project]/components/app/layout/app-header.tsx",
-                                    lineNumber: 236,
+                                    lineNumber: 232,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     children: "Solana"
                                 }, void 0, false, {
                                     fileName: "[project]/components/app/layout/app-header.tsx",
-                                    lineNumber: 237,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
-                                    className: "ml-auto h-4 w-4 text-muted-foreground"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/app/layout/app-header.tsx",
-                                    lineNumber: 238,
+                                    lineNumber: 233,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/app/layout/app-header.tsx",
-                            lineNumber: 235,
+                            lineNumber: 231,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/app/layout/app-header.tsx",
-                        lineNumber: 234,
+                        lineNumber: 230,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/app/layout/app-header.tsx",
-                lineNumber: 196,
+                lineNumber: 192,
                 columnNumber: 7
             }, this)
         ]
