@@ -237,9 +237,24 @@ router.get('/best', async (req: Request, res: Response) => {
     
     const result = await routerEngine.findBestRoute(criteria);
     
+    // Enrich with annual and monthly returns derived from estimatedReturn
+    const enhanced = {
+      ...result,
+      bestRoute: {
+        ...result.bestRoute,
+        estimatedYearlyReturn: result.bestRoute.estimatedReturn,
+        estimatedMonthlyReturn: result.bestRoute.estimatedReturn / 12,
+      },
+      alternativeRoutes: result.alternativeRoutes.map((r) => ({
+        ...r,
+        estimatedYearlyReturn: r.estimatedReturn,
+        estimatedMonthlyReturn: r.estimatedReturn / 12,
+      })),
+    };
+    
     return res.json({
       success: true,
-      data: result,
+      data: enhanced,
     });
   } catch (error) {
     logger.error('Error finding best yield:', error);
