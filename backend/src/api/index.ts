@@ -5,6 +5,7 @@ import compression from 'compression';
 import { logger } from '../utils/logger';
 import yieldsRouter from './yields';
 import emissionsRouter from './emissions';
+import signalsRouter from './signals';
 
 export function createApp(): Express {
   const app = express();
@@ -52,6 +53,10 @@ export function createApp(): Express {
   logger.info(`Mounting emissions router on /api/emissions`);
   app.use('/api/emissions', emissionsRouter);
   logger.info(`Emissions router mounted successfully`);
+  
+  logger.info(`Mounting signals router on /api/signals`);
+  app.use('/api/signals', signalsRouter);
+  logger.info(`Signals router mounted successfully`);
   
   // Debug: List all registered routes
   app._router.stack.forEach((middleware: any) => {

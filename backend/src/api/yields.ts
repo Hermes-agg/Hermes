@@ -23,7 +23,8 @@ const router = Router();
  */
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const { protocol, asset, limit = '50' } = req.query;
+    const { protocol, asset, amount, limit = '50' } = req.query;
+    const depositAmount = amount ? parseFloat(amount as string) : null;
     
     // Fetch LIVE data from DEDICATED services first (more reliable)
     const [marinadeData, jitoData, binanceData, jupiterData, driftData, heliusData, lstYields, stablecoinYields] = await Promise.all([
@@ -126,15 +127,70 @@ router.get('/', async (req: Request, res: Response) => {
       allYields = allYields.filter(y => y.asset.toLowerCase().includes((asset as string).toLowerCase()));
     }
     
-    // Sort by APY and limit
-    allYields = allYields
-      .sort((a, b) => b.apy - a.apy)
-      .slice(0, parseInt(limit as string));
+    // If amount is provided, calculate real yields after costs
+    let enhancedYields = allYields;
+    if (depositAmount && depositAmount > 0) {
+      enhancedYields = allYields.map(y => {
+        // Estimate slippage based on amount vs TVL
+        const tvlRatio = y.tvl > 0 ? depositAmount / y.tvl : 0;
+        const slippage = tvlRatio < 0.01 ? 0.0001 : // <1% of TVL: minimal slippage
+                        tvlRatio < 0.05 ? 0.001 :  // <5% of TVL: 0.1% slippage
+                        tvlRatio < 0.1 ? 0.005 :   // <10% of TVL: 0.5% slippage
+                        0.02;                       // >10% of TVL: 2% slippage
+        
+        // Gas fees (fixed cost, higher % on smaller deposits)
+        const gasFeeSOL = 0.00001; // ~$0.002 per tx
+        const gasCostPercent = depositAmount > 0 ? (gasFeeSOL * 150) / depositAmount : 0; // Assume $150/SOL
+        
+        // Protocol fees (varies by protocol, rough estimates)
+        const protocolFees = y.protocol === 'marinade' ? 0.02 : // 2% of rewards
+                            y.protocol === 'jito' ? 0.04 :     // 4% of MEV
+                            y.protocol === 'kamino' ? 0.01 :   // 1% management
+                            0.005;                              // 0.5% default
+        
+        // Calculate real APY after all costs
+        const totalCosts = slippage + gasCostPercent + (y.apy * protocolFees);
+        const realAPY = Math.max(0, y.apy - totalCosts);
+        
+        // Estimated returns in user's deposit currency
+        const estimatedYearlyReturn = depositAmount * realAPY;
+        const estimatedMonthlyReturn = estimatedYearlyReturn / 12;
+        
+        return {
+          ...y,
+          realAPY,
+          baseAPY: y.apy, // Keep original for reference
+          slippage,
+          gasCost: gasCostPercent,
+          protocolFees,
+          estimatedYearlyReturn,
+          estimatedMonthlyReturn,
+          effectivenessScore: (realAPY / y.apy) * 100, // How much of base APY you actually get
+        };
+      });
+      
+      // Sort by real APY when amount is provided
+      enhancedYields = enhancedYields
+        .sort((a, b) => (b as any).realAPY - (a as any).realAPY)
+        .slice(0, parseInt(limit as string));
+    } else {
+      // No amount provided, just sort by base APY
+      enhancedYields = allYields
+        .sort((a, b) => b.apy - a.apy)
+        .slice(0, parseInt(limit as string));
+    }
     
     return res.json({
       success: true,
-      count: allYields.length,
-      data: allYields,
+      count: enhancedYields.length,
+      data: enhancedYields,
+      ...(depositAmount && { 
+        meta: {
+          depositAmount,
+          calculatedWithCosts: true,
+          note: 'APY adjusted for slippage, gas, and protocol fees'
+        }
+      }),
     });
   } catch (error) {
     logger.error('Error fetching yields:', error);

@@ -4,6 +4,7 @@ import { logger } from './utils/logger';
 import { startYieldCollector } from './workers/yieldCollector';
 import { startDPOWorker } from './workers/dpoWorker';
 import { yieldRefresher } from './workers/yield-refresher';
+import signalMonitor from './workers/signalMonitor';
 
 // Load environment variables
 dotenv.config();
@@ -33,7 +34,11 @@ async function main() {
     // Yield refresher auto-starts on import (every 10 minutes)
     logger.info('Yield refresher status:', yieldRefresher.getStatus());
     
+    // Signal monitor auto-starts on import (every 5 minutes)
+    logger.info('Signal monitor status:', signalMonitor.getStatus());
+    
     logger.info('HERMES backend started successfully');
+    logger.info('🚨 Signal Engine activated - monitoring for risks');
     
     // Graceful shutdown
     process.on('SIGTERM', async () => {
