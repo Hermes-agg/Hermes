@@ -56,10 +56,6 @@ export function YieldPanel() {
         <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
 
         <div className="overflow-hidden bg-card/80 backdrop-blur-sm border border-primary/10 ">
-          {/* Decorative glow */}
-          <div className="pointer-events-none absolute -top-20 left-1/2 h-40 w-80 -translate-x-1/2 bg-primary/20 blur-3xl" />
-
-
           <div className="relative py-5 sm:py-6">
 
             <div className="flex gap-2 mb-4 flex-row sm:items-center justify-between px-3 sm:px-4">

@@ -76,6 +76,12 @@ export class SignalMonitor {
         s.severity === SignalSeverity.CRITICAL || s.severity === SignalSeverity.HIGH
       ));
 
+      // Force garbage collection to prevent memory buildup
+      if (global.gc) {
+        global.gc();
+        logger.info('Signal monitor: Memory cleanup triggered');
+      }
+
     } catch (error) {
       logger.error('Signal monitor error:', error);
     }
@@ -141,6 +147,11 @@ export class SignalMonitor {
       }
     } catch (error) {
       logger.error('Error handling critical signals:', error);
+    }
+    
+    // Clean up memory after handling signals
+    if (global.gc) {
+      global.gc();
     }
   }
 

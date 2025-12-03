@@ -354,6 +354,12 @@ async function collectYields(): Promise<void> {
   }
   
   logger.info('Yield collection completed');
+  
+  // Force garbage collection to free memory
+  if (global.gc) {
+    global.gc();
+    logger.info('Memory cleanup triggered');
+  }
 }
 
 /**
@@ -364,6 +370,11 @@ async function updateVolatilityMetrics(): Promise<void> {
     logger.info('Updating volatility metrics...');
     await volatilityOracle.calculateAllMetrics();
     logger.info('Volatility metrics updated');
+    
+    // Clean up memory after processing
+    if (global.gc) {
+      global.gc();
+    }
   } catch (error) {
     logger.error('Error updating volatility metrics:', error);
   }
@@ -377,6 +388,11 @@ async function detectRiskEvents(): Promise<void> {
     logger.info('Detecting risk events...');
     await riskEngine.detectRiskEvents();
     logger.info('Risk event detection completed');
+    
+    // Clean up memory after processing
+    if (global.gc) {
+      global.gc();
+    }
   } catch (error) {
     logger.error('Error detecting risk events:', error);
   }

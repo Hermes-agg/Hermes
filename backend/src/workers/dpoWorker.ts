@@ -80,6 +80,12 @@ async function evaluateAllPortfolios(): Promise<void> {
     }
     
     logger.info('Portfolio evaluation completed');
+    
+    // Force garbage collection to free memory
+    if (global.gc) {
+      global.gc();
+      logger.info('DPO worker: Memory cleanup triggered');
+    }
   } catch (error) {
     logger.error('Error in portfolio evaluation:', error);
   }
