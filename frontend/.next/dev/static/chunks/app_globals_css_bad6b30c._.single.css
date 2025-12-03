@@ -1909,6 +1909,36 @@
     border-color: var(--destructive);
   }
 
+  .border-destructive\/3 {
+    border-color: var(--destructive);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-destructive\/3 {
+      border-color: color-mix(in oklab, var(--destructive) 3%, transparent);
+    }
+  }
+
+  .border-destructive\/5 {
+    border-color: var(--destructive);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-destructive\/5 {
+      border-color: color-mix(in oklab, var(--destructive) 5%, transparent);
+    }
+  }
+
+  .border-destructive\/10 {
+    border-color: var(--destructive);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-destructive\/10 {
+      border-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+    }
+  }
+
   .border-destructive\/50 {
     border-color: var(--destructive);
   }
@@ -1925,6 +1955,16 @@
 
   .border-primary {
     border-color: var(--primary);
+  }
+
+  .border-primary\/10 {
+    border-color: var(--primary);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-primary\/10 {
+      border-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    }
   }
 
   .border-primary\/20 {

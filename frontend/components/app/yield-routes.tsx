@@ -111,7 +111,7 @@ export function YieldRoutes({
           <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary" />
           <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary" />
 
-          <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 bg-card/80 p-4 sm:p-8 backdrop-blur-sm">
+          <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 border border-primary/10 bg-card/80 p-4 sm:p-8 backdrop-blur-sm">
 
             <div className="text-center">
               <p className="text-sm sm:text-base font-bold text-foreground uppercase tracking-wide">
@@ -138,7 +138,7 @@ export function YieldRoutes({
         <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-destructive" />
         <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-destructive" />
 
-        <div className=" bg-destructive/3 backdrop-blur-sm p-8 flex items-start gap-3">
+        <div className="border border-destructive/10 bg-destructive/3 backdrop-blur-sm p-4 sm:p-8 flex items-start gap-3">
           <AlertCircle className="h-5 w-5 text-destructive" />
           <div>
             <p className="font-semibold text-destructive text-epic">Failed to load yields</p>
