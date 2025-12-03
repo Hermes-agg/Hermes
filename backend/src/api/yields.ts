@@ -14,6 +14,7 @@ import driftService from '../services/drift';
 import heliusService from '../services/helius';
 import stablecoinService from '../services/stablecoins';
 import smartRouter from '../services/smart-router';
+import kaminoService from '../services/kamino';
 
 const router = Router();
 
@@ -27,13 +28,14 @@ router.get('/', async (req: Request, res: Response) => {
     const depositAmount = amount ? parseFloat(amount as string) : null;
     
     // Fetch LIVE data from DEDICATED services first (more reliable)
-    const [marinadeData, jitoData, binanceData, jupiterData, driftData, heliusData, lstYields, stablecoinYields] = await Promise.all([
+    const [marinadeData, jitoData, binanceData, jupiterData, driftData, heliusData, kaminoReserves, lstYields, stablecoinYields] = await Promise.all([
       marinadeService.fetchYieldData(),
       jitoService.fetchYieldData(),
       binanceService.fetchYieldData(),
       jupiterService.fetchYieldData(),
       driftService.fetchYieldData(),
       heliusService.fetchYieldData(),
+      kaminoService.fetchYieldData(),
       lstService.fetchAllLSTYields(),
       stablecoinService.fetchAllStablecoinYields(),
     ]);
@@ -115,6 +117,16 @@ router.get('/', async (req: Request, res: Response) => {
         apr: stable.apr,
         tvl: stable.tvl,
         riskScore: stable.riskScore,
+        timestamp: new Date(),
+      })),
+      // Kamino Lend/LP reserves (fallback-backed until SDK integration)
+      ...kaminoReserves.map(reserve => ({
+        protocol: 'kamino',
+        asset: reserve.asset,
+        apy: reserve.totalAPY,
+        apr: reserve.supplyAPY,
+        tvl: reserve.tvl,
+        riskScore: kaminoService.calculateRiskScore(reserve),
         timestamp: new Date(),
       })),
     ];
