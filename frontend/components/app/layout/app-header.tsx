@@ -69,7 +69,8 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
           <div className="w-4 h-0.5 bg-slate-700 dark:bg-slate-200 mb-1" />
           <div className="w-3 h-0.5 bg-slate-700 dark:bg-slate-200" />
               )}
-              </>
+              </>)
+              }
             </button>
             
             
