@@ -60,7 +60,7 @@ export function YieldPanel() {
         <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-primary/60" />
         <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-primary/60" />
 
-        <div className="rounded-sm border border-primary/20 bg-card/80 backdrop-blur-sm overflow-hidden glow-gold">
+        <div className="border border-primary/20 bg-card/80 backdrop-blur-sm overflow-hidden glow-gold">
 
           {/* Header Bar */}
           <div className="flex items-center justify-between border-b border-border/50 bg-secondary/30 px-4 py-2.5">
