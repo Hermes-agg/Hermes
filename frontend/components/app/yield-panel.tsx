@@ -131,7 +131,7 @@ export function YieldPanel() {
           </div>
         </div>
       </div>
-
+</div>
       {/* Dynamic yield routes based on inputs */}
       {showRoutes && numericAmount > 0 && <YieldRoutes token={selectedToken} amount={numericAmount} />}
     </div>
