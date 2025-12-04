@@ -44,7 +44,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b">
-        <div className="mx-auto flex pt-6 pb-4 max-w-6xl items-center justify-between px-4">
+        <div className="mx-auto flex h-11 max-w-6xl items-center justify-between px-4">
 
           {/* LEFT SECTION */}
           <div className="flex items-center gap-2 md:gap-6 lg:gap-10">
@@ -65,22 +65,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
               )}
             </button>
 
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src={
-                  mountedLogo && resolvedTheme === 'dark'
-                    ? '/hermes-dark-logo.png'
-                    : '/hermes-logo.png'
-                }
-                alt="Hermes"
-                width={28}
-                height={28}
-                className="h-7 w-7"
-              />
-              <span className="text-xl font-bold tracking-tight text-foreground hidden md:inline">Hermes</span>
-            </Link>
-
+            
             {/* Desktop Nav */}
             <nav className="hidden items-center gap-1 md:flex">
               {navItems.map((item) => {
@@ -112,6 +97,24 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
           </div>
 
+
+          {/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src={
+                  mountedLogo && resolvedTheme === 'dark'
+                    ? '/hermes-dark-logo.png'
+                    : '/hermes-logo.png'
+                }
+                alt="Hermes"
+                width={28}
+                height={28}
+                className="h-7 w-7"
+              />
+              <span className="text-xl font-bold tracking-tight text-foreground hidden md:inline">Hermes</span>
+            </Link>
+          
+
           {/* RIGHT SECTION */}
           <div className="flex items-center gap-3">
 
@@ -127,8 +130,8 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
         {/* LOADING BORDER */}
         <div className="relative h-[2px] w-full overflow-hidden">
-          <div className="absolute left-0 top-0 h-full w-[15%] bg-gradient-to-r from-primary/80 to-primary/20" />
-          <div className="absolute right-0 top-0 h-full w-[15%] bg-gradient-to-l from-primary/80 to-primary/20" />
+          <div className="hiddden absolute left-0 top-0 h-full w-[15%] bg-gradient-to-r from-primary/80 to-primary/20" />
+          <div className="hidden absolute right-0 top-0 h-full w-[15%] bg-gradient-to-l from-primary/80 to-primary/20" />
 
           {isLoading ? (
             <div className="absolute left-[15%] right-[15%] top-0 h-full">
