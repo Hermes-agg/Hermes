@@ -192,13 +192,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
           })}
 
 
-          <div className="border-b border-border/50 bg-background/80 backdrop-blur-md w-full flex items-center ">
-
-            <div className="p-4 space-y-4">
-              <ThemeModeToggle />
-              {/* <ConnectWalletButton /> */}
-            </div>
-          </div>
+         
         </nav>
 
 
