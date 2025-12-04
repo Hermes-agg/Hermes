@@ -52,7 +52,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-2 border-b">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <div className="flex items-center gap-2 md:gap-6 lg:gap-10">
             {/* Logo */}
@@ -125,9 +125,9 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
 
             {/* Network selector */}
-            <button className="hidden items-center gap-2 border border-border/50 bg-secondary/50 px-3 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/30 hover:bg-secondary sm:flex">
+            <button className="hidden items-center gap-2 border border-border/50 bg-secondary/50 px-3 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/30 hover:bg-secondary md:flex">
               <div className="h-4 w-4 rounded-full bg-gradient-to-r from-[#9945FF] to-[#14F195]" />
-              <span className="hidden lg:inline">Solana</span>
+              <span className="hidden md:inline">Solana</span>
             </button>
 
             {/* wallet (modal-based) - custom UI */}
@@ -144,7 +144,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
           {/* Left static border */}
           <div
             className={cn(
-              "absolute left-0 top-0 h-full w-[15%] bg-gradient-to-r from-primary/80 to-primary/20 transition-opacity duration-300",
+              "hidden absolute left-0 top-0 h-full w-[15%] bg-gradient-to-r from-primary/80 to-primary/20 transition-opacity duration-300",
               isLoading ? "opacity-100" : "opacity-100",
             )}
           />
@@ -152,7 +152,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
           {/* Right static border */}
           <div
             className={cn(
-              "absolute right-0 top-0 h-full w-[15%] bg-gradient-to-l from-primary/80 to-primary/20 transition-opacity duration-300",
+              "hidden absolute right-0 top-0 h-full w-[15%] bg-gradient-to-l from-primary/80 to-primary/20 transition-opacity duration-300",
               isLoading ? "opacity-100" : "opacity-100",
             )}
           />

@@ -121,6 +121,7 @@ export function YieldRoutes({
                 Scanning {token.symbol} yield opportunities
               </p>
             </div>
+
           </div>
         </div>
       )
@@ -161,12 +162,17 @@ export function YieldRoutes({
     <div className="rounded-2xl backdrop-blur-sm">
       <div className="py-3 sm:py-4">
         <div className="flex gap-1 flex-row sm:items-center justify-between">
-          <div className="min-w-0">
-            <h2 className="truncate text-base sm:text-lg font-semibold text-foreground text-heroic">
+          <div className="min-w-0 space-y-0.5">
+            <h1 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/5">
+              <span className="text-primary">[ </span>
               Best Routes
-            </h2>
-            <p className="text-xs sm:text-sm text-muted-foreground">
+              <span className="text-primary"> ]</span>
+            </h1>
+
+            <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/2">
+              <span className="text-primary/40">[ </span>
               Sorted by highest yield
+              <span className="text-primary/40"> ]</span>
             </p>
           </div>
           <div className="min-w-0 flex flex-col items-end justify-end">

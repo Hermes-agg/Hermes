@@ -1,7 +1,6 @@
 {
-<<<<<<< HEAD
-=======
   "/_not-found/page": "app/_not-found/page.js",
->>>>>>> 5916dc1f2c492bbacd56714c6a4528cf4fde6ba7
-  "/page": "app/page.js"
+  "/analytics/page": "app/analytics/page.js",
+  "/page": "app/page.js",
+  "/portfolio/page": "app/portfolio/page.js"
 }
