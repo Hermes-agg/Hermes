@@ -7,7 +7,12 @@
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
-    "test:yields": "tsx scripts/test-yields.ts"
+    "test:yields": "tsx scripts/test-yields.ts",
+
+     "// Git Commands": "--------------------Git Commands-------------------",
+    "git-commit-push": "git diff-index --quiet HEAD || (git add . && git commit -m \"Something just got updated!\" --allow-empty && git push origin main)",
+    "git-commit-push-force": "git add . && git commit -m \"Something just got updated!\" --no-verify --allow-empty && git push origin main --force",
+    "git-pull-origin-main": "git pull origin main"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

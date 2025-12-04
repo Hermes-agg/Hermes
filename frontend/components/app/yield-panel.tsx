@@ -48,13 +48,13 @@ export function YieldPanel() {
       </div> */}
 
       <div className="min-w-0 space-y-0.5">
-        <h1 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/5">
+        <h1 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm ">
           <span className="text-primary">[ </span>
           Find Yield Opportunities
           <span className="text-primary"> ]</span>
         </h1>
 
-        <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/2">
+        <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm">
           <span className="text-primary/40">[ </span>
           Trusted protocols only
           <span className="text-primary/40"> ]</span>
