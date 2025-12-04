@@ -53,9 +53,22 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <div className="mx-auto flex pt-6 pb-4 max-w-6xl items-center justify-between px-4">
           <div className="flex items-center gap-2 md:gap-6 lg:gap-10">
-            
+            {/* Mobile menu button - Thick Menu Icon */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary md:hidden"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" strokeWidth={3} />
+              ) : (
+                {/* simple hamburger */}
+          <div className="w-5 h-0.5 bg-slate-700 dark:bg-slate-200 mb-1" />
+          <div className="w-4 h-0.5 bg-slate-700 dark:bg-slate-200 mb-1" />
+          <div className="w-3 h-0.5 bg-slate-700 dark:bg-slate-200" />
+              )}
+            </button>
             
             
 {/* Logo */}
@@ -115,27 +128,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             <CustomConnectButton />
 
 
-{/* Mobile menu button - Thick Menu Icon */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary md:hidden"
-            >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" strokeWidth={3} />
-              ) : (
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={3}
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-              )}
-            </button>
+
 
           </div>
         </div>
