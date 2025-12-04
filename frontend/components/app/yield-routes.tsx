@@ -164,9 +164,9 @@ export function YieldRoutes({
         <div className="flex gap-1 flex-row sm:items-center justify-between">
           <div className="min-w-0 space-y-0.5">
             <h1 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm ">
-              <span className="text-primary">[ </span>
+
               Best Routes
-              <span className="text-primary"> ]</span>
+
             </h1>
 
             <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm ">
