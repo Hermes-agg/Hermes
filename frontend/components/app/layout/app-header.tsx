@@ -145,10 +145,10 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
       >
         <div className="flex h-16 items-center justify-between border-b border-border/50 px-6">
 
-          <div className="border-b border-border/50 bg-background/80 backdrop-blur-md w-full flex items-center ">
-            <span className="text-lg font-bold">Menu</span>
 
-          </div>
+          <span className="text-lg font-bold">Menu</span>
+
+
           <button
             onClick={() => setMobileMenuOpen(false)}
             className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-secondary transition-colors"
@@ -193,7 +193,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
 
           <div className="border-b border-border/50 bg-background/80 backdrop-blur-md w-full flex items-center ">
-            <span className="text-lg font-bold">Menu</span>
+
             <div className="p-4 space-y-4">
               <ThemeModeToggle />
               {/* <ConnectWalletButton /> */}
