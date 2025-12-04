@@ -128,7 +128,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
       <div
         onClick={() => setMobileMenuOpen(false)}
         className={cn(
-          "fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-all duration-300 md:hidden",
+          "fixed inset-0 z-80 bg-black/50 backdrop-blur-sm transition-all duration-300 md:hidden",
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -138,13 +138,17 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
       {/* MOBILE MENU - Slides from LEFT */}
       <div
         className={cn(
-          "fixed inset-y-0 z-50 w-72 bg-background border-r border-border/50 shadow-2xl",
+          "fixed inset-y-0 z-99 w-72 bg-background border-r border-border/50 shadow-2xl",
           "transform transition-transform duration-300 ease-in-out md:hidden",
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex h-16 items-center justify-between border-b border-border/50 px-6">
-          <span className="text-lg font-bold">Menu</span>
+
+          <div className="border-b border-border/50 bg-background/80 backdrop-blur-md w-full flex items-center ">
+            <span className="text-lg font-bold">Menu</span>
+
+          </div>
           <button
             onClick={() => setMobileMenuOpen(false)}
             className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-secondary transition-colors"
@@ -153,6 +157,8 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             <X className="h-5 w-5" strokeWidth={3} />
           </button>
         </div>
+
+
 
         {/* Navigation Links */}
         <nav className="flex flex-col p-4 gap-1">
@@ -164,23 +170,43 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                  "px-4 py-3 text-sm font-medium rounded-lg transition-all",
+                  "relative px-4 py-3 text-sm font-medium transition-all",
                   active
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                 )}
               >
+                {active && (
+                  <>
+                    {/* Sharp corner accents */}
+                    <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary" />
+                    <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary" />
+                    <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary" />
+                    <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary" />
+                  </>
+                )}
+
                 {item.label}
               </Link>
             )
           })}
+
+
+          <div className="border-b border-border/50 bg-background/80 backdrop-blur-md w-full flex items-center ">
+            <span className="text-lg font-bold">Menu</span>
+            <div className="p-4 space-y-4">
+              <ThemeModeToggle />
+              {/* <ConnectWalletButton /> */}
+            </div>
+          </div>
         </nav>
+
 
         {/* Bottom Actions */}
         <div className="absolute inset-x-0 bottom-0 border-t border-border/50 bg-background/80 backdrop-blur-md">
           <div className="p-4 space-y-4">
             <ThemeModeToggle />
-            <ConnectWalletButton />
+            {/* <ConnectWalletButton /> */}
           </div>
         </div>
       </div>

@@ -48,25 +48,25 @@ export function YieldPanel() {
       </div> */}
 
       <div className="min-w-0 space-y-0.5">
-        <h1 className="truncate text-lg font-bold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm">
+        <h1 className="truncate text-lg font-bold text-foreground w-fit bg-primary/1 backdrop-blur-sm">
           Find Yield Opportunities
         </h1>
 
         <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm">
-          <span className="text-primary/40">[ </span>
+          
           Trusted protocols only
-          <span className="text-primary/40"> ]</span>
+         
         </p>
       </div>
 
       {/* Main input card - Angular blocky design */}
 
-      <div className="relative p-1">
+      <div className="relative">
         {/* Sharp corner accents */}
-        <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary" />
+        {/* <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary" />
         <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-primary" />
         <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-primary" />
-        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary" />
+        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary" /> */}
 
         <div className="overflow-hidden backdrop-blur-sm ">
           <div className="relative ">

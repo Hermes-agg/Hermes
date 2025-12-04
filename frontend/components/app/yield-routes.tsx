@@ -170,9 +170,9 @@ export function YieldRoutes({
             </h1>
 
             <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm ">
-              <span className="text-primary/40">[ </span>
+              
               Sorted by highest yield
-              <span className="text-primary/40"> ]</span>
+             
             </p>
           </div>
           <div className="min-w-0 flex flex-col items-end justify-end">
