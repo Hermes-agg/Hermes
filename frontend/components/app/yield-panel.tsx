@@ -62,22 +62,28 @@ export function YieldPanel() {
       {/* Main input card - Angular blocky design */}
 
       <div className="relative">
-        {/* Sharp corner accents */}
-        {/* <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary" />
-        <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-primary" />
-        <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-primary" />
-        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary" /> */}
+        {/* Corner accents */}
+        <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-primary/60" />
+        <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-primary/60" />
+        <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-primary/60" />
+        <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-primary/60" />
 
-        <div className="overflow-hidden backdrop-blur-sm ">
-          <div className="relative ">
-
-            {/* <div className="flex gap-2 mb-4 flex-row sm:items-center justify-between px-3 sm:px-4">
-
-               <div className="flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-medium text-primary whitespace-nowrap">
-              <Zap className="h-3 w-3 flex-shrink-0" />
-              <span className="hidden sm:inline">Live</span>
-            </div> 
-            </div> */}
+        <div className="rounded-sm border border-primary/20 bg-card/80 backdrop-blur-sm overflow-hidden glow-gold">
+          {/* Header bar */}
+          <div className="flex items-center justify-between border-b border-border/50 bg-secondary/30 px-4 py-2.5">
+            <div className="flex items-center gap-2">
+              <Search className="h-4 w-4 text-primary" />
+              <span className="font-divine text-xs uppercase tracking-[0.15em] text-primary">
+                Yield Search
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              <span className="font-tech text-[10px] uppercase tracking-wider text-primary/70">
+                Live
+              </span>
+            </div>
+          </div>
 
             {/* Token input */}
             <div className="border-2 border-border/50 bg-card p-3 sm:p-4 text-tech">
