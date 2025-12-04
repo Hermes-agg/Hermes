@@ -52,7 +52,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-2 border-b">
+      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <div className="flex items-center gap-2 md:gap-6 lg:gap-10">
             {/* Logo */}
