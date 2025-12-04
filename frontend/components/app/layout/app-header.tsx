@@ -45,7 +45,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       {/* MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b">
+      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl">
         <div className="mx-auto flex h-11 max-w-6xl items-center justify-between px-4">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-2 md:gap-6 lg:gap-10">
@@ -103,9 +103,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3">
-            <div className="hidden md:block">
-              <ThemeModeToggle />
-            </div>
+            <ThemeModeToggle className="hidden md:inline h-fit" />
             <CustomConnectButton />
           </div>
         </div>
@@ -143,22 +141,20 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex h-16 items-center justify-between border-b border-border/50 px-6">
-
-
+        <div className="flex h-16 items-center justify-between border-b border-border/50 px-4">
           <span className="text-lg font-bold">Menu</span>
 
-
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-secondary transition-colors"
-            aria-label="Close menu"
-          >
-            <X className="h-5 w-5" strokeWidth={3} />
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeModeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-secondary transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="h-5 w-5" strokeWidth={3} />
+            </button>
+          </div>
         </div>
-
-
 
         {/* Navigation Links */}
         <nav className="flex flex-col p-4 gap-1">
@@ -190,19 +186,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
               </Link>
             )
           })}
-
-
-         
         </nav>
-
-
-        {/* Bottom Actions */}
-        <div className="absolute inset-x-0 bottom-0 border-t border-border/50 bg-background/80 backdrop-blur-md">
-          <div className="p-4 space-y-4">
-            <ThemeModeToggle />
-            {/* <ConnectWalletButton /> */}
-          </div>
-        </div>
       </div>
     </>
   )

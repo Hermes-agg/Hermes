@@ -42,9 +42,9 @@ export function YieldPanel() {
 
       {/* Header */}
       <div className="min-w-0 space-y-0.5">
-        <h1 className="truncate text-lg font-bold text-foreground w-fit bg-primary/1 backdrop-blur-sm">
+        <h2 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm ">
           Find Yield Opportunities
-        </h1>
+        </h2>
 
         <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm">
           Trusted protocols only
@@ -55,10 +55,10 @@ export function YieldPanel() {
       <div className="relative">
 
         {/* Corner accents */}
-        <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-primary/60" />
+        {/* <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-primary/60" />
         <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-primary/60" />
         <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-primary/60" />
-        <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-primary/60" />
+        <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-primary/60" /> */}
 
         <div className="border border-primary/20 bg-card/80 backdrop-blur-sm overflow-hidden glow-gold">
 

@@ -163,11 +163,11 @@ export function YieldRoutes({
       <div className="py-3 sm:py-4">
         <div className="flex gap-1 flex-row sm:items-center justify-between">
           <div className="min-w-0 space-y-0.5">
-            <h1 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm ">
+            <h2 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm ">
 
               Best Routes
 
-            </h1>
+            </h2>
 
             <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm ">
               
@@ -202,7 +202,7 @@ export function YieldRoutes({
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="truncate font-semibold text-sm text-foreground">
+                      <span className="truncate font-semibold text-sm text-foreground capitalize">
                         {route.protocol}
                       </span>
                       {index === 0 && (

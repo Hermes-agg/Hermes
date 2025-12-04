@@ -358,8 +358,8 @@
 
   /* Grid background - adapts to theme */
   .bg-grid {
-    background-image: linear-gradient(var(--border) 4px, transparent 3px),
-      linear-gradient(90deg, var(--border) 4px, transparent 3px);
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 

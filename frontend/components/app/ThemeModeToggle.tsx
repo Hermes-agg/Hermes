@@ -4,9 +4,10 @@
 import { useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { MoonStar, Sun } from 'lucide-react'
+import { cn } from '@/lib/utils';
 
 interface ThemeModeToggleProps {
-  className?: string;
+    className?: string;
 }
 
 export function ThemeModeToggle({ className }: ThemeModeToggleProps) {
@@ -34,8 +35,12 @@ export function ThemeModeToggle({ className }: ThemeModeToggleProps) {
             role="switch"
             aria-checked={isDark}
             aria-label="Toggle dark mode"
-            className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+            className={cn(
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+                className
+            )}
         >
+
             <div className="flex relative items-center justify-center gap-2 w-16 h-7 transition-colors duration-300 overflow-hidden bg-primary/10">
 
                 {/* Sharp corner accents */}
