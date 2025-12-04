@@ -48,10 +48,8 @@ export function YieldPanel() {
       </div> */}
 
       <div className="min-w-0 space-y-0.5">
-        <h1 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm ">
-         
+        <h1 className="truncate text-lg font-bold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm">
           Find Yield Opportunities
-         
         </h1>
 
         <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm">

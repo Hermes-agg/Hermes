@@ -35,7 +35,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <div className="pointer-events-none fixed inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/20" />
 
                 <div className="relative z-10">
-                    <main className={`mx-auto max-w-5xl px-4 py-8 transition-opacity duration-300 ${
+                    <main className={`mx-auto max-w-5xl px-4 py-6 transition-opacity duration-300 ${
                         isLoading ? 'opacity-50' : 'opacity-100'
                     }`}>
                         {/* <BackgroundDecor /> */}

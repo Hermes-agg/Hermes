@@ -229,9 +229,9 @@
   /* Tech: Outfit for modern, cutting-edge labels and UI text */
   .text-tech {
     font-family: var(--font-body, "Outfit", sans-serif);
-    font-size: 0.875rem;
+    /* font-size: 0.875rem; */
     /* font-weight: 700; */
-   
+
     letter-spacing: 0.12em;
   }
 
@@ -292,8 +292,8 @@
 
   /* Grid background - adapts to theme */
   .bg-grid {
-    background-image: linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-image: linear-gradient(var(--border) 4px, transparent 3px),
+      linear-gradient(90deg, var(--border) 4px, transparent 3px);
     background-size: 40px 40px;
   }
 
@@ -312,5 +312,23 @@
   [role="button"]:hover,
   a:hover {
     cursor: pointer;
+  }
+
+  @keyframes scan {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes packet-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(200%);
+    }
   }
 }
