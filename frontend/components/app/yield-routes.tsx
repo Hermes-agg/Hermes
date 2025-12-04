@@ -21,13 +21,13 @@ import { formatPercent, formatUSD } from "@/lib/formatters";
 interface YieldRoutesProps {
   token: Token;
   amount: number;
-  riskProfile?: "low" | "moderate" | "high";
+  riskProfile: "low" | "moderate" | "high";
 }
 
 export function YieldRoutes({
   token,
   amount,
-  riskProfile = "low",
+  riskProfile,
 }: YieldRoutesProps) {
   const [bestResponse, setBestResponse] = useState<BestRouteResponse | null>(null);
   const [allYields, setAllYields] = useState<YieldItem[]>([]);

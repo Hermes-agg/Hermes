@@ -144,6 +144,7 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --tracking-tight: -.025em;
+    --tracking-normal: 0em;
     --tracking-wide: .025em;
     --tracking-wider: .05em;
     --tracking-widest: .1em;
@@ -795,6 +796,10 @@
 
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .mb-2\.5 {
+    margin-bottom: calc(var(--spacing) * 2.5);
   }
 
   .mb-3 {
@@ -2087,6 +2092,16 @@
     background-color: var(--card);
   }
 
+  .bg-card\/50 {
+    background-color: var(--card);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-card\/50 {
+      background-color: color-mix(in oklab, var(--card) 50%, transparent);
+    }
+  }
+
   .bg-card\/80 {
     background-color: var(--card);
   }
@@ -2676,6 +2691,10 @@
     font-size: .8rem;
   }
 
+  .text-\[9px\] {
+    font-size: 9px;
+  }
+
   .text-\[10px\] {
     font-size: 10px;
   }
@@ -2728,6 +2747,11 @@
   .tracking-\[0\.15em\] {
     --tw-tracking: .15em;
     letter-spacing: .15em;
+  }
+
+  .tracking-normal {
+    --tw-tracking: var(--tracking-normal);
+    letter-spacing: var(--tracking-normal);
   }
 
   .tracking-tight {
@@ -5271,6 +5295,12 @@
   }
 
   @media (min-width: 40rem) {
+    .sm\:gap-1\.5 {
+      gap: calc(var(--spacing) * 1.5);
+    }
+  }
+
+  @media (min-width: 40rem) {
     .sm\:gap-2 {
       gap: calc(var(--spacing) * 2);
     }
@@ -5321,6 +5351,12 @@
   @media (min-width: 40rem) {
     .sm\:p-8 {
       padding: calc(var(--spacing) * 8);
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .sm\:px-2\.5 {
+      padding-inline: calc(var(--spacing) * 2.5);
     }
   }
 
@@ -5429,6 +5465,19 @@
     .sm\:text-xl {
       font-size: var(--text-xl);
       line-height: var(--tw-leading, var(--text-xl--line-height));
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .sm\:text-xs {
+      font-size: var(--text-xs);
+      line-height: var(--tw-leading, var(--text-xs--line-height));
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .sm\:text-\[10px\] {
+      font-size: 10px;
     }
   }
 

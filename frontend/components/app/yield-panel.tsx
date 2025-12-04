@@ -1,11 +1,11 @@
-
-  "use client"
+"use client"
 
 import { useState, useMemo, useEffect } from "react"
 import { TokenSelector, type Token } from "@/components/app/token-selector"
 import { YieldRoutes } from "@/components/app/yield-routes"
 import { Zap, Search } from "lucide-react"
 import { useLoading } from "./layout/loading-context"
+import { cn } from "@/lib/utils"
 
 const tokens: Token[] = [
   { symbol: "SOL", name: "Solana", icon: "/solana-logo.png", balance: "12.5" },
@@ -15,9 +15,12 @@ const tokens: Token[] = [
   { symbol: "mSOL", name: "Marinade SOL", icon: "/marinade-logo.png", balance: "3.1" },
 ]
 
+type RiskProfile = "low" | "moderate" | "high"
+
 export function YieldPanel() {
   const [selectedToken, setSelectedToken] = useState(tokens[0])
   const [amount, setAmount] = useState("")
+  const [riskProfile, setRiskProfile] = useState<RiskProfile>("moderate")
   const [showRoutes, setShowRoutes] = useState(false)
 
   const numericAmount = useMemo(() => {
@@ -37,6 +40,12 @@ export function YieldPanel() {
     }
   }, [numericAmount, selectedToken])
 
+  const riskOptions = [
+    { value: "low" as const, label: "Low", description: "Conservative" },
+    { value: "moderate" as const, label: "Moderate", description: "Balanced" },
+    { value: "high" as const, label: "High", description: "Aggressive" },
+  ]
+
   return (
     <div className="flex flex-col gap-6 mx-auto max-w-2xl">
 
@@ -54,12 +63,6 @@ export function YieldPanel() {
       {/* MAIN INPUT CARD */}
       <div className="relative">
 
-        {/* Corner accents */}
-        {/* <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-primary/60" />
-        <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-primary/60" />
-        <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-primary/60" />
-        <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-primary/60" /> */}
-
         <div className="border border-primary/20 bg-card/80 backdrop-blur-sm overflow-hidden glow-gold">
 
           {/* Header Bar */}
@@ -72,10 +75,32 @@ export function YieldPanel() {
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <span className="font-tech text-[10px] uppercase tracking-wider text-primary/70">
-                Live
-              </span>
+              {/* RISK PROFILE SECTION */}
+              <div className="border-t border-border/50 bg-card/50">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  {/* <span className="text-xs text-muted-foreground font-mono uppercase tracking-wide whitespace-nowrap">
+                    Risk
+                  </span> */}
+
+                  <div className="flex gap-1 sm:gap-1.5">
+                    {riskOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => setRiskProfile(option.value)}
+                        className={cn(
+                          "px-2 sm:px-2.5 py-1 border transition-all",
+                          "text-[10px] sm:text-xs font-bold uppercase tracking-wide",
+                          riskProfile === option.value
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border/50 bg-background/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -127,15 +152,17 @@ export function YieldPanel() {
             </div>
 
           </div>
+
+
+
         </div>
       </div>
 
       {/* Yield Routes */}
       {showRoutes && numericAmount > 0 && (
-        <YieldRoutes token={selectedToken} amount={numericAmount} />
+        <YieldRoutes token={selectedToken} amount={numericAmount} riskProfile={riskProfile} />
       )}
 
     </div>
   )
-              }
-              
+}
