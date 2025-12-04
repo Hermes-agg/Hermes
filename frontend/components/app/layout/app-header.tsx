@@ -55,30 +55,20 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
       <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <div className="flex items-center gap-2 md:gap-6 lg:gap-10">
-            {/* Mobile menu button - Thick Menu Icon */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary md:hidden"
-            >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" strokeWidth={3} />
-              ) : (
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={3}
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-              )}
-            </button>
             
             
-
+            
+{/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src={mountedLogo && resolvedTheme === 'dark' ? '/hermes-dark-logo.png' : '/hermes-logo.png'}
+                alt="Hermes"
+                width={28}
+                height={28}
+                className="h-7 w-7"
+              />
+              <span className="text-xl font-bold tracking-tight text-foreground hidden md:inline">Hermes</span>
+            </Link>
             
 
             {/* Desktop Nav */}
@@ -111,18 +101,6 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             </nav>
           </div>
 
-          {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src={mountedLogo && resolvedTheme === 'dark' ? '/hermes-dark-logo.png' : '/hermes-logo.png'}
-                alt="Hermes"
-                width={28}
-                height={28}
-                className="h-7 w-7"
-              />
-              <span className="text-xl font-bold tracking-tight text-foreground hidden md:inline">Hermes</span>
-            </Link>
-
           {/* Right side */}
           <div className="flex items-center gap-3">
 
@@ -137,7 +115,27 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             <CustomConnectButton />
 
 
-
+{/* Mobile menu button - Thick Menu Icon */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-secondary md:hidden"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" strokeWidth={3} />
+              ) : (
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={3}
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              )}
+            </button>
 
           </div>
         </div>
