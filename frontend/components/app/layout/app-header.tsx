@@ -125,7 +125,6 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            <ThemeModeToggle />
 
 
             {/* Network selector */}
