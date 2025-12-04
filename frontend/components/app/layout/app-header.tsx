@@ -240,6 +240,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             <span>Solana</span>
           </button>
         </div>
+        <ThemeModeToggle />
         <div className="p-4 border-t border-border/50">
           <ConnectWalletButton />
         </div>
