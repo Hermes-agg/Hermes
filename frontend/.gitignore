@@ -1,4 +1,5 @@
 # Dependencies
+.next/
 node_modules/
 package-lock.json
 yarn.lock
@@ -8,6 +9,8 @@ dist/
 .next/
 build/
 *.tsbuildinfo
+
+
 
 # Environment
 .env

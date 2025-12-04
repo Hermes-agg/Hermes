@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 self.__NEXT_FONT_MANIFEST="{\n  \"app\": {\n    \"[project]/app/page\": [\n      \"static/media/01e4147cff8141ee-s.p.7787e134.woff2\",\n      \"static/media/1b99372b3eaef0c8-s.p.758e15a8.woff2\",\n      \"static/media/797e433ab948586e-s.p.dbea232f.woff2\"\n    ]\n  },\n  \"appUsingSizeAdjust\": true,\n  \"pages\": {},\n  \"pagesUsingSizeAdjust\": false\n}"
+=======
+self.__NEXT_FONT_MANIFEST="{\n  \"app\": {\n    \"[project]/app/_not-found/page\": [\n      \"static/media/01e4147cff8141ee-s.p.7787e134.woff2\",\n      \"static/media/1b99372b3eaef0c8-s.p.758e15a8.woff2\",\n      \"static/media/797e433ab948586e-s.p.dbea232f.woff2\"\n    ],\n    \"[project]/app/page\": [\n      \"static/media/01e4147cff8141ee-s.p.7787e134.woff2\",\n      \"static/media/1b99372b3eaef0c8-s.p.758e15a8.woff2\",\n      \"static/media/797e433ab948586e-s.p.dbea232f.woff2\"\n    ]\n  },\n  \"appUsingSizeAdjust\": true,\n  \"pages\": {},\n  \"pagesUsingSizeAdjust\": false\n}"
+>>>>>>> 5916dc1f2c492bbacd56714c6a4528cf4fde6ba7

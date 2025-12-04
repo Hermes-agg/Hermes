@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 import axiosRetry from 'axios-retry';
-import { Connection, PublicKey, Keypair } from '@solana/web3.js';
-import { WhirlpoolContext, ParsableWhirlpool } from '@orca-so/whirlpools-sdk';
+import { Connection, PublicKey } from '@solana/web3.js';
 import { logger } from '../utils/logger';
 import defiLlamaService from './defillama';
+import Decimal from 'decimal.js';
 
 export interface OrcaYieldData {
   protocol: string;
@@ -29,7 +29,7 @@ export class OrcaService {
   private client: AxiosInstance;
   private readonly baseURL = 'https://api.orca.so';
   private connection: Connection;
-  private whirlpoolCtx: WhirlpoolContext | null = null;
+  private whirlpoolCtx: any | null = null;
   
   constructor() {
     this.client = axios.create({
@@ -53,31 +53,31 @@ export class OrcaService {
     const rpcUrl = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
     this.connection = new Connection(rpcUrl, 'confirmed');
 
-    // Initialize Whirlpool SDK
+    // Initialize Whirlpool SDK lazily; continue gracefully if unavailable
     this.initializeWhirlpoolSDK();
   }
 
   /**
    * Initialize Orca Whirlpool SDK
    */
-  private initializeWhirlpoolSDK(): void {
+  private async initializeWhirlpoolSDK(): Promise<void> {
     try {
-      // Build account fetcher for on-chain data
+      // Dynamic import to avoid crashing on incompatible environments
+      const sdk = await import('@orca-so/whirlpools-sdk');
+      const { WhirlpoolContext, buildDefaultAccountFetcher, ORCA_WHIRLPOOL_PROGRAM_ID } = sdk as any;
       const fetcher = buildDefaultAccountFetcher(this.connection);
-      
-      // Create Whirlpool context with fetcher
+      // Create context (no wallet needed for read-only)
       this.whirlpoolCtx = WhirlpoolContext.from(
         this.connection,
         // @ts-ignore - Wallet not needed for read-only operations
         null,
         ORCA_WHIRLPOOL_PROGRAM_ID,
-        fetcher,
-        ORCA_WHIRLPOOLS_CONFIG
+        fetcher
       );
       logger.info('Orca Whirlpool SDK initialized successfully');
     } catch (error) {
-      logger.warn('Failed to initialize Orca Whirlpool SDK:', error);
-      // Continue without SDK features - REST API fallback will work
+      logger.warn('Whirlpool SDK not available, using REST/fallback only:', error as any);
+      this.whirlpoolCtx = null; // Ensure null so guards work elsewhere
     }
   }
   
@@ -413,7 +413,8 @@ export class OrcaService {
       }
 
       // Decode whirlpool data using ParsableWhirlpool
-      const whirlpoolData = ParsableWhirlpool.parse(poolAddress, accountInfo);
+      const { ParsableWhirlpool } = await import('@orca-so/whirlpools-sdk');
+      const whirlpoolData = (ParsableWhirlpool as any).parse(poolAddress, accountInfo);
       
       if (!whirlpoolData) {
         throw new Error(`Failed to parse Whirlpool data: ${poolAddress.toBase58()}`);
@@ -462,6 +463,8 @@ export class OrcaService {
       const aToB = inputMint.equals(whirlpoolData.tokenMintA);
 
       // Get swap quote using SDK
+      const sdk = await import('@orca-so/whirlpools-sdk');
+      const { swapQuoteByInputToken, DecimalUtil, Percentage, ORCA_WHIRLPOOL_PROGRAM_ID } = sdk as any;
       const quote = await swapQuoteByInputToken(
         whirlpool,
         inputMint,
@@ -474,12 +477,15 @@ export class OrcaService {
         true
       );
 
+      const priceImpact = quote.estimatedEndSqrtPrice
+        ? await this.calculatePriceImpact(whirlpoolData.sqrtPrice, quote.estimatedEndSqrtPrice)
+        : 0;
+
       return {
         estimatedAmountOut: quote.estimatedAmountOut.toString(),
         estimatedAmountIn: quote.estimatedAmountIn.toString(),
         otherAmountThreshold: quote.otherAmountThreshold.toString(),
-        priceImpact: quote.estimatedEndSqrtPrice ? 
-          this.calculatePriceImpact(whirlpoolData.sqrtPrice, quote.estimatedEndSqrtPrice) : 0,
+        priceImpact,
         aToB,
       };
     } catch (error) {
@@ -571,8 +577,9 @@ export class OrcaService {
    * @param positionMint - Position NFT mint address
    * @returns Position PDA address
    */
-  getPositionAddress(positionMint: PublicKey): PublicKey {
-    return PDAUtil.getPosition(
+  async getPositionAddress(positionMint: PublicKey): Promise<PublicKey> {
+    const { PDAUtil, ORCA_WHIRLPOOL_PROGRAM_ID } = (await import('@orca-so/whirlpools-sdk')) as any;
+    return (PDAUtil as any).getPosition(
       ORCA_WHIRLPOOL_PROGRAM_ID,
       positionMint
     ).publicKey;
@@ -647,9 +654,10 @@ export class OrcaService {
   /**
    * Calculate price impact percentage
    */
-  private calculatePriceImpact(startSqrtPrice: any, endSqrtPrice: any): number {
-    const startPrice = PriceMath.sqrtPriceX64ToPrice(startSqrtPrice, 6, 6);
-    const endPrice = PriceMath.sqrtPriceX64ToPrice(endSqrtPrice, 6, 6);
+  private async calculatePriceImpact(startSqrtPrice: any, endSqrtPrice: any): Promise<number> {
+    const { PriceMath } = (await import('@orca-so/whirlpools-sdk')) as any;
+    const startPrice = (PriceMath as any).sqrtPriceX64ToPrice(startSqrtPrice, 6, 6);
+    const endPrice = (PriceMath as any).sqrtPriceX64ToPrice(endSqrtPrice, 6, 6);
     return Math.abs(endPrice.toNumber() - startPrice.toNumber()) / startPrice.toNumber();
   }
 
