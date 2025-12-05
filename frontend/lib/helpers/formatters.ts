@@ -4,7 +4,7 @@ export function formatNumber(value: number | undefined | null): string {
   if (value === undefined || value === null || isNaN(value)) return "—";
 
   const abs = Math.abs(value);
-  
+
   if (abs >= 1e9) {
     return `${(value / 1e9).toFixed(2).replace(/\.?0+$/, "")}B`;
   }
@@ -45,7 +45,38 @@ export const formatFees = (fees: any) => {
   return total > 0 ? `${total.toFixed(1)}%` : "Free";
 };
 
-
 function formatReturn(amount: number, percentage: number): string {
-  return `$${(amount * percentage / 100).toFixed(2)}`
+  return `$${((amount * percentage) / 100).toFixed(2)}`;
+}
+
+export function formatCurrency(
+  value: string | number,
+  currency?: string
+): string {
+  // Convert to string and remove all non-numeric except "."
+  let cleanValue = String(value).replace(/[^0-9.]/g, "");
+
+  // Prevent multiple dots (like "12.3.4")
+  const parts = cleanValue.split(".");
+  if (parts.length > 2) cleanValue = parts[0] + "." + parts.slice(1).join("");
+
+  // Parse as float
+  const numericValue = parseFloat(cleanValue);
+  if (isNaN(numericValue)) return cleanValue; // Return raw for partial typing (like "0.")
+
+  // Format number
+  const formatted = numericValue.toLocaleString("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+
+  // Add ₦ if NGN or ₦
+  if (currency === "NGN" || currency === "₦") {
+    return `₦${formatted}`;
+  }
+
+  // If user still typing a decimal point at end, preserve it
+  if (cleanValue.endsWith(".")) return formatted + ".";
+
+  return formatted;
 }
