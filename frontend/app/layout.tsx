@@ -6,6 +6,8 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import AppLayout from "@/components/app/layout/app-layout"
 
+
+
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",

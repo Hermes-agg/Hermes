@@ -1,5 +1,7 @@
 // lib/api/yield-api.ts
 
+import { getRiskStats } from "../helpers/risk";
+
 const API_BASE_URL =
   (globalThis as any).__APP_API_BASE_URL ??
   process.env.NEXT_PUBLIC_API_BASE_URL ??
@@ -44,15 +46,40 @@ export interface YieldItem {
   gasCost?: number;
   protocolFees?: number;
 
-  // 
+  //
   estimatedYearlyReturn?: number;
   estimatedMonthlyReturn?: number;
   estimatedReturn?: number;
 
   effectivenessScore?: number;
   volatility?: number;
-  fees?: any;
+  // fees?: any;
+  fees?:
+    | string
+    | {
+        depositFee?: number;
+        withdrawalFee?: number;
+        performanceFee?: number;
+        managementFee?: number;
+        [key: string]: any;
+      };
+
   metadata?: any;
+
+  // RISK REQUIED
+  risk: "low" | "moderate" | "high";
+  riskColor: string;
+  riskBg?: string;
+
+  users: string;
+  avgDeposit: string;
+  lockPeriod: string;
+
+  audited: boolean;
+  dailyReturn: number;
+  weeklyReturn: number;
+  monthlyReturn: number;
+  yearlyReturn: number;
 }
 
 // ————————————————————————
@@ -75,6 +102,57 @@ export interface BestRouteResponse {
 }
 
 export class YieldAPI {
+  // Add this helper inside YieldAPI class or in a utils file
+  private static normalizeYieldItem(item: any): YieldItem {
+    const rawScore = Number(item.riskScore ?? 0);
+    const riskScore = isNaN(rawScore) ? 0 : Math.round(rawScore);
+    const riskStats = getRiskStats(riskScore);
+
+    return {
+      protocol: item.protocol ?? "Unknown",
+      asset: item.asset ?? null,
+      apy: item.apy ?? 0,
+      apr: item.apr ?? null,
+      tvl: item.tvl ?? 0,
+
+      // valueable normalized YieldItem
+      riskScore,
+      risk: riskStats.level,
+      riskColor: riskStats.colorClass, // ← send color to frontend
+      riskBg: riskStats.bgClass,
+
+      score: item.score ?? null,
+      timestamp: item.timestamp ?? null,
+      realAPY: item.realAPY ?? null,
+      baseAPY: item.baseAPY ?? null,
+      slippage: item.slippage ?? null,
+      gasCost: item.gasCost ?? null,
+      protocolFees: item.protocolFees ?? null,
+
+      estimatedYearlyReturn: item.estimatedYearlyReturn ?? null,
+      estimatedMonthlyReturn: item.estimatedMonthlyReturn ?? null,
+      estimatedReturn: item.estimatedReturn ?? null,
+
+      effectivenessScore: item.effectivenessScore ?? null,
+      volatility: item.volatility ?? null,
+      fees: item.fees ?? null, // will be null if missing
+
+      metadata: item.metadata ?? null,
+
+      users: item.users ?? "—",
+      avgDeposit: item.avgDeposit ?? "—",
+      lockPeriod: item.lockPeriod ?? "Flexible",
+
+      audited: item.audited ?? false,
+
+      // These you probably calculate client-side now
+      dailyReturn: item.dailyReturn ?? 0,
+      weeklyReturn: item.weeklyReturn ?? 0,
+      monthlyReturn: item.monthlyReturn ?? 0,
+      yearlyReturn: item.yearlyReturn ?? 0,
+    } as YieldItem;
+  }
+
   static async getAllYields(
     params: {
       asset?: string;
@@ -94,7 +172,9 @@ export class YieldAPI {
 
     const json = await res.json();
     const list = json?.data ?? json?.yields ?? json ?? [];
-    return (Array.isArray(list) ? list : []) as YieldItem[];
+
+    const items = Array.isArray(list) ? list : [];
+    return items.map((item) => this.normalizeYieldItem(item)) as YieldItem[];
   }
 
   static async getBestRoute(params: {
@@ -121,13 +201,16 @@ export class YieldAPI {
 
     return {
       data: {
-        bestRoute: payload.bestRoute,
+        bestRoute: this.normalizeYieldItem(payload.bestRoute),
         alternativeRoutes: Array.isArray(payload.alternativeRoutes)
-          ? payload.alternativeRoutes
+          ? payload.alternativeRoutes.map((r: any) =>
+              this.normalizeYieldItem(r)
+            )
           : [],
-        reason: payload.reason,
-        confidence: payload.confidence,
-        metrics: payload.metrics,
+        reason: payload.reason ?? null,
+        confidence: payload.confidence ?? null,
+        timestamp: payload.timestamp ?? null,
+        metrics: payload.metrics ?? null,
       },
     } as BestRouteResponse;
   }

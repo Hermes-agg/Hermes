@@ -8,6 +8,7 @@ import { LoadingProvider, useLoading } from "./loading-context"
 import WalletAdapterProvider from '@/components/app/providers/WalletAdapterProvider'
 import { WalletProvider } from "../providers/WalletProvider"
 import BackgroundDecor from "@/components/decor/BackgroundDecor"
+import { cn } from "@/lib/utils"
 
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
     const { isLoading, setIsLoading } = useLoading()
@@ -29,16 +30,23 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 
     return (
         <>
-            <AppHeader isLoading={isLoading} />
-            <div className="relative min-h-screen transition-colors duration-300">
-                <div className="pointer-events-none fixed inset-0 bg-grid opacity-30" />
-                <div className="pointer-events-none fixed inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/20" />
+            <div className="min-h-screen bg-background">
+                <AppHeader isLoading={isLoading} />
 
+                {/* Background Grid */}
+                <div className="pointer-events-none fixed inset-0 bg-grid opacity-[0.05]" />
+
+                {/* Gradient Overlay */}
+                {/* <div className="pointer-events-none fixed inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" /> */}
+
+                {/* Main Content */}
                 <div className="relative z-10">
-                    <main className={`mx-auto max-w-5xl px-4 pb-6 pt-4 transition-opacity duration-300 ${
-                        isLoading ? 'opacity-50' : 'opacity-100'
-                    }`}>
-                        {/* <BackgroundDecor /> */}
+                    <main
+                        className={cn(
+                            "mx-auto max-w-5xl px-4 py-6 md:py-10 transition-opacity duration-300",
+                            isLoading ? "opacity-90" : "opacity-100"
+                        )}
+                    >{/* <BackgroundDecor /> */}
                         {children}
                     </main>
                 </div>

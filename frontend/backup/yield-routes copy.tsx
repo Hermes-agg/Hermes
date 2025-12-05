@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import { ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, Users, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import type { Token } from "@/components/app/token-selector"
+import type { Token } from "@/components/app/TokenSelector"
 
 interface YieldRoutesProps {
   token: Token

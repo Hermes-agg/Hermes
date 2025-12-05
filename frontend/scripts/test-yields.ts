@@ -7,18 +7,18 @@ import { YieldAPI } from "@/lib/api/yield-api";
 
 async function runTests() {
   try {
-    console.log("=== Testing: Get All Yields ===");
-    const allYields = await YieldAPI.getAllYields({
-      asset: "USDC",
-      amount: 1000000,
-      limit: 50,
-    });
-    console.log("All Yields Response:", allYields);
+    // console.log("=== Testing: Get All Yields ===");
+    // const allYields = await YieldAPI.getAllYields({
+    //   asset: "USDC",
+    //   amount: 1000,
+    //   limit: 50,
+    // });
+    // console.log("All Yields Response:", allYields);
 
     console.log("\n=== Testing: Get Best Route ===");
     const bestRoute = await YieldAPI.getBestRoute({
       asset: "USDC",
-      amount: 1000000,
+      amount: 1000,
       riskProfile: "low",
     });
     console.log("Best Route Response:", bestRoute);

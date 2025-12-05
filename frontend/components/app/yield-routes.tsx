@@ -1,22 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils"
+import type { Token } from "./TokenSelector"
+import { TrendingUp, Shield, Users, Clock, Zap, ExternalLink } from "lucide-react"
+
 import {
   CheckCircle2,
-  TrendingUp,
   ShieldCheck,
-  ExternalLink,
   AlertCircle,
   DollarSign,
   User,
-  Users,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import { YieldAPI, type YieldItem, type BestRouteResponse } from "@/lib/api/yield-api";
-import type { Token } from "@/components/app/token-selector";
+
 import { useLoading } from "./layout/loading-context";
-import { formatPercent, formatUSD } from "@/lib/formatters";
+import { formatFees, formatNumber, formatPercent, formatUSD } from "@/lib/helpers/formatters";
+import { useEffect, useState } from "react";
+import { calculateReturns } from "@/lib/helpers/calculators";
+
+
 
 interface YieldRoutesProps {
   token: Token;
@@ -24,12 +28,14 @@ interface YieldRoutesProps {
   riskProfile: "low" | "moderate" | "high";
 }
 
+
 export function YieldRoutes({
   token,
   amount,
   riskProfile,
 }: YieldRoutesProps) {
   const [bestResponse, setBestResponse] = useState<BestRouteResponse | null>(null);
+
   const [allYields, setAllYields] = useState<YieldItem[]>([]);
   const [isLoadingBest, setIsLoadingBest] = useState(true);
   const [isLoadingAll, setIsLoadingAll] = useState(false);
@@ -102,6 +108,23 @@ export function YieldRoutes({
 
   const hasRoutes = displayedRoutes.length > 0;
 
+
+  const filteredRoutes = displayedRoutes.filter((r) => {
+    if (riskProfile === "low") return r.risk === "low"
+    if (riskProfile === "moderate") return r.risk === "low" || r.risk === "moderate"
+    return true
+  })
+
+
+  const getRiskColor = (risk: string) => {
+    switch (risk) {
+      case "low": return "text-risk-low"
+      case "moderate": return "text-risk-moderate"
+      case "high": return "text-risk-high"
+      default: return "text-muted-foreground"
+    }
+  }
+
   if (isLoadingBest) {
     if (isLoadingBest) {
       return (
@@ -130,10 +153,7 @@ export function YieldRoutes({
 
   if (error && !hasRoutes) {
     return (
-
-
       <div className="relative p-1">
-
         <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-destructive" />
         <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-destructive" />
         <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-destructive" />
@@ -158,181 +178,153 @@ export function YieldRoutes({
     );
   }
 
+
+
   return (
-    <div className="rounded-2xl backdrop-blur-sm">
-      <div className="py-3 sm:py-4">
-        <div className="flex gap-1 flex-row sm:items-center justify-between">
-          <div className="min-w-0 space-y-0.5">
-            <h2 className="truncate text-base sm:text-lg font-semibold text-foreground w-fit bg-primary/1 text-tech backdrop-blur-sm ">
+    <div className="space-y-3">
+      {/* Header */}
+      <div className="flex items-center justify-between px-1">
+        <div className="flex items-center gap-2">
+          <div className="w-1 h-4 bg-primary" />
+          <span className="font-mono text-xs text-muted-foreground tracking-wider uppercase">
+            {displayedRoutes.length} Routes Available {isLoadingAll && " • Loading more..."}
 
-              Best Routes
 
-            </h2>
-
-            <p className="text-xs sm:text-sm text-muted-foreground w-fit bg-primary/1 backdrop-blur-sm ">
-              
-              Sorted by highest yield
-             
-            </p>
-          </div>
-          <div className="min-w-0 flex flex-col items-end justify-end">
-            <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
-              {displayedRoutes.length} route{displayedRoutes.length !== 1 ? "s" : ""} for {amount} {token.symbol}
-              {isLoadingAll && " • Loading more..."}
-            </span>
-          </div>
+            {/* {displayedRoutes.length} route{displayedRoutes.length !== 1 ? "s" : ""} for {amount} {token.symbol}
+              {isLoadingAll && " • Loading more..."} */}
+          </span>
         </div>
+        <span className="font-mono text-[10px] text-muted-foreground">
+          {formatNumber(amount)} {token.symbol}
+        </span>
       </div>
 
-      <div className="flex flex-col gap-4">
+      {/* Routes */}
+      <div className="space-y-2">
         {displayedRoutes.map((route, index) => (
           <div
             key={`${route.protocol}-${index}`}
             className={cn(
-              "transition-all hover:bg-secondary/30 flex flex-col gap-4 p-3 sm:p-4 border-2 border-border/50 bg-card/80 backdrop-blur-sm hover:border-primary/30 transition-all group relative overflow-hidden",
-              index === 0 && "bg-primary/5"
+              "relative border border-border/40 bg-card/60 backdrop-blur-sm",
+              "hover:border-primary/40 hover:bg-card/80 transition-all group",
+              index === 0 && "border-primary/30 bg-primary/5"
             )}
           >
-            {/* Mobile */}
-            <div className="flex flex-col gap-3 sm:hidden">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <div className="text-xs font-bold text-foreground h-8 w-8 bg-primary/20 border border-primary/30 flex items-center justify-center">
+            {/* Best badge */}
+            {index === 0 && (
+              <div className="absolute -top-px -right-px">
+                <div className="bg-primary px-2 py-0.5 font-mono text-[9px] text-primary-foreground uppercase tracking-wider">
+                  Best
+                </div>
+              </div>
+            )}
+
+            {/* Corner accents on hover */}
+            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/0 group-hover:border-primary/60 transition-colors" />
+            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/0 group-hover:border-primary/60 transition-colors" />
+
+            <div className="p-3">
+              {/* Top row: Protocol + APY */}
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-secondary border border-border/50 flex items-center justify-center font-mono text-xs font-bold text-foreground">
                     {route.protocol.charAt(0)}
                   </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="truncate font-semibold text-sm text-foreground capitalize">
-                        {route.protocol}
+                  <div>
+                    <div className="font-mono text-sm font-medium text-foreground capitalize">
+                      {route.protocol}
+                    </div>
+
+
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className={cn("font-mono text-[10px] uppercase", route.riskColor, route.riskBg)}>
+                        {route.risk}
                       </span>
-                      {index === 0 && (
-                        <span className="flex items-center gap-0.5 rounded-full bg-primary/20 px-1.5 py-0.5 text-xs font-medium text-primary flex-shrink-0">
-                          <CheckCircle2 className="h-2.5 w-2.5" />
-                          <span>Best</span>
+                      {route.audited && (
+                        <span className="flex items-center gap-0.5 text-[10px] text-primary">
+                          <Shield className="w-2.5 h-2.5" />
+                          <span>Audited</span>
                         </span>
                       )}
-                      <span className="flex items-center gap-1 flex-shrink-0">
-                        <ShieldCheck className="h-3 w-3 text-primary" />
-                      </span>
                     </div>
                   </div>
                 </div>
-                <div className="text-right flex-shrink-0">
-                  <div className="flex items-center gap-1 text-lg sm:text-xl font-bold text-primary">
+
+                <div className="text-right">
+                  <div className="flex items-center gap-1 font-mono text-xl font-bold text-primary">
+                    <TrendingUp className="w-4 h-4" />
                     {formatPercent(route.apy * 100)}
                   </div>
-                  <div className="text-xs text-muted-foreground">APY</div>
+                  <div className="font-mono text-[10px] text-muted-foreground uppercase">APY</div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-1.5 rounded-xl text-xs">
-                <div className="flex items-center gap-2 text-muted-foreground flex-wrap">
-                  <span className="flex items-center gap-1">
-                    <ShieldCheck className="h-3 w-3" />
-                    TVL: {formatUSD(route.tvl)}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Users className="h-3 w-3" />
-                    null users
-                  </span>
+              {/* Stats grid */}
+              <div className="grid grid-cols-4 gap-2 mb-3 py-2 border-t border-b border-border/30">
+                <div>
+                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5">TVL</div>
+                  <div className="font-mono text-xs text-foreground">{formatUSD(route.tvl)}</div>
                 </div>
+                <div>
+                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5 flex items-center gap-1">
+                    <Users className="w-2.5 h-2.5" />
+                    Users
+                  </div>
+                  <div className="font-mono text-xs text-foreground">{route.users}</div>
+                </div>
+                <div>
+                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5 flex items-center gap-1">
+                    <Clock className="w-2.5 h-2.5" />
+                    Lock
+                  </div>
+                  <div className="font-mono text-xs text-foreground">{route.lockPeriod}</div>
+                </div>
+                <div>
+                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5 flex items-center gap-1">
+                    <Zap className="w-2.5 h-2.5" />
+                    Fees
+                  </div>
+                  <div className="font-mono text-xs text-foreground">{formatFees(route.fees)}</div>
+                </div>
+              </div>
 
-                <div className="flex items-center gap-2 sm:gap-4 text-xs text-muted-foreground flex-wrap">
+              {/* Projected returns */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
                   <div>
-                    <span className="text-muted-foreground">Monthly: </span>
-                    <span className="font-medium text-foreground">{formatUSD(route.estimatedMonthlyReturn)}</span>
+                    <div className="font-mono text-[10px] text-muted-foreground">Daily</div>
+                    <div className="font-mono text-xs text-foreground">{calculateReturns({ amount, yearlyAPY: route.apy }).dailyUSD}</div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Yearly: </span>
-                    <span className="font-medium text-primary">{formatUSD(route.estimatedYearlyReturn)}</span>
+                    <div className="font-mono text-[10px] text-muted-foreground">Weekly</div>
+                    <div className="font-mono text-xs text-foreground">{calculateReturns({ amount, yearlyAPY: route.apy }).weeklyUSD}</div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-[10px] text-muted-foreground">Monthly</div>
+                    <div className="font-mono text-xs text-foreground">{formatUSD(route.estimatedMonthlyReturn)}</div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-[10px] text-muted-foreground">Yearly</div>
+                    <div className="font-mono text-xs font-medium text-primary">{formatUSD(route.estimatedYearlyReturn)}</div>
                   </div>
                 </div>
 
-                <Button
-                  size="sm"
-                  className={cn("flex-shrink-0", index === 0 && "bg-primary text-primary-foreground glow-primary")}
-                  variant={index === 0 ? "default" : "outline"}
+                <button
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-medium transition-all",
+                    index === 0
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "border border-border/50 text-foreground hover:border-primary/50 hover:text-primary"
+                  )}
                 >
                   Deposit
-                  <ExternalLink className="ml-1 h-2 w-2" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Desktop */}
-            <div className="hidden sm:block">
-              <div className="flex items-center gap-4">
-                <div className="flex flex-col gap-2 w-full">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-10 w-10 font-bold text-foreground bg-primary/20 border border-primary/30 items-center justify-center">
-                        {route.protocol.charAt(0)}
-                      </div>
-                      <span className="truncate font-semibold text-foreground">
-                        {route.protocol}
-                      </span>
-                      {index === 0 && (
-                        <span className="flex items-center gap-1 rounded-full bg-primary/20 px-2 py-0.5 text-xs font-medium text-primary">
-                          <CheckCircle2 className="h-3 w-3" />
-                          Best
-                        </span>
-                      )}
-                      <span className="flex items-center gap-1 rounded-md border border-primary/30 bg-primary/10 px-2 py-0.5 text-xs text-primary">
-                        <ShieldCheck className="h-3 w-3" />
-                        Verified
-                      </span>
-                    </div>
-
-                    <div className="text-right">
-                      <div className="flex items-center gap-1 text-2xl font-bold text-primary">
-                        <TrendingUp className="h-5 w-5" />
-                        {route.apy.toFixed(1)}%
-                      </div>
-                      <div className="text-xs text-muted-foreground">APY</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-6">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <ShieldCheck className="h-3 w-3" />
-                        TVL: {route.tvl}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Users className="h-3 w-3" />
-                        null users
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                      <div className="hidden lg:block text-right">
-                        <div className="text-sm text-muted-foreground">Est. Monthly</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm text-muted-foreground">Est. Yearly</div>
-                      </div>
-                      <Button
-                        className={cn("flex-shrink-0", index === 0 && "bg-primary text-primary-foreground glow-primary")}
-                        variant={index === 0 ? "default" : "outline"}
-                      >
-                        Deposit
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+                  <ExternalLink className="w-3 h-3" />
+                </button>
               </div>
             </div>
           </div>
         ))}
-
-        {/* Optional: subtle indicator when loading more */}
-        {isLoadingAll && (
-          <div className="py-8 text-center text-sm text-muted-foreground">
-            Loading more opportunities...
-          </div>
-        )}
       </div>
     </div>
-  );
+  )
 }

@@ -65,7 +65,9 @@
   --popover-foreground: oklch(0.95 0.01 260);
 
   /* Beautiful vibrant cyan/teal primary – same feel as light mode but richer in dark */
-  --primary: oklch(0.68 0.18 195);          /* ≈ rgb(0, 197, 199) but perceptually uniform */
+  --primary: oklch(
+    0.68 0.18 195
+  ); /* ≈ rgb(0, 197, 199) but perceptually uniform */
   --primary-foreground: oklch(0.11 0.015 260);
 
   /* Slightly lighter secondary for subtle buttons/cards */
@@ -79,10 +81,10 @@
   --accent: oklch(0.65 0.14 95);
   --accent-foreground: oklch(0.11 0.015 260);
 
-  --success: oklch(0.60 0.16 142);
+  --success: oklch(0.6 0.16 142);
   --success-foreground: oklch(0.11 0.015 260);
 
-  --warning: oklch(0.70 0.18 75);
+  --warning: oklch(0.7 0.18 75);
   --warning-foreground: oklch(0.95 0.01 260);
 
   --destructive: oklch(0.62 0.22 25);
@@ -95,7 +97,7 @@
 
   /* Charts – richer colors in dark */
   --chart-1: oklch(0.72 0.18 195);
-  --chart-2: oklch(0.70 0.18 75);
+  --chart-2: oklch(0.7 0.18 75);
   --chart-3: oklch(0.65 0.16 142);
   --chart-4: oklch(0.68 0.18 280);
   --chart-5: oklch(0.62 0.22 25);
@@ -165,9 +167,7 @@
 .dark .card {
   background: var(--card);
   border: 1px solid var(--border);
-  box-shadow: 
-    0 8px 32px oklch(0 0 0 / 0.12),
-    0 2px 8px oklch(0 0 0 / 0.08),
+  box-shadow: 0 8px 32px oklch(0 0 0 / 0.12), 0 2px 8px oklch(0 0 0 / 0.08),
     inset 0 1px 0 oklch(1 0 0 / 0.08); /* soft inner highlight */
   backdrop-filter: blur(12px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -175,24 +175,20 @@
 
 .dark .bg-card:hover,
 .dark .card:hover {
-  box-shadow: 
-    0 12px 40px oklch(0 0 0 / 0.18),
-    0 4px 12px oklch(0 0 0 / 0.12),
-    inset 0 1px 0 oklch(1 0 0 / 0.12),
-    0 0 20px var(--primary) / 0.12; /* subtle colored glow on hover */
-  transform: translateY(-2px);
+  box-shadow: 0 12px 40px oklch(0 0 0 / 0.18), 0 4px 12px oklch(0 0 0 / 0.12),
+    inset 0 1px 0 oklch(1 0 0 / 0.12), 0 0 20px var(--primary) / 0.12; /* subtle colored glow on hover */
+  transform: translateZ(-2px);
 }
 
 /* Optional: even more premium glass card variant */
 .glass-card {
-  background: oklch(0.18 0.018 260 / 0.6);
-  border: 1px solid oklch(1 0 0 / 0.1);
+  background: var(--background);
+  border: 1px solid var(--primary);
   backdrop-filter: blur(16px);
-  box-shadow: 
+  /* box-shadow: 
     inset 0 1px 0 oklch(1 0 0 / 0.15),
-    0 8px 32px oklch(0 0 0 / 0.15);
+    0 8px 32px oklch(0 0 0 / 0.15); */
 }
-
 
 @layer base {
   * {
@@ -356,11 +352,62 @@
     background-clip: text;
   }
 
-  /* Grid background - adapts to theme */
+  /* Grid background - LIGHT THEME */
   .bg-grid {
-    background-image: linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-image: linear-gradient(var(--accent) 1px, transparent 1px),
+      linear-gradient(90deg, var(--accent) 1px, transparent 1px);
     background-size: 40px 40px;
+  }
+
+  /* Grid background - DARK THEME */
+  .dark .bg-grid {
+    background-image: linear-gradient(var(--foreground) 1px, transparent 1px),
+      linear-gradient(90deg, var(--foreground) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Small screens - mobile */
+  @media (min-width: 640px) {
+    .bg-grid {
+      background-size: 40px 40px;
+    }
+
+    .dark .bg-grid {
+      background-size: 40px 40px;
+    }
+  }
+
+  /* Medium screens - tablet */
+  @media (min-width: 768px) {
+    .bg-grid {
+      background-size: 40px 40px;
+    }
+
+    .dark .bg-grid {
+      background-size: 40px 40px;
+    }
+  }
+
+  /* Large screens - desktop */
+  @media (min-width: 1024px) {
+    .bg-grid {
+      background-size: 50px 50px;
+    }
+
+    .dark .bg-grid {
+      background-size: 50px 50px;
+    }
+  }
+
+  /* Extra large screens */
+  @media (min-width: 1280px) {
+    .bg-grid {
+      background-size: 60px 60px;
+    }
+
+    .dark .bg-grid {
+      background-size: 60px 60px;
+    }
   }
 
   /* Soft card glow for modern milky aesthetic */
