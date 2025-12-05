@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import {
   TrendingUp,
   Wallet,
@@ -210,7 +211,13 @@ export function PortfolioView() {
             >
               <div className="mb-4 flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <img src={pos.icon || "/placeholder.svg"} alt={pos.asset} className="h-10 w-10 rounded-full" />
+                  <Image
+                    src={pos.icon || "/placeholder.svg"}
+                    alt={pos.asset}
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                  />
                   <div>
                     <div className="font-semibold text-foreground">{pos.protocol}</div>
                     <div className="text-sm text-muted-foreground">{pos.deposited}</div>

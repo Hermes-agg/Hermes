@@ -44,50 +44,92 @@ export function YieldRoutes({
 
   // Fetch best route first
   useEffect(() => {
-    const fetchBest = async () => {
-      try {
-        setIsLoadingBest(true);
-        setIsLoading(true);
-        setError(null);
+    const controller = new AbortController();
+    const connection: any = typeof navigator !== 'undefined' ? (navigator as any).connection : null;
+    const isMetered = !!(connection?.saveData) || ["slow-2g", "2g"].includes(connection?.effectiveType);
+    const debounceMs = isMetered ? 600 : 400;
+    const timer = setTimeout(() => {
+      const fetchBest = async () => {
+        try {
+          setIsLoadingBest(true);
+          setIsLoading(true);
+          setError(null);
 
-        const best = await YieldAPI.getBestRoute({
-          asset: token.symbol,
-          amount,
-          riskProfile,
-        });
-        setBestResponse(best);
-      } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to load best route";
-        setError(message);
-        console.error(err);
-      } finally {
-        setIsLoadingBest(false);
-        setIsLoading(false);
-      }
+          const best = await YieldAPI.getBestRoute(
+            {
+              asset: token.symbol,
+              amount,
+              riskProfile,
+            },
+            { signal: controller.signal }
+          );
+          if (!controller.signal.aborted) {
+            setBestResponse(best);
+          }
+        } catch (err: any) {
+          if (err?.name === "AbortError") return;
+          const message = err instanceof Error ? err.message : "Failed to load best route";
+          setError(message);
+          console.error(err);
+        } finally {
+          if (!controller.signal.aborted) {
+            setIsLoadingBest(false);
+            setIsLoading(false);
+          }
+        }
+      };
+      fetchBest();
+    }, debounceMs);
+
+    return () => {
+      controller.abort();
+      clearTimeout(timer);
     };
-    fetchBest();
   }, [token.symbol, amount, riskProfile, setIsLoading]);
 
   // Fetch all yields in background
   useEffect(() => {
     if (!bestResponse) return;
+    const connection: any = typeof navigator !== 'undefined' ? (navigator as any).connection : null;
+    const isMetered = !!(connection?.saveData) || ["slow-2g", "2g"].includes(connection?.effectiveType);
+    if (isMetered) {
+      // Skip background fetching on metered connections to save data
+      return;
+    }
 
-    const fetchAll = async () => {
-      setIsLoadingAll(true);
-      try {
-        const all = await YieldAPI.getAllYields({
-          asset: token.symbol,
-          amount,
-          limit: 50,
-        });
-        setAllYields(all);
-      } catch (err) {
-        console.warn("Failed to load additional yields", err);
-      } finally {
-        setIsLoadingAll(false);
-      }
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      const fetchAll = async () => {
+        setIsLoadingAll(true);
+        try {
+          const all = await YieldAPI.getAllYields(
+            {
+              asset: token.symbol,
+              amount,
+              limit: 50,
+            },
+            { signal: controller.signal }
+          );
+          if (!controller.signal.aborted) {
+            setAllYields(all);
+          }
+        } catch (err: any) {
+          if (err?.name !== "AbortError") {
+            console.warn("Failed to load additional yields", err);
+          }
+        } finally {
+          if (!controller.signal.aborted) {
+            setIsLoadingAll(false);
+          }
+        }
+      };
+      fetchAll();
+    }, 400);
+
+    return () => {
+      controller.abort();
+      clearTimeout(timer);
     };
-    fetchAll();
   }, [bestResponse, token.symbol, amount]);
 
   // Safe route list

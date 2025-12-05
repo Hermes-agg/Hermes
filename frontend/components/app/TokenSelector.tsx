@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { ChevronDown, Check, Search, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { createPortal } from "react-dom"
@@ -22,21 +23,25 @@ function TokenIcon({ token, size = "md" }: { token: Token; size?: "sm" | "md" | 
     md: "w-6 h-6",
     lg: "w-8 h-8",
   }
+  const px = size === "sm" ? 20 : size === "md" ? 24 : 32
+  const [imgError, setImgError] = useState(false)
 
   return (
     <div className={cn("relative rounded-full overflow-hidden bg-muted flex items-center justify-center", sizeClasses[size])}>
-      <img
-        src={token.icon}
-        alt={token.symbol}
-        className="w-full h-full object-cover"
-        onError={(e) => {
-          e.currentTarget.style.display = "none"
-          e.currentTarget.nextElementSibling?.classList.remove("hidden")
-        }}
-      />
-      <span className="hidden absolute inset-0 flex items-center justify-center text-xs font-bold text-muted-foreground">
-        {token.symbol.charAt(0)}
-      </span>
+      {!imgError ? (
+        <Image
+          src={token.icon}
+          alt={token.symbol}
+          width={px}
+          height={px}
+          className="object-cover"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-muted-foreground">
+          {token.symbol.charAt(0)}
+        </span>
+      )}
     </div>
   )
 }

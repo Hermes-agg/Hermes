@@ -158,7 +158,8 @@ export class YieldAPI {
       asset?: string;
       amount?: number;
       limit?: number;
-    } = {}
+    } = {},
+    opts?: { signal?: AbortSignal }
   ) {
     const query = new URLSearchParams();
     if (params.asset) query.append("asset", params.asset);
@@ -166,7 +167,7 @@ export class YieldAPI {
     if (params.limit) query.append("limit", String(params.limit));
 
     const url = getFullUrl(`/api/yields${query.toString() ? `?${query}` : ""}`);
-    const res = await fetch(url, { headers: getHeaders(), cache: "no-store" });
+    const res = await fetch(url, { headers: getHeaders(), cache: "no-cache", signal: opts?.signal });
 
     if (!res.ok) throw new Error("Failed to fetch yields");
 
@@ -181,7 +182,7 @@ export class YieldAPI {
     asset: string;
     amount: number;
     riskProfile: "low" | "moderate" | "high";
-  }) {
+  }, opts?: { signal?: AbortSignal }) {
     const query = new URLSearchParams({
       asset: params.asset,
       amount: String(params.amount),
@@ -189,7 +190,7 @@ export class YieldAPI {
     });
 
     const url = getFullUrl(`/api/yields/best?${query}`);
-    const res = await fetch(url, { headers: getHeaders(), cache: "no-store" });
+    const res = await fetch(url, { headers: getHeaders(), cache: "no-cache", signal: opts?.signal });
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
