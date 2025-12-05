@@ -3,8 +3,6 @@ import axiosRetry from 'axios-retry';
 import { Connection, PublicKey, Keypair } from '@solana/web3.js';
 import { NativeStakingConfig, NativeStakingSDK } from '@marinade.finance/native-staking-sdk';
 import { logger } from '../utils/logger';
-import { aprToApy } from '../utils/math';
-import defiLlamaService from './defillama';
 import BN from 'bn.js';
 
 export interface MarinadeYieldData {
@@ -94,91 +92,61 @@ export class MarinadeService {
   }
   
   /**
-   * Fetch mSOL staking APY and metrics
+   * Fetch mSOL staking APY and TVL from official Marinade API
    */
   async fetchYieldData(): Promise<MarinadeYieldData> {
     try {
-      logger.info('Fetching Marinade yield data...');
+      logger.info('Fetching Marinade yield data from official API...');
       
-      // Fetch TVL and stats from Marinade API
-      const tlvResponse = await this.client.get('/tlv');
-      const data = tlvResponse.data;
+      // Use current timestamp for both requests
+      const currentTime = new Date().toISOString();
       
-      // Extract data from the /tlv endpoint
-      const totalSol = data.total_active_balance / 1e9;
-      const totalUsd = data.tvl_usd || (totalSol * 150); // Rough SOL price estimate  
-      const stakedSol = data.staked_sol || 0;
+      // Fetch TVL from Marinade API with timestamp
+      const tlvResponse = await this.client.get('/tlv', {
+        params: { time: currentTime }
+      });
+      const tvl = tlvResponse.data.total_usd;
       
-      // Get TVL from DeFiLlama for additional validation
-      const defiLlamaTVL = await defiLlamaService.getTVLForProtocol('marinade');
+      // Fetch 7-day APY from Marinade API with timestamp
+      const apyResponse = await this.client.get('/msol/apy/7d', {
+        params: { time: currentTime }
+      });
+      const apy = apyResponse.data.value;
       
-      // Use DeFiLlama TVL if available, otherwise use Marinade's reported TVL
-      const tvl = defiLlamaTVL > 0 ? defiLlamaTVL : totalUsd;
+      // Extract additional metadata from TVL response
+      const stakedSol = tlvResponse.data.staked_sol || 0;
+      const totalSol = tlvResponse.data.total_sol || 0;
       
-      // Base staking APY (approximate, Marinade typically ~7-8%)
-      const baseAPR = 0.075; // 7.5% base
-      const baseAPY = aprToApy(baseAPR, 365);
-      
-      // Estimate MEV rewards (typically 0.5-1.5% additional)
-      const mevRewards = 0.01; // 1% estimate
-      
-      // Calculate mSOL price (rough estimate based on staked SOL)
+      // Calculate mSOL price from response data
       const msolPrice = stakedSol > 0 ? totalSol / stakedSol : 1;
       
       const result: MarinadeYieldData = {
         protocol: 'marinade',
         asset: 'mSOL',
-        apy: baseAPY + mevRewards,
-        apr: baseAPR,
+        apy: apy,
+        apr: apy * 0.95, // Approximate APR from APY
         tvl: tvl,
         msolPrice: msolPrice,
-        validatorScore: 85, // Good default for Marinade
-        stakeAccounts: 0, // Will be populated if we add validator endpoint
+        validatorScore: 85,
+        stakeAccounts: 0,
         metadata: {
           avgValidatorScore: 85,
           msolSupply: 0,
           totalStaked: stakedSol,
-          mevRewards: mevRewards,
+          mevRewards: 0,
         },
       };
       
       logger.info('Marinade yield data fetched successfully', {
         apy: result.apy,
         tvl: result.tvl,
-        source: defiLlamaTVL > 0 ? 'DeFiLlama' : 'Marinade API',
+        timestamp: currentTime,
       });
       
       return result;
     } catch (error) {
       logger.error('Error fetching Marinade yield data:', error);
-      
-      // Fallback: try to get at least TVL from DeFiLlama
-      try {
-        const tvl = await defiLlamaService.getTVLForProtocol('marinade');
-        if (tvl > 0) {
-          logger.info('Using DeFiLlama fallback for Marinade');
-          return {
-            protocol: 'marinade',
-            asset: 'mSOL',
-            apy: aprToApy(0.075) + 0.01,
-            apr: 0.075,
-            tvl: tvl,
-            msolPrice: 1,
-            validatorScore: 85,
-            stakeAccounts: 0,
-            metadata: {
-              avgValidatorScore: 85,
-              msolSupply: 0,
-              totalStaked: 0,
-              mevRewards: 0.01,
-            },
-          };
-        }
-      } catch (defiLlamaError) {
-        logger.error('DeFiLlama fallback also failed:', defiLlamaError);
-      }
-      
-      throw new Error('Failed to fetch Marinade data from all sources');
+      throw new Error('Failed to fetch Marinade data from official API');
     }
   }
   
