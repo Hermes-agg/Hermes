@@ -3415,6 +3415,10 @@
     text-transform: capitalize;
   }
 
+  .lowercase {
+    text-transform: lowercase;
+  }
+
   .uppercase {
     text-transform: uppercase;
   }
@@ -3443,6 +3447,10 @@
 
   .opacity-10 {
     opacity: .1;
+  }
+
+  .opacity-30 {
+    opacity: .3;
   }
 
   .opacity-50 {
