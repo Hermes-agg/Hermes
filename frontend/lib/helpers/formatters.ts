@@ -1,3 +1,4 @@
+
 // lib/formatters.ts
 
 export function formatNumber(value: number | undefined | null): string {
