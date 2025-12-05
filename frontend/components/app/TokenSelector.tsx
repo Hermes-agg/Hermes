@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react"
+"use client"
+
 import Image from "next/image"
 import { ChevronDown, Check, Search, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { createPortal } from "react-dom"
+import { useEffect, useState } from "react"
 
 export interface Token {
   symbol: string

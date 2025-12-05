@@ -9,6 +9,7 @@ import WalletAdapterProvider from '@/components/app/providers/WalletAdapterProvi
 import { WalletProvider } from "../providers/WalletProvider"
 import BackgroundDecor from "@/components/decor/BackgroundDecor"
 import { cn } from "@/lib/utils"
+import YieldLayout from "./yield-layout"
 
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
     const { isLoading, setIsLoading } = useLoading()
@@ -55,16 +56,29 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
     )
 }
 
+
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
+
+    const pathname = usePathname()
+
+    const isYieldPage = pathname === "/" || pathname.startsWith("/yield")
+
+    const LayoutType = isYieldPage ? YieldLayout : AppLayoutContent
+
     return (
         <WalletAdapterProvider>
             <WalletProvider>
                 <LoadingProvider>
-                    <AppLayoutContent>
+                    <LayoutType>
                         {children}
-                    </AppLayoutContent>
+                    </LayoutType>
                 </LoadingProvider>
             </WalletProvider>
         </WalletAdapterProvider>
     )
 }
+
+
+
+

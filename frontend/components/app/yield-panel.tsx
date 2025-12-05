@@ -1,53 +1,57 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
 
-import { RiskMeter } from "./RiskMeter"
-import { cn } from "@/lib/utils"
-import { YieldRoutes } from "./yield-routes"
-import { TokenSelector, type Token } from "./TokenSelector"
-import { formatNumber } from "@/lib/helpers/formatters"
+import { useState, useMemo, useEffect } from "react";
+import { RiskMeter } from "./RiskMeter";
+import { cn } from "@/lib/utils";
+
+import { TokenSelector, type Token } from "./TokenSelector";
+import { YieldRoutes } from "./yield-routes";
 
 const tokens: Token[] = [
   { symbol: "SOL", name: "Solana", icon: "/solana-logo.png", balance: 12.5 },
-  { symbol: "USDC", name: "USD Coin", icon: "/usdc-logo.png", balance: 1250.00 },
-  { symbol: "USDT", name: "Tether", icon: "/usdt-logo.png", balance: 500.00 },
-  { symbol: "JitoSOL", name: "Jito Staked SOL", icon: "/jito-logo.png", balance: 5.2 },
+  { symbol: "USDC", name: "USD Coin", icon: "/usdc-logo.png", balance: 1250.0 },
+  { symbol: "USDT", name: "Tether", icon: "/usdt-logo.png", balance: 500.0 },
+  { symbol: "jitoSOL", name: "Jito Staked SOL", icon: "/jito-logo.png", balance: 5.2 },
   { symbol: "mSOL", name: "Marinade SOL", icon: "/marinade-logo.png", balance: 3.1 },
-]
+];
 
-type RiskProfile = "low" | "moderate" | "high"
+type RiskProfile = "low" | "moderate" | "high";
+
+function formatNumber(num: number): string {
+  return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 
 export function YieldPanel() {
-  const [selectedToken, setSelectedToken] = useState(tokens[0])
-  const [amount, setAmount] = useState("")
-  const [riskProfile, setRiskProfile] = useState<RiskProfile>("moderate")
-  const [showRoutes, setShowRoutes] = useState(false)
+  const [selectedToken, setSelectedToken] = useState(tokens[0]);
+  const [amount, setAmount] = useState("");
+  const [riskProfile, setRiskProfile] = useState<RiskProfile>("moderate");
+  const [showRoutes, setShowRoutes] = useState(false);
 
   const numericAmount = useMemo(() => {
-    const parsed = Number.parseFloat(amount.replace(",", ""))
-    return isNaN(parsed) ? 0 : parsed
-  }, [amount])
+    const parsed = Number.parseFloat(amount.replace(",", ""));
+    return isNaN(parsed) ? 0 : parsed;
+  }, [amount]);
 
   useEffect(() => {
     if (numericAmount > 0) {
-      setShowRoutes(false)
+      setShowRoutes(false);
       const timer = setTimeout(() => {
-        setShowRoutes(true)
-      }, 800)
-      return () => clearTimeout(timer)
+        setShowRoutes(true);
+      }, 800);
+      return () => clearTimeout(timer);
     } else {
-      setShowRoutes(false)
+      setShowRoutes(false);
     }
-  }, [numericAmount, selectedToken])
+  }, [numericAmount, selectedToken]);
 
-  const quickAmounts = ["25%", "50%", "75%"]
+  const quickAmounts = ["25%", "50%", "75%"];
 
   const handleQuickAmount = (pct: string) => {
-    const balance = selectedToken.balance
-    const percentage = Number.parseInt(pct)
-    setAmount(((balance * percentage) / 100).toFixed(2))
-  }
+    const balance = selectedToken.balance;
+    const percentage = Number.parseInt(pct);
+    setAmount(((balance * percentage) / 100).toFixed(2));
+  };
 
   return (
     <div className="flex flex-col gap-4 mx-auto max-w-2xl">
@@ -56,24 +60,23 @@ export function YieldPanel() {
         <div className="border-b border-border/50 bg-secondary/30 px-4 py-2.5">
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-mono text-xs text-foreground tracking-widest uppercase mb-1">
-                Yield Optimizer
-              </div>
+              <h2 className="font-mono text-xs text-foreground tracking-widest uppercase mb-1">
+                Yield Explorer
+              </h2>
               <div className="flex items-center gap-2">
                 <div className="w-1 h-4 bg-primary" />
-                <span className="font-mono text-[10px] text-muted-foreground tracking-wider">
-                  PROTOCOL SCANNER v1.0
-                </span>
+                <h3 className="font-mono text-[10px] text-muted-foreground tracking-wider">
+                  Discover Crypto Yields
+                </h3>
               </div>
             </div>
 
-            {/* Risk Meter - Compact colored meter */}
             <RiskMeter value={riskProfile} onChange={setRiskProfile} />
           </div>
         </div>
 
-        {/* TOKEN INPUT SECTION */}
-        <div className="border-2 border-border/50 bg-card p-3">
+        {/* Token Input Section */}
+        <div className="border-2 border-border/50 bg-card p-3 m-3">
           {/* Balance Row with Quick Buttons */}
           <div className="flex items-center justify-between gap-2 mb-2">
             <span className="text-muted-foreground font-mono text-xs uppercase tracking-wide shrink-0">
@@ -128,5 +131,5 @@ export function YieldPanel() {
         <YieldRoutes token={selectedToken} amount={numericAmount} riskProfile={riskProfile} />
       )}
     </div>
-  )
+  );
 }

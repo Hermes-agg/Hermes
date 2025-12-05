@@ -244,22 +244,37 @@ export function YieldRoutes({
       {/* Routes */}
       <div className="space-y-2">
         {displayedRoutes.map((route, index) => (
+          // <div
+          //   key={`${route.protocol}-${index}`}
+          //   className={cn(
+          //     "relative border border-border/40 bg-card/60 backdrop-blur-sm",
+          //     "hover:border-primary/40 hover:bg-card/80 transition-all group",
+          //     index === 0 && "border-primary/30 bg-primary/5"
+          //   )}
+          // >
+          //   {/* Best badge */}
+          //   {index === 0 && (
+          //     <div className="absolute -top-px -right-px">
+          //       <div className="bg-primary px-2 py-0.5 font-mono text-[9px] text-primary-foreground uppercase tracking-wider">
+          //         Best
+          //       </div>
+          //     </div>
+          //   )}
+
+
           <div
             key={`${route.protocol}-${index}`}
             className={cn(
-              "relative border border-border/40 bg-card/60 backdrop-blur-sm",
-              "hover:border-primary/40 hover:bg-card/80 transition-all group",
-              index === 0 && "border-primary/30 bg-primary/5"
+              "group relative border border-border/50 bg-card/80 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card",
+              index === 0 && "border-primary/30 bg-card animate-pulse-glow"
             )}
           >
-            {/* Best badge */}
             {index === 0 && (
-              <div className="absolute -top-px -right-px">
-                <div className="bg-primary px-2 py-0.5 font-mono text-[9px] text-primary-foreground uppercase tracking-wider">
-                  Best
-                </div>
+              <div className="absolute -top-2 left-3 px-2 py-0.5 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-wider">
+                Best APY
               </div>
             )}
+
 
             {/* Corner accents on hover */}
             <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/0 group-hover:border-primary/60 transition-colors" />
