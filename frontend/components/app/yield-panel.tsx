@@ -111,8 +111,8 @@ export function YieldPanel() {
                     className={cn(
                       "quick-btn",
                       isActive && "quick-btn-active",
-                      index === 0 && "",
-                      index === quickAmounts.length - 1 && ""
+                      index === 0 && "rounded-l-sm",
+                      index === quickAmounts.length - 1 && "rounded-r-sm"
                     )}
                   >
                     {pct}

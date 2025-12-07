@@ -35,7 +35,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <AppHeader isLoading={isLoading} />
 
                 {/* Background Grid */}
-                <div className="pointer-events-none fixed inset-0 bg-grid opacity-[0.015]" />
+                <div className="pointer-events-none fixed inset-0 opacity-[0.015]" />
 
                 {/* Gradient Overlay */}
                 {/* <div className="pointer-events-none fixed inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" /> */}

@@ -34,7 +34,7 @@ export function CustomConnectButton({ className, small }: Props) {
       <Button size={small ? 'sm' : 'default'} onClick={handleClick}
 
         className={cn(
-          "relative px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider",
+          "relative px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider rounded-sm",
           "bg-primary/10 text-primary border border-primary/30",
           "hover:bg-primary/20 hover:border-primary/50 transition-all",
           "glow-gold",
@@ -42,10 +42,10 @@ export function CustomConnectButton({ className, small }: Props) {
         )}
       >
         {/* Sharp corner accents */}
-        <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary/60" />
+        {/* <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary/60" />
         <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary/60" />
         <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary/60" />
-        <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary/60" />
+        <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary/60" /> */}
 
 
         {connected ? short : 'Connect'}
