@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import { X, Moon, Sun } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-import { X } from "lucide-react"
-import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -18,36 +18,44 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
 
+  const [isDark, setIsDark] = useState(true);
+
+
   // Close mobile menu on route change
   useEffect(() => {
-    setMobileMenuOpen(false)
-  }, [pathname])
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = ""
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = ""
-    }
-  }, [mobileMenuOpen])
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    document.body.classList.toggle("dark");
+  };
 
   const navItems = [
     { label: "Yield", href: "/" },
     { label: "Portfolio", href: "/portfolio" },
     { label: "Analytics", href: "/analytics" },
-  ]
+  ];
 
   return (
     <>
       {/* MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b border-border/30">
-        <div className="mx-auto flex h-12 md:h-14 max-w-6xl items-center justify-between px-4">
+      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b border-border/50">
+        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           {/* LEFT SIDE */}
-          <div className="flex items-center gap-3 md:gap-8">
+          <div className="flex items-center gap-4 md:gap-8">
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -68,41 +76,45 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <div className="w-1 h-5 bg-primary" />
-              <span className="text-lg font-bold tracking-tight text-foreground font-mono">
-                HERMES
-              </span>
+              <span className="text-brand">HERMES</span>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-1">
               {navItems.map((item) => {
-                const active = pathname === item.href
+                const active = pathname === item.href;
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "relative px-4 py-2 font-mono text-xs font-medium uppercase tracking-wider transition-all group",
+                      "relative px-3 py-1.5 text-nav transition-all group",
                       active
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                     )}
                   >
                     {/* Hover corners */}
-                    <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {item.label}
+                    <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                    {/* Active corners */}
                     {active && (
                       <>
-                        <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary" />
-                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary" />
+                        <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t-2 border-l-2 border-primary" />
+                        <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t-2 border-r-2 border-primary" />
+                        <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b-2 border-l-2 border-primary" />
+                        <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b-2 border-r-2 border-primary" />
                       </>
                     )}
+
+                    <span>{item.label}</span>
                   </Link>
-                )
+                );
               })}
             </nav>
           </div>
+
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3">
@@ -115,8 +127,9 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
         <div className="relative h-[2px] w-full overflow-hidden">
           {isLoading ? (
             <div className="absolute inset-0 bg-border/20">
-              <div className="absolute h-full w-8 animate-pulse bg-gradient-to-r from-transparent via-primary to-transparent"
-                style={{ animation: "scan 2s infinite linear" }} />
+              <div
+                className="absolute h-full w-8 bg-gradient-to-r from-transparent via-primary to-transparent animate-scan"
+              />
             </div>
           ) : (
             <div className="h-[2px] bg-border/20" />
@@ -135,7 +148,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
         )}
       />
 
-      {/* MOBILE MENU - Slides from LEFT */}
+      {/* MOBILE MENU */}
       <div
         className={cn(
           "fixed inset-y-0 left-0 z-99 w-72 bg-card border-r border-border/50 shadow-2xl",
@@ -144,21 +157,21 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
         )}
       >
         <div className="flex h-14 items-center justify-between border-b border-border/50 px-4">
-          <span className="font-mono text-sm font-bold uppercase tracking-wider">Menu</span>
+          <span className="text-nav">Menu</span>
           <ThemeToggle />
         </div>
 
         {/* Navigation Links */}
         <nav className="flex flex-col p-4 gap-1">
           {navItems.map((item) => {
-            const active = pathname === item.href
+            const active = pathname === item.href;
             return (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                  "relative px-4 py-3 font-mono text-sm font-medium uppercase tracking-wider transition-all",
+                  "relative px-4 py-3 text-nav transition-all",
                   active
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -174,10 +187,10 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 )}
                 {item.label}
               </Link>
-            )
+            );
           })}
         </nav>
       </div>
     </>
-  )
+  );
 }

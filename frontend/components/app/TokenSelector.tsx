@@ -67,13 +67,21 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex items-center gap-2 px-2.5 py-1.5",
+          "relative flex items-center gap-2 px-2.5 py-1.5",
           "bg-transparent hover:bg-secondary/50 transition-all",
           "font-mono text-sm font-medium",
-          "border border-transparent hover:border-border/30",
-          isOpen && "bg-secondary/50 border-border/30"
+          "text-primary border border-border/30 hover:bg-primary/20 hover:border-primary/50 transition-all",
+          isOpen && "bg-secondary/50 border-primary/30"
         )}
       >
+
+        {/* Sharp corner accents */}
+        {/* <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary/60" />
+        <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary/60" />
+        <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary/60" />
+        <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary/60" /> */}
+
+
         <TokenIcon token={selectedToken} size="sm" />
         <span className="text-foreground">{selectedToken.symbol}</span>
         <ChevronDown className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform", isOpen && "rotate-180")} />

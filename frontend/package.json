@@ -8,8 +8,7 @@
     "lint": "eslint .",
     "start": "next start",
     "test:yields": "tsx scripts/test-yields.ts",
-
-     "// Git Commands": "--------------------Git Commands-------------------",
+    "// Git Commands": "--------------------Git Commands-------------------",
     "git-commit-push": "git diff-index --quiet HEAD || (git add . && git commit -m \"Something just got updated!\" --allow-empty && git push origin main)",
     "git-commit-push-force": "git add . && git commit -m \"Something just got updated!\" --no-verify --allow-empty && git push origin main --force",
     "git-pull-origin-main": "git pull origin main --force"
@@ -52,7 +51,6 @@
     "@solana/wallet-adapter-wallets": "^0.19.37",
     "@solana/web3.js": "^1.98.4",
     "@vercel/analytics": "latest",
-    "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
@@ -75,12 +73,14 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.9",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8.5",
-    "tailwindcss": "^4.1.9",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
     "tsx": "^4.21.0",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"

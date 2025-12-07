@@ -45,7 +45,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                     <main
                         className={cn(
                             "mx-auto max-w-5xl px-4 py-6 md:py-10 transition-opacity duration-300",
-                            isLoading ? "opacity-90" : "opacity-100"
+                            isLoading ? "opacity-50" : "opacity-100"
                         )}
                     >{/* <BackgroundDecor /> */}
                         {children}
@@ -62,7 +62,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     const pathname = usePathname()
 
-    const isYieldPage = pathname === "/" || pathname.startsWith("/yield")
+    const isYieldPage = pathname === "/2" || pathname.startsWith("/22")
 
     const LayoutType = isYieldPage ? YieldLayout : AppLayoutContent
 

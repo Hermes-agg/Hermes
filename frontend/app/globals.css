@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@tailwind utilities;
+
 /*  */
 
 @custom-variant dark (&:is(.dark *));
@@ -206,73 +208,6 @@
   }
 }
 
-/* Keyframes for futuristic border animations */
-@keyframes scan {
-  0%,
-  100% {
-    left: 0%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  50% {
-    left: 50%;
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
-@keyframes packet-left {
-  0% {
-    left: 0%;
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  45% {
-    left: 50%;
-    opacity: 1;
-  }
-  50% {
-    left: 50%;
-    opacity: 0;
-  }
-  100% {
-    left: 50%;
-    opacity: 0;
-  }
-}
-
-@keyframes packet-right {
-  0% {
-    right: 0%;
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  45% {
-    right: 50%;
-    opacity: 1;
-  }
-  50% {
-    right: 50%;
-    opacity: 0;
-  }
-  100% {
-    right: 50%;
-    opacity: 0;
-  }
-}
-
 /* Refined glow effects and utilities for better visibility and modern aesthetic */
 @layer utilities {
   /* Quick utility classes */
@@ -298,9 +233,8 @@
   /* Tech: Outfit for modern, cutting-edge labels and UI text */
   .text-tech {
     font-family: var(--font-body, "Outfit", sans-serif);
-    /* font-size: 0.875rem; */
-    /* font-weight: 700; */
-
+    font-size: 0.75rem;
+    font-weight: 700;
     letter-spacing: 0.12em;
   }
 
@@ -361,59 +295,59 @@
 
   /* Grid background - LIGHT THEME */
   .bg-grid {
-    background-image: linear-gradient(var(--accent) 1px, transparent 1px),
-      linear-gradient(90deg, var(--accent) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-image: linear-gradient(var(--primary) 1px, transparent 1px),
+      linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+    background-size: 4px 4px;
   }
 
   /* Grid background - DARK THEME */
   .dark .bg-grid {
-    background-image: linear-gradient(var(--foreground) 1px, transparent 1px),
-      linear-gradient(90deg, var(--foreground) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-image: linear-gradient(var(--primary) 1px, transparent 1px),
+      linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+    background-size: 4px 4px;
   }
 
   /* Small screens - mobile */
   @media (min-width: 640px) {
     .bg-grid {
-      background-size: 40px 40px;
+      background-size: 4px 4px;
     }
 
     .dark .bg-grid {
-      background-size: 40px 40px;
+      background-size: 4px 4px;
     }
   }
 
   /* Medium screens - tablet */
   @media (min-width: 768px) {
     .bg-grid {
-      background-size: 40px 40px;
+      background-size: 4px 4px;
     }
 
     .dark .bg-grid {
-      background-size: 40px 40px;
+      background-size: 4px 4px;
     }
   }
 
   /* Large screens - desktop */
   @media (min-width: 1024px) {
     .bg-grid {
-      background-size: 50px 50px;
+      background-size: 5px 5px;
     }
 
     .dark .bg-grid {
-      background-size: 50px 50px;
+      background-size: 5px 5px;
     }
   }
 
   /* Extra large screens */
   @media (min-width: 1280px) {
     .bg-grid {
-      background-size: 60px 60px;
+      background-size: 6px 6px;
     }
 
     .dark .bg-grid {
-      background-size: 60px 60px;
+      background-size: 6px 6px;
     }
   }
 
@@ -434,21 +368,406 @@
     cursor: pointer;
   }
 
+  /* Keyframes for futuristic border animations */
   @keyframes scan {
-    0% {
-      transform: translateX(0);
+    0%,
+    100% {
+      left: 0%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    50% {
+      left: 50%;
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
     }
     100% {
-      transform: translateX(100%);
+      left: 100%;
+      opacity: 0;
     }
   }
 
   @keyframes packet-left {
     0% {
-      transform: translateX(0);
+      left: 0%;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    45% {
+      left: 50%;
+      opacity: 1;
+    }
+    50% {
+      left: 50%;
+      opacity: 0;
     }
     100% {
-      transform: translateX(200%);
+      left: 50%;
+      opacity: 0;
     }
+  }
+
+  @keyframes packet-right {
+    0% {
+      right: 0%;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    45% {
+      right: 50%;
+      opacity: 1;
+    }
+    50% {
+      right: 50%;
+      opacity: 0;
+    }
+    100% {
+      right: 50%;
+      opacity: 0;
+    }
+  }
+}
+
+@layer components {
+  /* === TYPOGRAPHY SYSTEM === */
+
+  /* Display - Large headings (H1) */
+  .text-display {
+    @apply text-3xl sm:text-4xl font-bold tracking-tight;
+    font-family: "Outfit", system-ui, sans-serif;
+  }
+
+  /* Title - Section headings (H2) */
+  .text-title {
+    @apply text-xl sm:text-2xl font-semibold tracking-tight;
+    font-family: "Outfit", system-ui, sans-serif;
+  }
+
+  /* Heading - Card/panel headings (H3) */
+  .text-heading {
+    @apply text-base sm:text-lg font-semibold;
+    font-family: "Outfit", system-ui, sans-serif;
+  }
+
+  /* Body - Regular text */
+  .text-body {
+    @apply text-sm sm:text-base font-normal;
+    font-family: "Outfit", system-ui, sans-serif;
+  }
+
+  /* Caption - Small descriptive text */
+  .text-caption {
+    @apply text-xs font-normal text-muted-foreground;
+    font-family: "Outfit", system-ui, sans-serif;
+  }
+
+  /* Label - Uppercase labels, tags */
+  .text-label {
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-widest text-muted-foreground;
+    font-family: "Geist Mono", monospace;
+  }
+
+  /* Mono - Numbers, values, data */
+  .text-mono {
+    @apply font-mono text-sm;
+    font-family: "Geist Mono", monospace;
+  }
+
+  /* Mono Large - Large numbers */
+  .text-mono-lg {
+    @apply font-mono text-lg sm:text-xl font-bold;
+    font-family: "Geist Mono", monospace;
+  }
+
+  /* Mono XL - Hero numbers */
+  .text-mono-xl {
+    @apply font-mono text-2xl sm:text-3xl font-bold;
+    font-family: "Geist Mono", monospace;
+  }
+
+  /* Brand Logo */
+  .text-brand {
+    @apply text-lg font-bold tracking-tight;
+    font-family: "Outfit", system-ui, sans-serif;
+  }
+
+  /* Nav Items */
+  .text-nav {
+    @apply text-xs font-medium uppercase tracking-wider;
+    font-family: "Geist Mono", monospace;
+  }
+
+  /* === CARD SYSTEM === */
+
+  .card-base {
+    @apply relative border border-border/50 bg-card/80 backdrop-blur-sm shadow;
+  }
+
+  .card-interactive {
+    @apply relative border border-border/50 bg-card/80 backdrop-blur-sm;
+    @apply transition-all duration-200;
+    @apply hover:border-primary/30 hover:bg-card;
+  }
+
+  .card-featured {
+    @apply relative border border-border/50 bg-card/80 backdrop-blur-sm;
+    @apply border-primary/30 bg-card;
+  }
+
+  /* Card header */
+  .card-header {
+    @apply border-b border-border/50 bg-secondary/30 px-3 py-2.5 sm:px-4 sm:py-3;
+  }
+
+  /* Card body */
+  .card-body {
+    @apply p-3 sm:p-4;
+  }
+
+  /* Card footer */
+  .card-footer {
+    @apply border-t border-border/30 p-3 sm:p-4;
+  }
+
+  /* === CORNER ACCENTS === */
+
+  .corner-accents {
+    @apply relative;
+  }
+
+  .corner-accents::before,
+  .corner-accents::after {
+    content: "";
+    @apply absolute w-2 h-2 border-primary transition-opacity;
+  }
+
+  .corner-accents::before {
+    @apply top-0 left-0 border-t-2 border-l-2;
+  }
+
+  .corner-accents::after {
+    @apply bottom-0 right-0 border-b-2 border-r-2;
+  }
+
+  /* === BUTTON VARIANTS === */
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5;
+    @apply px-3 py-1.5 sm:px-4 sm:py-2;
+    @apply bg-primary text-primary-foreground;
+    @apply text-xs sm:text-sm font-medium;
+    @apply transition-all duration-200;
+    @apply hover:bg-primary/90;
+    font-family: "Geist Mono", monospace;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5;
+    @apply px-3 py-1.5 sm:px-4 sm:py-2;
+    @apply border border-border/50 bg-transparent text-foreground;
+    @apply text-xs sm:text-sm font-medium;
+    @apply transition-all duration-200;
+    @apply hover:border-primary/50 hover:text-primary;
+    font-family: "Geist Mono", monospace;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5;
+    @apply px-2 py-1 sm:px-3 sm:py-1.5;
+    @apply bg-transparent text-muted-foreground;
+    @apply text-xs sm:text-sm font-medium;
+    @apply transition-all duration-200;
+    @apply hover:bg-secondary hover:text-foreground;
+    font-family: "Geist Mono", monospace;
+  }
+
+  /* === BADGE VARIANTS === */
+
+  .badge-base {
+    @apply inline-flex items-center gap-1;
+    @apply px-1.5 py-0.5 sm:px-2 sm:py-1;
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-wide;
+    font-family: "Geist Mono", monospace;
+  }
+
+  .badge-primary {
+    @apply inline-flex items-center gap-1;
+    @apply px-1.5 py-0.5 sm:px-2 sm:py-1;
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-wide;
+    font-family: "Geist Mono", monospace;
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .badge-success {
+    @apply inline-flex items-center gap-1;
+    @apply px-1.5 py-0.5 sm:px-2 sm:py-1;
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-wide;
+    font-family: "Geist Mono", monospace;
+    @apply bg-success/20 text-success;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center gap-1;
+    @apply px-1.5 py-0.5 sm:px-2 sm:py-1;
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-wide;
+    font-family: "Geist Mono", monospace;
+    @apply bg-warning/20 text-warning;
+  }
+
+  .badge-destructive {
+    @apply inline-flex items-center gap-1;
+    @apply px-1.5 py-0.5 sm:px-2 sm:py-1;
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-wide;
+    font-family: "Geist Mono", monospace;
+    @apply bg-destructive/20 text-destructive;
+  }
+
+  /* === STAT DISPLAY === */
+
+  .stat-group {
+    @apply flex flex-col gap-0.5;
+  }
+
+  .stat-label {
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-widest text-muted-foreground;
+    font-family: "Geist Mono", monospace;
+  }
+
+  .stat-value {
+    @apply font-mono text-sm text-foreground;
+    font-family: "Geist Mono", monospace;
+  }
+
+  .stat-value-lg {
+    @apply font-mono text-lg sm:text-xl font-bold text-primary;
+    font-family: "Geist Mono", monospace;
+  }
+
+  /* === INPUT SYSTEM === */
+
+  .input-base {
+    @apply w-full bg-transparent outline-none;
+    @apply text-foreground placeholder:text-muted-foreground/50;
+    font-family: "Geist Mono", monospace;
+  }
+
+  .input-lg {
+    @apply w-full bg-transparent outline-none;
+    @apply text-foreground placeholder:text-muted-foreground/50;
+    font-family: "Geist Mono", monospace;
+    @apply text-2xl sm:text-3xl font-bold;
+  }
+
+  .input-wrapper {
+    @apply border-2 border-border/50 bg-card p-3;
+    @apply focus-within:border-primary/50;
+    @apply transition-colors duration-200;
+  }
+
+  /* === RISK METER === */
+
+  .risk-bar {
+    @apply h-1.5 w-3.5 transition-all duration-300;
+  }
+
+  .risk-low {
+    @apply bg-success;
+  }
+
+  .risk-moderate {
+    @apply bg-warning;
+  }
+
+  .risk-high {
+    @apply bg-destructive;
+  }
+
+  .risk-inactive {
+    @apply bg-muted/30;
+  }
+
+  /* === GRID BACKGROUND === */
+
+  .bg-grid {
+    background-image: linear-gradient(hsl(var(--border)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* === LOADING ANIMATION === */
+
+  @keyframes scan {
+    0%,
+    100% {
+      left: 0%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    50% {
+      left: 50%;
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+
+  .animate-scan {
+    animation: scan 2s infinite linear;
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 20px 2px hsl(var(--primary) / 0.15);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* === QUICK AMOUNT BUTTONS === */
+
+  .quick-btn {
+    @apply px-2 py-0.5;
+    @apply text-[10px] font-medium text-muted-foreground;
+    @apply bg-muted/30 border border-border;
+    @apply transition-colors duration-200;
+    @apply hover:text-primary hover:bg-primary/10 hover:border-primary/30;
+    font-family: "Geist Mono", monospace;
+  }
+
+  .quick-btn-active {
+    @apply bg-primary text-primary-foreground shadow-sm;
+  }
+
+  /* === DARK MODE CARD ENHANCEMENT === */
+
+  .dark .card-base {
+    box-shadow: 0 8px 32px hsl(0 0% 0% / 0.12), 0 2px 8px hsl(0 0% 0% / 0.08),
+      inset 0 1px 0 hsl(0 0% 100% / 0.05);
+  }
+
+  .dark .card-interactive:hover {
+    box-shadow: 0 12px 40px hsl(0 0% 0% / 0.18), 0 4px 12px hsl(0 0% 0% / 0.12),
+      inset 0 1px 0 hsl(0 0% 100% / 0.08);
   }
 }

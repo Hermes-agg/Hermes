@@ -89,25 +89,10 @@ export default function Home() {
 
   return (
     <>
-      <YieldTabs activeTab={activeTab} onTabChange={handleTabChange} />
 
-      <main className="relative z-10 mx-auto max-w-5xl px-4 py-6 md:py-10">
-        <div className="mb-8">
-          <YieldPanel />
-        </div>
+      <YieldPanel />
 
-        {/* Tab content section */}
-        <div
-          id="tab-content"
-          ref={contentRef}
-          className="max-w-2xl mx-auto"
-          style={{
-            paddingTop: `${headerHeight}px`, // ensures content is visible below header
-          }}
-        >
-          {renderTabContent()}
-        </div>
-      </main>
+
     </>
   );
 }

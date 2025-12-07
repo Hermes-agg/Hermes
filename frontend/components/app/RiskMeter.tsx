@@ -7,33 +7,69 @@ interface RiskMeterProps {
   onChange: (value: RiskProfile) => void;
 }
 
-const riskLevels: { value: RiskProfile; label: string; color: string }[] = [
-  { value: "low", label: "Low", color: "bg-success" },
-  { value: "moderate", label: "Mod", color: "bg-warning" },
-  { value: "high", label: "High", color: "bg-destructive" },
+const riskLevels: { value: RiskProfile; label: string }[] = [
+  { value: "low", label: "Low" },
+  { value: "moderate", label: "Mod" },
+  { value: "high", label: "High" },
 ];
 
 export function RiskMeter({ value, onChange }: RiskMeterProps) {
+  const getActiveIndex = () => {
+    return riskLevels.findIndex((l) => l.value === value);
+  };
+
   return (
     <div className="flex items-center gap-2">
-      <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
-        Risk
-      </span>
-      <div className="flex items-center gap-0.5 bg-muted/50 p-0.5 rounded-sm">
-        {riskLevels.map((level) => (
-          <button
-            key={level.value}
-            onClick={() => onChange(level.value)}
-            className={cn(
-              "px-2 py-0.5 font-mono text-[10px] transition-all rounded-sm",
-              value === level.value
-                ? cn(level.color, "text-background font-medium")
-                : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            {level.label}
-          </button>
-        ))}
+      <span className="text-label">Risk</span>
+      <div className="flex items-center gap-0.5">
+        {riskLevels.map((level, index) => {
+          const activeIndex = getActiveIndex();
+          const isActive = index <= activeIndex;
+          const isSelected = level.value === value;
+
+          return (
+            <button
+              key={level.value}
+              onClick={() => onChange(level.value)}
+              className={cn(
+                "relative flex flex-col items-center transition-all duration-200",
+                "focus:outline-none focus:ring-1 focus:ring-primary/50"
+              )}
+              aria-label={`Set risk to ${level.label}`}
+            >
+              {/* Bar segment */}
+              <div
+                className={cn(
+                  "risk-bar",
+                  isActive
+                    ? level.value === "low"
+                      ? "risk-low"
+                      : level.value === "moderate"
+                      ? "risk-moderate"
+                      : "risk-high"
+                    : "risk-inactive",
+                  index === 0 && "rounded-l-sm",
+                  index === riskLevels.length - 1 && "rounded-r-sm"
+                )}
+              />
+
+              {/* Label (only visible when selected) */}
+              <span
+                className={cn(
+                  "absolute -bottom-4 text-[8px] font-mono uppercase tracking-wide transition-opacity duration-200",
+                  isSelected ? "opacity-100" : "opacity-0",
+                  level.value === "low"
+                    ? "text-success"
+                    : level.value === "moderate"
+                    ? "text-warning"
+                    : "text-destructive"
+                )}
+              >
+                {level.label}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

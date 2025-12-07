@@ -167,26 +167,46 @@ export function YieldRoutes({
     }
   }
 
+
+  const riskLevels = [
+    {
+      value: "low",
+      label: "Low",
+      color: "bg-success",
+      activeGlow: "shadow-success/30"
+    },
+    {
+      value: "moderate",
+      label: "Moderate",
+      color: "bg-warning",
+      activeGlow: "shadow-warning/30"
+    },
+    {
+      value: "high",
+      label: "High",
+      color: "bg-destructive",
+      activeGlow: "shadow-destructive/30"
+    }
+  ];
+
+
   if (isLoadingBest) {
     if (isLoadingBest) {
       return (
         <div className="relative p-1">
+          {/* Corner accents */}
           <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary" />
           <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary" />
           <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary" />
           <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary" />
 
-          <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 border border-primary/10 bg-card/80 p-4 sm:p-8 backdrop-blur-sm">
-
+          <div className="card-base flex flex-col items-center justify-center gap-3 p-6 sm:p-8">
             <div className="text-center">
-              <p className="text-sm sm:text-base font-bold text-foreground uppercase tracking-wide">
-                Finding best routes...
-              </p>
-              <p className="text-xs sm:text-sm text-muted-foreground font-mono">
+              <p className="text-heading">Finding best routes...</p>
+              <p className="text-caption mt-1">
                 Scanning {token.symbol} yield opportunities
               </p>
             </div>
-
           </div>
         </div>
       )
@@ -228,7 +248,7 @@ export function YieldRoutes({
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <div className="w-1 h-4 bg-primary" />
-          <span className="font-mono text-xs text-muted-foreground tracking-wider uppercase">
+          <span className="text-label">
             {displayedRoutes.length} Routes Available {isLoadingAll && " • Loading more..."}
 
 
@@ -236,6 +256,7 @@ export function YieldRoutes({
               {isLoadingAll && " • Loading more..."} */}
           </span>
         </div>
+
         <span className="font-mono text-[10px] text-muted-foreground">
           {formatNumber(amount)} {token.symbol}
         </span>
@@ -265,38 +286,86 @@ export function YieldRoutes({
           <div
             key={`${route.protocol}-${index}`}
             className={cn(
-              "group relative border border-border/50 bg-card/80 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card",
-              index === 0 && "border-primary/30 bg-card animate-pulse-glow"
+              "card-interactive group",
+              index === 0 && "card-featured animate-pulse-glow"
             )}
           >
+            {/* Best badge */}
             {index === 0 && (
-              <div className="absolute -top-2 left-3 px-2 py-0.5 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-wider">
+              <div className="absolute -top-2 left-3 badge-primary">
                 Best APY
               </div>
             )}
 
+            {/* Hover corners */}
+            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-transparent group-hover:border-primary/60 transition-colors" />
+            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-transparent group-hover:border-primary/60 transition-colors" />
 
-            {/* Corner accents on hover */}
-            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/0 group-hover:border-primary/60 transition-colors" />
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/0 group-hover:border-primary/60 transition-colors" />
-
-            <div className="p-3">
-              {/* Top row: Protocol + APY */}
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-secondary border border-border/50 flex items-center justify-center font-mono text-xs font-bold text-foreground">
-                    {route.protocol.charAt(0)}
+            {/* Main content */}
+            <div className="">
+              {/* Top row */}
+              <div className="flex items-start justify-between gap-4 p-3">
+                {/* Protocol info */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-secondary border border-border/50 flex items-center justify-center">
+                    <span className="text-mono font-bold">{route.protocol.charAt(0)}</span>
                   </div>
                   <div>
-                    <div className="font-mono text-sm font-medium text-foreground capitalize">
-                      {route.protocol}
-                    </div>
-
+                    <div className="text-heading capitalize">{route.protocol}</div>
 
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className={cn("font-mono text-[10px] uppercase", route.riskColor, route.riskBg)}>
-                        {route.risk}
-                      </span>
+                      <div className="relative flex items-center gap-0.5h-3">
+                        {riskLevels.map((level, index) => {
+                          const isActive =
+                            route.risk === "low"
+                              ? level.value === "low"
+                              : route.risk === "moderate"
+                                ? level.value === "low" || level.value === "moderate"
+                                : true
+
+                          const isSelected = route.risk === level.value
+
+                          return (
+                            <div
+                              key={level.value}
+                              className={cn(
+                                "relative flex flex-col items-center transition-all duration-200 group",
+                                "focus:outline-none"
+                              )}
+                            >
+                              {/* Bar segment */}
+                              <div
+                                className={cn(
+                                  "w-3.5 h-1.5 transition-all duration-300",
+                                  isActive ? level.color : "bg-muted/30",
+                                  isActive && isSelected && `shadow-sm ${level.activeGlow}`,
+                                  index === 0 && "rounded-l-[2px]",
+                                  index === riskLevels.length - 1 && "rounded-r-[2px]"
+                                )}
+                              />
+
+                              {/* Label (only visible when selected) */}
+                              <span
+                                className={cn(
+                                  "absolute -bottom-3.5 font-mono text-[8px] uppercase tracking-wide transition-opacity duration-200",
+                                  isSelected ? "opacity-100" : "opacity-0",
+                                  isSelected
+                                    ? level.value === "low"
+                                      ? "text-emerald-500"
+                                      : level.value === "moderate"
+                                        ? "text-amber-500"
+                                        : "text-red-500"
+                                    : "text-muted-foreground"
+                                )}
+                              >
+                                {level.label}
+                              </span>
+                            </div>
+                          )
+                        })}
+                      </div>
+
+                      {/* Audited badge stays the same */}
                       {route.audited && (
                         <span className="flex items-center gap-0.5 text-[10px] text-primary">
                           <Shield className="w-2.5 h-2.5" />
@@ -307,77 +376,74 @@ export function YieldRoutes({
                   </div>
                 </div>
 
-                <div className="text-right">
-                  <div className="flex items-center gap-1 font-mono text-xl font-bold text-primary">
-                    <TrendingUp className="w-4 h-4" />
-                    {formatPercent(route.apy * 100)}
+                <div className="text-right flex items-start gap-3 w-full">
+                  {/* Returns  */}
+                  <div className="flex items-center gap-6 text-left justify-center mx-auto">
+                    <div className="stat-group">
+                      <span className="stat-label">Monthly</span>
+                      <span className="stat-value">{formatUSD(route.estimatedMonthlyReturn)}</span>
+                    </div>
+                    <div className="stat-group">
+                      <span className="stat-label">Yearly</span>
+                      <span className="stat-value text-primary">{formatUSD(route.estimatedYearlyReturn)}</span>
+                    </div>
                   </div>
-                  <div className="font-mono text-[10px] text-muted-foreground uppercase">APY</div>
+
+
+                  <div className="text-right ">
+                    <div className="flex items-center gap-1 font-mono text-xl font-bold text-primary">
+                      <TrendingUp className="w-4 h-4" />
+                      {formatPercent(route.apy * 100)}
+                    </div>
+                    <div className="font-mono text-[10px] text-muted-foreground uppercase">APY</div>
+                  </div>
                 </div>
               </div>
 
-              {/* Stats grid */}
-              <div className="grid grid-cols-4 gap-2 mb-3 py-2 border-t border-b border-border/30">
-                <div>
-                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5">TVL</div>
-                  <div className="font-mono text-xs text-foreground">{formatUSD(route.tvl)}</div>
-                </div>
-                <div>
-                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5 flex items-center gap-1">
-                    <Users className="w-2.5 h-2.5" />
-                    Users
-                  </div>
-                  <div className="font-mono text-xs text-foreground">{route.users}</div>
-                </div>
-                <div>
-                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5 flex items-center gap-1">
-                    <Clock className="w-2.5 h-2.5" />
-                    Lock
-                  </div>
-                  <div className="font-mono text-xs text-foreground">{route.lockPeriod}</div>
-                </div>
-                <div>
-                  <div className="font-mono text-[10px] text-muted-foreground uppercase mb-0.5 flex items-center gap-1">
-                    <Zap className="w-2.5 h-2.5" />
-                    Fees
-                  </div>
-                  <div className="font-mono text-xs text-foreground">{formatFees(route.fees)}</div>
-                </div>
-              </div>
+              {/* Stats */}
+              <div className="flex flex-row items-center justify-between gap-3 border-t border-border/30 p-3 pt-2">
 
-              {/* Projected returns */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div>
-                    <div className="font-mono text-[10px] text-muted-foreground">Daily</div>
-                    <div className="font-mono text-xs text-foreground">{calculateReturns({ amount, yearlyAPY: route.apy }).dailyUSD}</div>
+                {/* Left: Core Stats */}
+                <div className="grid grid-cols-2 sm:flex sm:items-center gap-3 sm:gap-5 text-left">
+                  {/* TVL */}
+                  <div className="flex flex-col">
+                    <span className="font-mono text-[10px] uppercase text-muted-foreground">TVL</span>
+                    <span className="font-mono text-xs text-foreground">
+                      {formatUSD(route.tvl)}
+                    </span>
                   </div>
-                  <div>
-                    <div className="font-mono text-[10px] text-muted-foreground">Weekly</div>
-                    <div className="font-mono text-xs text-foreground">{calculateReturns({ amount, yearlyAPY: route.apy }).weeklyUSD}</div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[10px] text-muted-foreground">Monthly</div>
-                    <div className="font-mono text-xs text-foreground">{formatUSD(route.estimatedMonthlyReturn)}</div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[10px] text-muted-foreground">Yearly</div>
-                    <div className="font-mono text-xs font-medium text-primary">{formatUSD(route.estimatedYearlyReturn)}</div>
+
+                  {/* Fees */}
+                  <div className="flex flex-col">
+                    <span className="font-mono text-[10px] uppercase text-muted-foreground flex items-center gap-1">
+                      <Zap className="w-2.5 h-2.5" />
+                      Fees
+                    </span>
+                    <span className="font-mono text-xs text-foreground">
+                      {formatFees(route.fees)}
+                    </span>
                   </div>
                 </div>
 
-                <button
-                  className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-medium transition-all",
-                    index === 0
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "border border-border/50 text-foreground hover:border-primary/50 hover:text-primary"
-                  )}
-                >
-                  Deposit
-                  <ExternalLink className="w-3 h-3" />
-                </button>
+
+
+                {/* Right: Action Button */}
+                <div className="flex justify-end sm:justify-normal">
+                  <button
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-medium transition-all whitespace-nowrap",
+                      index === 0
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                        : "border border-border/50 text-foreground hover:border-primary/50 hover:text-primary"
+                    )}
+                  >
+                    Deposit
+                    <ExternalLink className="w-3 h-3" />
+                  </button>
+                </div>
+
               </div>
+
             </div>
           </div>
         ))}

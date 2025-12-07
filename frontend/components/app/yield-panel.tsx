@@ -1,10 +1,6 @@
-"use client"
-
-
 import { useState, useMemo, useEffect } from "react";
-import { RiskMeter } from "./RiskMeter";
 import { cn } from "@/lib/utils";
-
+import { RiskMeter } from "./RiskMeter";
 import { TokenSelector, type Token } from "./TokenSelector";
 import { YieldRoutes } from "./yield-routes";
 
@@ -19,7 +15,10 @@ const tokens: Token[] = [
 type RiskProfile = "low" | "moderate" | "high";
 
 function formatNumber(num: number): string {
-  return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return num.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 export function YieldPanel() {
@@ -38,97 +37,116 @@ export function YieldPanel() {
       setShowRoutes(false);
       const timer = setTimeout(() => {
         setShowRoutes(true);
-      }, 800);
+      }, 400);
       return () => clearTimeout(timer);
     } else {
       setShowRoutes(false);
     }
   }, [numericAmount, selectedToken]);
 
-  const quickAmounts = ["25%", "50%", "75%"];
+  const quickAmounts = ["25%", "50%", "75%", "MAX"];
 
   const handleQuickAmount = (pct: string) => {
     const balance = selectedToken.balance;
-    const percentage = Number.parseInt(pct);
+    if (pct === "MAX") {
+      setAmount(balance.toFixed(2));
+      return;
+    }
+    const percentage = Number.parseInt(pct.replace("%", ""));
     setAmount(((balance * percentage) / 100).toFixed(2));
+  };
+
+  const getActiveQuickAmount = (pct: string) => {
+    const balance = selectedToken.balance;
+    if (pct === "MAX") return numericAmount === balance;
+    const percentage = Number.parseInt(pct.replace("%", ""));
+    return numericAmount === +((balance * percentage) / 100).toFixed(2);
   };
 
   return (
     <div className="flex flex-col gap-4 mx-auto max-w-2xl">
-      <div className="relative border border-primary/20 bg-card/80 backdrop-blur-sm overflow-hidden">
+      {/* Main Panel */}
+      <div className="card-base overflow-hidden">
         {/* Header */}
-        <div className="border-b border-border/50 bg-secondary/30 px-4 py-2.5">
+        <div className="card-header">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="font-mono text-xs text-foreground tracking-widest uppercase mb-1">
-                Yield Explorer
-              </h2>
+              <h1 className="text-label mb-1">Yield Explorer</h1>
               <div className="flex items-center gap-2">
                 <div className="w-1 h-4 bg-primary" />
-                <h3 className="font-mono text-[10px] text-muted-foreground tracking-wider">
-                  Discover Crypto Yields
-                </h3>
+                <h2 className="text-caption">Discover Best Yields</h2>
               </div>
             </div>
 
-            <RiskMeter value={riskProfile} onChange={setRiskProfile} />
-          </div>
-        </div>
-
-        {/* Token Input Section */}
-        <div className="border-2 border-border/50 bg-card p-3 m-3">
-          {/* Balance Row with Quick Buttons */}
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <span className="text-muted-foreground font-mono text-xs uppercase tracking-wide shrink-0">
-              Deposit
-            </span>
-
-            <div className="flex items-center gap-1">
-              {/* Quick Amount Buttons */}
-              <div className="flex items-center gap-1">
-                {quickAmounts.map((pct) => (
-                  <button
-                    key={pct}
-                    onClick={() => handleQuickAmount(pct)}
-                    className="px-2 py-0.5 text-[10px] font-mono font-medium text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors border border-transparent hover:border-primary/30"
-                  >
-                    {pct}
-                  </button>
-                ))}
-              </div>
-
+            <div className="flex flex-col items-end gap-2">
               <button
-                onClick={() => setAmount(String(selectedToken.balance))}
-                className="text-muted-foreground transition-colors hover:text-primary text-right font-mono text-xs shrink-0 flex items-center gap-1"
+                onClick={() => setAmount(formatNumber(selectedToken.balance))}
+                className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
               >
-                <span className="text-[10px] text-primary">Max</span>
-                <span className="text-foreground font-medium">
+                <span className="text-caption">Balance:</span>
+                <span className="text-mono text-xs text-foreground">
                   {formatNumber(selectedToken.balance)}
                 </span>
-                <span className="text-muted-foreground overflow-hidden text-ellipsis whitespace-nowrap max-w-10">
+                <span className="text-caption max-w-[60px] truncate">
                   {selectedToken.symbol}
                 </span>
               </button>
+              <RiskMeter value={riskProfile} onChange={setRiskProfile} />
+            </div>
+          </div>
+        </div>
+
+        {/* Input Section */}
+        <div className="card-body">
+          {/* Quick Amount Row */}
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <span className="text-label">Deposit</span>
+            <div className="flex items-center gap-1">
+              {quickAmounts.map((pct, index) => {
+                const isActive = getActiveQuickAmount(pct);
+                return (
+                  <button
+                    key={pct}
+                    onClick={() => handleQuickAmount(pct)}
+                    className={cn(
+                      "quick-btn",
+                      isActive && "quick-btn-active",
+                      index === 0 && "",
+                      index === quickAmounts.length - 1 && ""
+                    )}
+                  >
+                    {pct}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Input + Token Selector */}
-          <div className="flex items-center gap-2 min-w-0">
+          <div className="input-wrapper flex items-center gap-2">
             <input
               type="text"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.00"
-              className="min-w-0 flex-1 bg-transparent text-2xl sm:text-3xl font-bold text-foreground outline-none placeholder:text-muted-foreground/50 font-mono"
+              className="input-lg flex-1 min-w-0"
             />
-            <TokenSelector tokens={tokens} selectedToken={selectedToken} onSelect={setSelectedToken} />
+            <TokenSelector
+              tokens={tokens}
+              selectedToken={selectedToken}
+              onSelect={setSelectedToken}
+            />
           </div>
         </div>
       </div>
 
       {/* Yield Routes */}
       {showRoutes && numericAmount > 0 && (
-        <YieldRoutes token={selectedToken} amount={numericAmount} riskProfile={riskProfile} />
+        <YieldRoutes
+          token={selectedToken}
+          amount={numericAmount}
+          riskProfile={riskProfile}
+        />
       )}
     </div>
   );
