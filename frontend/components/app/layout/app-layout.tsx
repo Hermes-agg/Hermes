@@ -44,7 +44,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <div className="relative z-10">
                     <main
                         className={cn(
-                            "mx-auto max-w-5xl px-4 py-6 md:py-10 transition-opacity duration-300",
+                            "mx-auto max-w-7xl px-4 py-6 md:py-10 transition-opacity duration-300",
                             isLoading ? "opacity-50" : "opacity-100"
                         )}
                     >{/* <BackgroundDecor /> */}

@@ -53,7 +53,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
     <>
       {/* MAIN HEADER */}
       <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b border-border/50">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-4 md:gap-8">
             {/* Mobile Menu Toggle */}
