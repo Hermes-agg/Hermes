@@ -508,7 +508,7 @@
   /* === CARD SYSTEM === */
 
   .card-base {
-    @apply relative border border-border/50 bg-card/80 backdrop-blur-sm rounded-sm shadow;
+    @apply relative border border-border/50 bg-card backdrop-blur-sm rounded-sm shadow;
   }
 
   .card-interactive {
