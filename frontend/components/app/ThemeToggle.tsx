@@ -1,6 +1,6 @@
 "use client"
 
-import {  useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { MoonStar, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -38,12 +38,13 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         className
       )}
     >
-      <div className="relative flex items-center justify-center w-14 h-7 bg-primary/10 border border-border/50 overflow-hidden transition-colors duration-300 rounded-sm">
+      <div className="relative flex items-center justify-center w-14 h-7   bg-primary/10 text-primary border border-primary/30
+          hover:bg-primary/20 hover:border-primary/50 transition-all overflow-hidden transition-colors duration-300 rounded-sm">
         {/* Sharp corner accents */}
-        {/* <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary/60" />
+        <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary/60" />
         <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary/60" />
         <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary/60" />
-        <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary/60" /> */}
+        <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary/60" />
 
         {/* Moon */}
         <MoonStar

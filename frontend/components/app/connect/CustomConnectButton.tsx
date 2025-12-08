@@ -34,8 +34,8 @@ export function CustomConnectButton({ className, small }: Props) {
       <Button size={small ? 'sm' : 'default'} onClick={handleClick}
 
         className={cn(
-          "relative px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider rounded-sm",
-          "bg-primary/10 text-primary border border-primary/30",
+          "relative px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider rounded-lg",
+          "bg-primary text-primary-foreground border border-primary/30",
           "hover:bg-primary/20 hover:border-primary/50 transition-all",
           "glow-gold",
           className

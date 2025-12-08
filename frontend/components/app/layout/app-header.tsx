@@ -83,7 +83,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
 
                 width={96}
                 height={40}
-                className="object-contain h-full w-auto"
+                className="object-contain h-8 md:h-10 w-auto"
                 priority
 
               />
