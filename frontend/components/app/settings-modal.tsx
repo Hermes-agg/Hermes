@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { ThemeToggle } from "./ThemeToggle"
 
 interface SettingsModalProps {
   open: boolean
@@ -48,18 +49,15 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                 Switch between light and dark mode
               </div>
             </div>
-            <button
+
+            <ThemeToggle />
+            {/* <button
               onClick={toggleTheme}
               className={cn(
                 "relative flex items-center justify-center w-16 h-8 border border-border/50 bg-background/50 rounded-lg",
                 "transition-all hover:border-primary/50"
               )}
             >
-              {/* Sharp corner accents */}
-              {/* <div className="absolute top-0 left-0 w-1 h-1 border-t border-l border-primary/50" />
-              <div className="absolute top-0 right-0 w-1 h-1 border-t border-r border-primary/50" />
-              <div className="absolute bottom-0 left-0 w-1 h-1 border-b border-l border-primary/50" />
-              <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r border-primary/50" /> */}
 
               <div className="flex items-center gap-2">
                 <Moon
@@ -77,7 +75,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   )}
                 />
               </div>
-            </button>
+            </button> */}
           </div>
 
           {/* Placeholder for future settings */}
