@@ -70,7 +70,7 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
           "relative flex items-center gap-2 px-2.5 py-1.5",
           "bg-transparent hover:bg-secondary/50 transition-all",
           "font-mono text-sm font-medium",
-          "text-primary border border-border/30 hover:bg-primary/20 hover:border-primary/50 transition-all",
+          "text-primary border border-border/30 rounded-sm hover:bg-primary/20 hover:border-primary/50 transition-all",
           isOpen && "bg-secondary/50 border-primary/30"
         )}
       >
@@ -95,12 +95,12 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
               className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            <div className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 border border-border/50 bg-card p-5 shadow-2xl">
+            <div className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 border border-border/50 bg-card p-5 shadow-2xl rounded-sm">
               {/* Sharp corner accents */}
-              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
+              {/* <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
               <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary" />
               <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary" />
-              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" /> */}
 
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
@@ -138,7 +138,7 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
                       setSearch("")
                     }}
                     className={cn(
-                      "relative w-full flex items-center gap-3 p-3 transition-all",
+                      "relative w-full flex items-center gap-3 p-3 transition-all rounded-sm",
                       token.symbol === selectedToken.symbol
                         ? "bg-primary/10 border border-primary/30"
                         : "hover:bg-secondary border border-transparent"
@@ -146,10 +146,10 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
                   >
                     {token.symbol === selectedToken.symbol && (
                       <>
-                        <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary" />
+                        {/* <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary" />
                         <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary" />
                         <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary" />
-                        <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary" />
+                        <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary" /> */}
                       </>
                     )}
                     <TokenIcon token={token} size="lg" />

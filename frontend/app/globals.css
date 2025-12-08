@@ -694,13 +694,7 @@
     @apply bg-muted/30;
   }
 
-  /* === GRID BACKGROUND === */
 
-  .bg-grid {
-    background-image: linear-gradient(hsl(var(--border)) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
 
   /* === LOADING ANIMATION === */
 
