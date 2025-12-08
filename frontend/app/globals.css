@@ -11,14 +11,16 @@
 /* LIGHT THEME – your existing beautiful light mode (unchanged) */
 /* ============================================= */
 :root {
-  --background: oklch(0.98 0.002 240);
-  --foreground: oklch(0.12 0.01 240);
+--background: oklch(0.99 0.002 85);
+  --foreground: oklch(0.15 0.01 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.12 0.01 240);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.12 0.01 240);
-  --primary: oklch(0.25 0.08 240);
-  --primary-foreground: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.01 260);
+  --popover: oklch(43.046% 0.00394 16.627);
+  --popover-foreground: oklch(0.15 0.01 260);
+  --primary: oklch(0.55 0.16 195); 
+  --primary-foreground: oklch(0.99 0.002 85);
+  --secondary: oklch(0.96 0.005 260);
+  --secondary-foreground: oklch(0.25 0.015 260);
   --secondary: oklch(0.95 0.005 240);
   --secondary-foreground: oklch(0.12 0.01 240);
   --muted: oklch(0.92 0.004 240);

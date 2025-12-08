@@ -35,7 +35,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <AppHeader isLoading={isLoading} />
 
                 {/* Background Grid */}
-                <div className="pointer-events-none fixed inset-0 bg-grid opacity-[0.015]" />
+                {/* <div className="pointer-events-none fixed inset-0 bg-grid opacity-[0.015]" /> */}
 
                 {/* Gradient Overlay */}
                 {/* <div className="pointer-events-none fixed inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" /> */}
@@ -44,7 +44,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <div className="relative z-10">
                     <main
                         className={cn(
-                            "mx-auto max-w-7xl px-4 py-6 md:py-10 transition-opacity duration-300",
+                            "mx-2 md:mx-auto max-w-7xl py-6 md:py-10 transition-opacity duration-300",
                             isLoading ? "opacity-50" : "opacity-100"
                         )}
                     >{/* <BackgroundDecor /> */}

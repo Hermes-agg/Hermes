@@ -47,10 +47,10 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       {/* MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b border-border/30">
+      <header className="sticky top-0 z-50 bg-background border-b border-border/30">
         <div className="mx-auto flex h-12 md:h-14 max-w-6xl items-center justify-between px-4">
           {/* LEFT SIDE */}
-          <div className="flex items-center gap-3 md:gap-8">
+          <div className="flex items-center gap-1 md:gap-8">
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -61,9 +61,9 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 <X className="h-5 w-5" strokeWidth={2.5} />
               ) : (
                 <div className="flex flex-col gap-1">
-                  <span className="w-5 h-[2px] bg-foreground" />
-                  <span className="w-4 h-[2px] bg-foreground" />
-                  <span className="w-3 h-[2px] bg-foreground" />
+                  <span className="w-4 h-[1.5px] bg-foreground" />
+                  <span className="w-2 h-[1.5px] bg-foreground" />
+                  <span className="w-3 h-[1.5px] bg-foreground" />
                 </div>
               )}
             </button>
@@ -99,16 +99,8 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                         : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                     )}
                   >
-                    {/* Hover corners */}
-                    {/* <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity" /> */}
+
                     {item.label}
-                    {active && (
-                      <>
-                        {/* <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary" />
-                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-primary" /> */}
-                      </>
-                    )}
                   </Link>
                 )
               })}
@@ -126,8 +118,6 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
               )}
               aria-label="Settings"
             >
-              {/* <div className="absolute top-0 left-0 w-1 h-1 border-t border-l border-primary/50 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r border-primary/50 opacity-0 group-hover:opacity-100 transition-opacity" /> */}
               <Settings className="h-4 w-4" />
             </button>
             <CustomConnectButton />
@@ -142,7 +132,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 style={{ animation: "scan 2s infinite linear" }} />
             </div>
           ) : (
-            <div className="h-[2px] bg-border/20" />
+            <></>
           )}
         </div>
       </header>
@@ -168,17 +158,11 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
       >
         <div className="flex h-14 items-center justify-between border-b border-border/50 px-4">
           <span className="font-mono text-sm font-bold uppercase tracking-wider">Menu</span>
-          {/* <button
-            onClick={() => setSettingsOpen(true)}
-            className="flex items-center justify-center w-8 h-8 border-border/50 bg-background/50 hover:border-primary/50 hover:text-primary transition-all rounded-lg"
-            aria-label="Settings"
-          >
-            <Settings className="h-4 w-4" />
-          </button> */}
+
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex flex-col pb-4 gap-1">
+        <nav className="flex flex-col p-4 gap-1">
           {navItems.map((item) => {
             const active = pathname === item.href
             return (
@@ -187,7 +171,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                  "relative px-4 py-3 font-mono text-sm font-medium uppercase tracking-wider transition-all",
+                  "relative px-4 py-3 font-mono text-sm font-medium uppercase tracking-wider transition-all rounded-sm",
                   active
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -195,10 +179,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
               >
                 {active && (
                   <>
-                    {/* <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary" />
-                    <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary" />
-                    <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary" />
-                    <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary" /> */}
+
                   </>
                 )}
                 {item.label}
