@@ -299,57 +299,57 @@
   .bg-grid {
     background-image: linear-gradient(var(--primary) 1px, transparent 1px),
       linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-    background-size: 4px 4px;
+    background-size: 2px 2px;
   }
 
   /* Grid background - DARK THEME */
   .dark .bg-grid {
     background-image: linear-gradient(var(--primary) 1px, transparent 1px),
       linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-    background-size: 4px 4px;
+    background-size: 2px 2px;
   }
 
   /* Small screens - mobile */
   @media (min-width: 640px) {
     .bg-grid {
-      background-size: 4px 4px;
+      background-size: 2px 2px;
     }
 
     .dark .bg-grid {
-      background-size: 4px 4px;
+      background-size: 2px 2px;
     }
   }
 
   /* Medium screens - tablet */
   @media (min-width: 768px) {
     .bg-grid {
-      background-size: 4px 4px;
+      background-size: 2px 2px;
     }
 
     .dark .bg-grid {
-      background-size: 4px 4px;
+      background-size: 2px 2px;
     }
   }
 
   /* Large screens - desktop */
   @media (min-width: 1024px) {
     .bg-grid {
-      background-size: 5px 5px;
+      background-size: 3px 3px;
     }
 
     .dark .bg-grid {
-      background-size: 5px 5px;
+      background-size: 3px 3px;
     }
   }
 
   /* Extra large screens */
   @media (min-width: 1280px) {
     .bg-grid {
-      background-size: 6px 6px;
+      background-size: 4px 4px;
     }
 
     .dark .bg-grid {
-      background-size: 6px 6px;
+      background-size: 4px 4px;
     }
   }
 
