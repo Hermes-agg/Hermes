@@ -62,7 +62,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     const pathname = usePathname()
 
-    const isYieldPage = pathname === "/2" || pathname.startsWith("/22")
+    const isYieldPage = pathname === "/" || pathname.startsWith("/yields")
 
     const LayoutType = isYieldPage ? YieldLayout : AppLayoutContent
 

@@ -15,6 +15,9 @@ import { NewProgramsContent } from "@/components/app/tab-content/NewProgramsCont
 import { StablecoinsContent } from "@/components/app/tab-content/StablecoinsContent"
 import { SolanaEcosystemContent } from "@/components/app/tab-content/SolanaEcosystemContent"
 
+import { LoadingProvider, useLoading } from "./loading-context"
+import { cn } from "@/lib/utils"
+
 export default function YieldLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
@@ -22,6 +25,23 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
   const [headerHeight, setHeaderHeight] = useState(56)
 
   const contentRef = useRef<HTMLDivElement | null>(null)
+
+  const { isLoading, setIsLoading } = useLoading()
+
+
+  // Show loading on initial mount
+  useEffect(() => {
+    setIsLoading(true)
+    const timer = setTimeout(() => setIsLoading(false), 800)
+    return () => clearTimeout(timer)
+  }, [setIsLoading])
+
+  // Show loading when route changes
+  useEffect(() => {
+    setIsLoading(true)
+    const timer = setTimeout(() => setIsLoading(false), 600)
+    return () => clearTimeout(timer)
+  }, [pathname, setIsLoading])
 
   // Store scroll positions per tab
   const scrollPositions = useRef<Record<TabId, number>>({
@@ -99,23 +119,34 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
       <AppHeader isLoading={false} />
 
       {/* Tabs */}
-      <YieldTabs activeTab={activeTab} onTabChange={handleTabChange} />
+      {/* <YieldTabs activeTab={activeTab} onTabChange={handleTabChange} /> */}
 
-      {/* Page Content */}
-      <main className="relative z-10 mx-auto max-w-5xl px-4 py-6 md:py-10">
-        {/* Optional children content */}
-        {children}
 
-        {/* Tab Content */}
-        <div
-          id="tab-content"
-          ref={contentRef}
-          className="max-w-2xl mx-auto"
-          style={{ paddingTop: `${headerHeight}px` }}
-        >
-          {renderTabContent()}
-        </div>
-      </main>
+      {/* Background Grid */}
+      <div className="pointer-events-none fixed inset-0 bg-grid opacity-[0.015]" />
+
+      {/* Main Content */}
+      <div className="relative z-10">
+        <main
+          className={cn(
+            "mx-2 md:mx-auto max-w-7xl transition-opacity duration-300",
+            isLoading ? "opacity-50" : "opacity-100"
+          )}
+        >{/* <BackgroundDecor /> */}
+          {children}
+
+
+          {/* Tab Content */}
+          {/* <div
+            id="tab-content"
+            ref={contentRef}
+            className="max-w-2xl mx-auto"
+            style={{ paddingTop: `${headerHeight}px` }}
+          >
+            {renderTabContent()}
+          </div> */}
+        </main>
+      </div>
     </div>
   )
 }

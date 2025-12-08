@@ -11,13 +11,13 @@
 /* LIGHT THEME – your existing beautiful light mode (unchanged) */
 /* ============================================= */
 :root {
---background: oklch(0.99 0.002 85);
+  --background: oklch(0.99 0.002 85);
   --foreground: oklch(0.15 0.01 260);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.15 0.01 260);
   --popover: oklch(43.046% 0.00394 16.627);
   --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.55 0.16 195); 
+  --primary: oklch(0.55 0.16 195);
   --primary-foreground: oklch(0.99 0.002 85);
   --secondary: oklch(0.96 0.005 260);
   --secondary-foreground: oklch(0.25 0.015 260);
@@ -696,8 +696,6 @@
     @apply bg-muted/30;
   }
 
-
-
   /* === LOADING ANIMATION === */
 
   @keyframes scan {
@@ -766,4 +764,14 @@
     box-shadow: 0 12px 40px hsl(0 0% 0% / 0.18), 0 4px 12px hsl(0 0% 0% / 0.12),
       inset 0 1px 0 hsl(0 0% 100% / 0.08);
   }
+}
+
+/* Hide scrollbar but keep scrolling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
 }
