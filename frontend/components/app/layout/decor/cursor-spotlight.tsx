@@ -31,7 +31,7 @@ export function CursorSpotlight() {
           maskImage: "radial-gradient(circle closest-side, black 0%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(circle closest-side, black 0%, transparent 100%)",
 
-           opacity: 0.09,
+           opacity: 0.06,
         }}
       />
 
@@ -41,11 +41,11 @@ export function CursorSpotlight() {
         className="pointer-events-none fixed left-0 top-0 z-5 flex items-center justify-center rounded-full text-foreground text-xs font-medium px-3 py-1"
         style={{
           transform: "translate(-50%, -50%)", // Center the element on cursor
-          opacity: 0.9,
+          opacity: 0.6,
         }}
         aria-hidden="true"
       >
-        +
+        {/* + */}
       </div>
     </>
   )

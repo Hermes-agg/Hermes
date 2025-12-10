@@ -128,7 +128,7 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
         <div className="relative z-10">
           <main
             className={cn(
-              "py-6 mx-2 md:mx-auto max-w-7xl transition-opacity duration-300",
+              "py-6 mx-3 md:mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-center h-[calc(100vh-64px)]",
               isLoading ? "opacity-50" : "opacity-100"
             )}
           >{/* <BackgroundDecor /> */}

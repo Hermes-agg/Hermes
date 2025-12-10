@@ -57,7 +57,7 @@ export function MarketStats() {
       onMouseLeave={onMouseLeave}
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
-      className="w-full overflow-x-auto scrollbar-hide py-4 px-4 bg-background backdrop-blur-sm cursor-grab active:cursor-grabbing select-none"
+      className="w-full overflow-x-auto scrollbar-hide px-3 backdrop-blur-sm cursor-grab active:cursor-grabbing select-none max-w-3xl"
     >
       <div className="flex gap-4 whitespace-nowrap min-w-max">
         {stats.map((stat, i) => {

@@ -303,7 +303,7 @@
     background-image: linear-gradient(var(--primary) 1px, transparent 1px),
       linear-gradient(90deg, var(--primary) 1px, transparent 1px);
     background-size: 8px 8px;
-    opacity: 0.03;
+    opacity: 0.02;
   }
 
   
@@ -478,7 +478,7 @@
   /* === CARD SYSTEM === */
 
   .card-base {
-    @apply relative border border-border/50 bg-card rounded-sm;
+    @apply relative border border-border bg-card rounded-sm;
   }
 
   .card-interactive {

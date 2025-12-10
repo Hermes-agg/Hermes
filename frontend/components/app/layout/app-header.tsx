@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react"
 import { X, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { CustomConnectButton } from "../connect/CustomConnectButton"
+
 import { SettingsModal } from "../settings-modal"
 
 import useAppLogo from "@/asssets/image";
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { CustomConnectButton } from "../connect/CustomConnectButton"
 
 interface AppHeaderProps {
   isLoading?: boolean
@@ -48,22 +49,30 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
     <>
       {/* MAIN HEADER */}
       <header className="sticky top-0 z-50 bg-background border-b border-border/50">
-        <div className="mx-auto flex h-12 md:h-14 max-w-6xl items-center justify-between px-4">
+        <div className="h-3 bg-primary">
+          <div
+            className={cn(
+              "fixed inset-0 z-80 bg-black/50 backdrop-blur-xs transition-all duration-300 opacity-50 pointer-events-auto h-3"
+            )} />
+        </div>
+
+
+        <div className="mx-auto flex h-12 md:h-14 max-w-6xl items-center justify-between px-2.5 pb-1">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-1 md:gap-8">
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex items-center justify-center text-foreground transition-all md:hidden"
+              className="flex items-center justify-center text-foreground transition-all md:hidden h-7 w-7"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
                 <X className="h-5 w-5" strokeWidth={2.5} />
               ) : (
                 <div className="flex flex-col gap-1">
-                  <span className="w-4 h-[1.5px] bg-foreground" />
-                  <span className="w-2 h-[1.5px] bg-foreground" />
-                  <span className="w-3 h-[1.5px] bg-foreground" />
+                  <span className="w-4 h-[2px] bg-foreground" />
+                  <span className="w-2 h-[2px] bg-foreground" />
+                  <span className="w-3 h-[2px] bg-foreground" />
                 </div>
               )}
             </button>
@@ -171,13 +180,13 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                "nav-link text-left",
-                // currentTab === item.id ? "nav-link-active" : "nav-link-inactive"
+                  "nav-link text-left",
+                  // currentTab === item.id ? "nav-link-active" : "nav-link-inactive"
 
                   active
                     ? "nav-link-active"
                     : "nav-link-inactive"
-              )}
+                )}
               >
                 {active && (
                   <>

@@ -43,7 +43,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <div className="relative z-10">
                     <main
                         className={cn(
-                            "mx-2 md:mx-auto max-w-7xl py-6 md:py-10 transition-opacity duration-300",
+                            "mx-3 md:mx-auto max-w-7xl py-6 md:py-10 transition-opacity duration-300",
                             isLoading ? "opacity-50" : "opacity-100",
                         )}
                     >
