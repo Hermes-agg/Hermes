@@ -17,6 +17,8 @@ import { SolanaEcosystemContent } from "@/components/app/tab-content/SolanaEcosy
 
 import { LoadingProvider, useLoading } from "./loading-context"
 import { cn } from "@/lib/utils"
+import { MarketStats } from "../MarketStats"
+
 
 export default function YieldLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -115,29 +117,28 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <AppHeader isLoading={false} />
+    <>
+      <div className="min-h-screen bg-background">
+        <AppHeader isLoading={false} />
 
-      {/* Tabs */}
-      {/* <YieldTabs activeTab={activeTab} onTabChange={handleTabChange} /> */}
+        {/* Tabs */}
+        {/* <YieldTabs activeTab={activeTab} onTabChange={handleTabChange} /> */}
+
+        {/* Main Content */}
+        <div className="relative z-10">
+          <main
+            className={cn(
+              "py-6 mx-2 md:mx-auto max-w-7xl transition-opacity duration-300",
+              isLoading ? "opacity-50" : "opacity-100"
+            )}
+          >{/* <BackgroundDecor /> */}
+
+            {/* <MarketStats /> */}
+            {children}
 
 
-      {/* Background Grid */}
-      <div className="pointer-events-none fixed inset-0 bg-grid opacity-[0.015]" />
-
-      {/* Main Content */}
-      <div className="relative z-10">
-        <main
-          className={cn(
-            "mx-2 md:mx-auto max-w-7xl transition-opacity duration-300",
-            isLoading ? "opacity-50" : "opacity-100"
-          )}
-        >{/* <BackgroundDecor /> */}
-          {children}
-
-
-          {/* Tab Content */}
-          {/* <div
+            {/* Tab Content */}
+            {/* <div
             id="tab-content"
             ref={contentRef}
             className="max-w-2xl mx-auto"
@@ -145,8 +146,9 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
           >
             {renderTabContent()}
           </div> */}
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

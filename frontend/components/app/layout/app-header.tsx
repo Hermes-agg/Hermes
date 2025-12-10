@@ -47,7 +47,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       {/* MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-background border-b border-border/30">
+      <header className="sticky top-0 z-50 bg-background border-b border-border/50">
         <div className="mx-auto flex h-12 md:h-14 max-w-6xl items-center justify-between px-4">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-1 md:gap-8">
@@ -141,7 +141,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
       <div
         onClick={() => setMobileMenuOpen(false)}
         className={cn(
-          "fixed inset-0 z-80 bg-background/80 backdrop-blur-sm transition-all duration-300 md:hidden",
+          "fixed inset-0 z-80 bg-black/50 backdrop-blur-sm transition-all duration-300 md:hidden",
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -171,11 +171,13 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                  "relative px-4 py-3 font-mono text-sm font-medium uppercase tracking-wider transition-all rounded-sm",
+                "nav-link text-left",
+                // currentTab === item.id ? "nav-link-active" : "nav-link-inactive"
+
                   active
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                )}
+                    ? "nav-link-active"
+                    : "nav-link-inactive"
+              )}
               >
                 {active && (
                   <>

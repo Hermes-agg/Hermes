@@ -5,6 +5,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Wallet } from 'lucide-react'
 
 interface Props {
   className?: string
@@ -34,10 +35,10 @@ export function CustomConnectButton({ className, small }: Props) {
       <Button size={small ? 'sm' : 'default'} onClick={handleClick}
 
         className={cn(
-          "relative px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider rounded-lg",
-          "bg-primary text-primary-foreground border border-primary/30",
-          "hover:bg-primary/20 hover:border-primary/50 transition-all",
-          "glow-gold",
+          "flex items-center gap-2 px-3 py-2 text-xs font-mono uppercase tracking-wider transition-all rounded-sm border",
+          connected
+            ? "bg-primary/10 text-primary border-primary/30"
+            : "bg-secondary text-foreground border-border/50 hover:border-primary/50",
           className
         )}
       >
@@ -47,9 +48,10 @@ export function CustomConnectButton({ className, small }: Props) {
         <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary/60" />
         <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary/60" /> */}
 
-
+        <Wallet className="h-3.5 w-3.5" />
         {connected ? short : 'Connect'}
       </Button>
+
 
       {openMenu && connected && (
         <>

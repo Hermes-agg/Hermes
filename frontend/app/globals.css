@@ -18,6 +18,7 @@
   --popover: oklch(43.046% 0.00394 16.627);
   --popover-foreground: oklch(0.15 0.01 260);
   --primary: oklch(0.55 0.16 195);
+  --primary-rgb: 52, 52, 52;
   --primary-foreground: oklch(0.99 0.002 85);
   --secondary: oklch(0.96 0.005 260);
   --secondary-foreground: oklch(0.25 0.015 260);
@@ -72,6 +73,8 @@
   --primary: oklch(
     0.68 0.18 195
   ); /* ≈ rgb(0, 197, 199) but perceptually uniform */
+
+  --primary-rgb: 251, 251, 251;
   --primary-foreground: oklch(0.11 0.015 260);
 
   /* Slightly lighter secondary for subtle buttons/cards */
@@ -299,59 +302,12 @@
   .bg-grid {
     background-image: linear-gradient(var(--primary) 1px, transparent 1px),
       linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-    background-size: 2px 2px;
+    background-size: 8px 8px;
+    opacity: 0.03;
   }
 
-  /* Grid background - DARK THEME */
-  .dark .bg-grid {
-    background-image: linear-gradient(var(--primary) 1px, transparent 1px),
-      linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-    background-size: 2px 2px;
-  }
-
-  /* Small screens - mobile */
-  @media (min-width: 640px) {
-    .bg-grid {
-      background-size: 2px 2px;
-    }
-
-    .dark .bg-grid {
-      background-size: 2px 2px;
-    }
-  }
-
-  /* Medium screens - tablet */
-  @media (min-width: 768px) {
-    .bg-grid {
-      background-size: 2px 2px;
-    }
-
-    .dark .bg-grid {
-      background-size: 2px 2px;
-    }
-  }
-
-  /* Large screens - desktop */
-  @media (min-width: 1024px) {
-    .bg-grid {
-      background-size: 3px 3px;
-    }
-
-    .dark .bg-grid {
-      background-size: 3px 3px;
-    }
-  }
-
-  /* Extra large screens */
-  @media (min-width: 1280px) {
-    .bg-grid {
-      background-size: 4px 4px;
-    }
-
-    .dark .bg-grid {
-      background-size: 4px 4px;
-    }
-  }
+  
+  
 
   /* Soft card glow for modern milky aesthetic */
   .card-glow {
@@ -473,7 +429,7 @@
 
   /* Label - Uppercase labels, tags */
   .text-label {
-    @apply text-[10px] sm:text-xs font-medium uppercase tracking-widest text-muted-foreground;
+    @apply text-[10px] sm:text-xs font-medium uppercase tracking-widest text-foreground;
     font-family: "Geist Mono", monospace;
   }
 
@@ -507,10 +463,22 @@
     font-family: "Geist Mono", monospace;
   }
 
+  .nav-link {
+    @apply relative px-3 py-2 font-mono text-xs font-medium uppercase tracking-wider transition-all rounded-sm;
+  }
+
+  .nav-link-active {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .nav-link-inactive {
+    @apply text-muted-foreground hover:bg-secondary hover:text-foreground;
+  }
+
   /* === CARD SYSTEM === */
 
   .card-base {
-    @apply relative border border-border/50 bg-card backdrop-blur-sm rounded-sm shadow;
+    @apply relative border border-border/50 bg-card rounded-sm;
   }
 
   .card-interactive {
@@ -754,11 +722,6 @@
   }
 
   /* === DARK MODE CARD ENHANCEMENT === */
-
-  .dark .card-base {
-    box-shadow: 0 8px 32px hsl(0 0% 0% / 0.12), 0 2px 8px hsl(0 0% 0% / 0.08),
-      inset 0 1px 0 hsl(0 0% 100% / 0.05);
-  }
 
   .dark .card-interactive:hover {
     box-shadow: 0 12px 40px hsl(0 0% 0% / 0.18), 0 4px 12px hsl(0 0% 0% / 0.12),

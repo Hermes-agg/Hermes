@@ -6,6 +6,13 @@ import { cn } from "@/lib/utils"
 import { createPortal } from "react-dom"
 import { useEffect, useState } from "react"
 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+
 export interface Token {
   symbol: string
   name: string
@@ -17,6 +24,10 @@ interface TokenSelectorProps {
   tokens: Token[]
   selectedToken: Token
   onSelect: (token: Token) => void
+
+
+  // open: boolean
+  // onOpenChange: (open: boolean) => void
 }
 
 function TokenIcon({ token, size = "md" }: { token: Token; size?: "sm" | "md" | "lg" }) {
@@ -61,6 +72,8 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
       token.name.toLowerCase().includes(search.toLowerCase())
   )
 
+
+
   return (
     <div className="relative">
       {/* Trigger button - blends with card */}
@@ -87,89 +100,71 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
         <ChevronDown className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform", isOpen && "rotate-180")} />
       </button>
 
-      {/* Modal via portal */}
-      {isOpen && mounted &&
-        createPortal(
-          <>
-            <div
-              className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
-              onClick={() => setIsOpen(false)}
-            />
-            <div className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 border border-border/50 bg-card p-5 shadow-2xl rounded-sm">
-              {/* Sharp corner accents */}
-              {/* <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
-              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary" />
-              <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary" />
-              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" /> */}
 
-              {/* Header */}
-              <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-foreground">
-                  Select Token
-                </h3>
+      <Dialog open={isOpen} onOpenChange={setIsOpen} >
+        <DialogContent className="border-border/50 bg-card p-0 gap-0 max-w-sm">
+
+          <DialogHeader className="border-b border-border/50 p-4">
+            <DialogTitle className="font-mono text-sm uppercase tracking-wider text-foreground">
+              Select Token
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="p-4 space-y-4">
+            {/* Search */}
+            <div className="relative mb-4">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search tokens..."
+                className="w-full border border-border/50 bg-secondary py-2.5 pl-10 pr-4 font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/50"
+              />
+            </div>
+
+            {/* Token list */}
+            <div className="max-h-64 space-y-1 overflow-y-auto">
+              {filteredTokens.map((token) => (
                 <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  key={token.symbol}
+                  onClick={() => {
+                    onSelect(token)
+                    setIsOpen(false)
+                    setSearch("")
+                  }}
+                  className={cn(
+                    "relative w-full flex items-center gap-3 p-3 transition-all rounded-sm",
+                    token.symbol === selectedToken.symbol
+                      ? "bg-primary/10 border border-primary/30"
+                      : "hover:bg-secondary border border-transparent"
+                  )}
                 >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Search */}
-              <div className="relative mb-4">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="text"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search tokens..."
-                  className="w-full border border-border/50 bg-secondary py-2.5 pl-10 pr-4 font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/50"
-                />
-              </div>
-
-              {/* Token list */}
-              <div className="max-h-64 space-y-1 overflow-y-auto">
-                {filteredTokens.map((token) => (
-                  <button
-                    key={token.symbol}
-                    onClick={() => {
-                      onSelect(token)
-                      setIsOpen(false)
-                      setSearch("")
-                    }}
-                    className={cn(
-                      "relative w-full flex items-center gap-3 p-3 transition-all rounded-sm",
-                      token.symbol === selectedToken.symbol
-                        ? "bg-primary/10 border border-primary/30"
-                        : "hover:bg-secondary border border-transparent"
-                    )}
-                  >
-                    {token.symbol === selectedToken.symbol && (
-                      <>
-                        {/* <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary" />
+                  {token.symbol === selectedToken.symbol && (
+                    <>
+                      {/* <div className="absolute top-0 left-0 w-1 h-1 border-t-2 border-l-2 border-primary" />
                         <div className="absolute top-0 right-0 w-1 h-1 border-t-2 border-r-2 border-primary" />
                         <div className="absolute bottom-0 left-0 w-1 h-1 border-b-2 border-l-2 border-primary" />
                         <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary" /> */}
-                      </>
-                    )}
-                    <TokenIcon token={token} size="lg" />
-                    <div className="flex-1 text-left">
-                      <div className="font-mono text-sm font-medium text-foreground">{token.symbol}</div>
-                      <div className="text-xs text-muted-foreground">{token.name}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-mono text-sm font-medium text-muted-foreground">{token.balance}</div>
-                    </div>
-                    {token.symbol === selectedToken.symbol && (
-                      <Check className="w-4 h-4 text-primary" />
-                    )}
-                  </button>
-                ))}
-              </div>
+                    </>
+                  )}
+                  <TokenIcon token={token} size="lg" />
+                  <div className="flex-1 text-left">
+                    <div className="font-mono text-sm font-medium text-foreground">{token.symbol}</div>
+                    <div className="text-xs text-muted-foreground">{token.name}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-mono text-sm font-medium text-muted-foreground">{token.balance}</div>
+                  </div>
+                  {token.symbol === selectedToken.symbol && (
+                    <Check className="w-4 h-4 text-primary" />
+                  )}
+                </button>
+              ))}
             </div>
-          </>,
-          document.body
-        )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
