@@ -33,7 +33,7 @@ function SidebarContent({ className }: { className?: string }) {
   return (
     <div className={cn("flex flex-col gap-4 w-full", className)}>
       {/* Market Overview */}
-      <div className="card-base inline ">
+      <div className="card-base inline border border-border/50">
         <div className="card-header border-b border-border/50 px-3 py-2">
           <div className="flex items-center gap-2">
             <Activity className="w-3.5 h-3.5 text-primary" />
@@ -71,7 +71,7 @@ function SidebarContent({ className }: { className?: string }) {
       </div>
 
       {/* Top Protocols */}
-      <div className="card-base">
+      <div className="card-base border border-border/50">
 
         <div className="card-header border-b border-border/50 px-3 py-2">
           <div className="flex items-center gap-2">

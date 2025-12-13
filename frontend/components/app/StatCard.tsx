@@ -27,7 +27,7 @@ export function StatCard({
   const hasChart = chartData && chartData.length > 0;
 
   return (
-    <div className="card-base flex-shrink-0 w-[150px] sm:w-[170px] h-[75px] flex flex-col overflow-hidden">
+    <div className="card-base border border-border flex-shrink-0 w-[150px] sm:w-[170px] h-[75px] flex flex-col overflow-hidden">
       {/* Top Content Area */}
       <div className="px-3 pt-2 flex-1 flex flex-col justify-start">
         {/* Label - sits just above chart */}

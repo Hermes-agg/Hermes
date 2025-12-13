@@ -66,7 +66,7 @@ export function YieldPanel() {
   return (
     <div className="flex flex-col gap-4 mx-auto max-w-2xl">
       {/* Main Panel */}
-      <div className="card-base overflow-hidden">
+      <div className="card-base border border-border overflow-hidden">
         {/* Header */}
         <div className="card-header">
           <div className="flex items-center justify-between">
