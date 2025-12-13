@@ -48,7 +48,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       {/* MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-gradient-to-br from-background/90 to-backgroundm border-b border-border/50">
+      <header className="sticky top-0 z-50 bg-gradient-to-br from-background/60 to-background/50 backdrop-blur-md border-b border-border/50">
         <div className="h-1.5 ">
           {/* <div
             className={cn(

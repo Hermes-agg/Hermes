@@ -283,8 +283,8 @@
   .bg-grid {
     background-image: linear-gradient(var(--primary) 1px, transparent 1px),
       linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-    background-size: 8px 8px;
-    opacity: 0.02;
+    background-size: 12px 12px;
+    /* opacity: 0.02; */
   }
 
   /* Banner */

@@ -49,7 +49,7 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
             </main>
 
             {/* Sidebar */}
-            <div className="w-full max-xl:w-fit lg:w-80 h-full">
+            <div className="w-full max-xl:w-fit lg:w-80 h-full bg-backgroundm">
               <MarketSidebar />
             </div>
           </div>

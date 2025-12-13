@@ -121,7 +121,7 @@ export function MarketSidebar() {
   return (
     <>
       {/* Desktop Sidebar - Right side */}
-      <div className="w-full h-full  lg:flex flex-col  shrink-0 hidden pt-2 sticky top-0 bg-backgroundm backdrop-blur-sm border-l border-border/50 shadow-[-12px_0_24px_-12px_hsl(var(--foreground)/0.08)] lg:pt-4 max-sm:hidden">
+      <div className="w-full h-full  lg:flex flex-col  shrink-0 hidden pt-2 sticky top-0 bg-background/90 backdrop-blur-md border-l border-border/50 lg:pt-4 max-sm:hidden">
         <aside className="gap-4 px-4  ">
           <SidebarContent />
         </aside>
@@ -143,7 +143,7 @@ export function MarketSidebar() {
         <SheetContent side="bottom" className="h-[70vh] p-0 border-t border-border/50 bg-background">
 
           {/* Sheet Header */}
-          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border/50 bg-backgroundm backdrop-blur-sm border-l shadow-[-12px_0_24px_-12px_hsl(var(--foreground)/0.08)] px-4 py-3">
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border/50 bg-background backdrop-blur-sm border-l shadow-[-12px_0_24px_-12px_hsl(var(--foreground)/0.08)] px-4 py-3">
             <div className="flex items-center gap-2">
               <Activity className="w-4 h-4 text-primary" />
               <span className="font-mono text-xs uppercase tracking-widest text-foreground">
