@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
-import { AppHeader } from "./app-header"
+import { AppHeader } from "../components/app/layout/app-header"
 import { YieldTabs, type TabId } from "@/components/app/YieldTabs"
 
 import { TopYieldsContent } from "@/components/app/tab-content/TopYieldsContent"
@@ -15,9 +15,9 @@ import { NewProgramsContent } from "@/components/app/tab-content/NewProgramsCont
 import { StablecoinsContent } from "@/components/app/tab-content/StablecoinsContent"
 import { SolanaEcosystemContent } from "@/components/app/tab-content/SolanaEcosystemContent"
 
-import { LoadingProvider, useLoading } from "./loading-context"
+import { LoadingProvider, useLoading } from "../components/app/layout/loading-context"
 import { cn } from "@/lib/utils"
-import { MarketStats } from "../MarketStats"
+import { MarketStats } from "../components/app/MarketStats"
 
 
 export default function YieldLayout({ children }: { children: React.ReactNode }) {

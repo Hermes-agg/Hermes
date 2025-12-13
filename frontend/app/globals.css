@@ -11,114 +11,94 @@
 /* LIGHT THEME – your existing beautiful light mode (unchanged) */
 /* ============================================= */
 :root {
-  --background: oklch(0.99 0.002 85);
-  --foreground: oklch(0.15 0.01 260);
+  /* UI SCALE — controls global app size */
+  --ui-scale: 1;
+
+  --background: oklch(0.97 0.002 260);
+  --backgroundm: oklch(0.95 0.002 260 / 0.6);
+
+  --foreground: oklch(0.16 0.01 260);
+
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.01 260);
-  --popover: oklch(43.046% 0.00394 16.627);
-  --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.55 0.16 195);
-  --primary-rgb: 52, 52, 52;
-  --primary-foreground: oklch(0.99 0.002 85);
-  --secondary: oklch(0.96 0.005 260);
-  --secondary-foreground: oklch(0.25 0.015 260);
-  --secondary: oklch(0.95 0.005 240);
-  --secondary-foreground: oklch(0.12 0.01 240);
-  --muted: oklch(0.92 0.004 240);
-  --muted-foreground: oklch(0.45 0.01 240);
-  --accent: oklch(0.6 0.15 95);
-  --accent-foreground: oklch(0.12 0.01 240);
-  --success: oklch(0.55 0.14 142);
-  --success-foreground: oklch(1 0 0);
-  --warning: oklch(0.65 0.18 75);
-  --warning-foreground: oklch(0.12 0.01 240);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.94 0.003 240);
-  --input: oklch(0.96 0.003 240);
-  --ring: oklch(0.25 0.08 240);
-  --chart-1: oklch(0.6 0.15 95);
-  --chart-2: oklch(0.65 0.18 75);
-  --chart-3: oklch(0.55 0.14 142);
-  --chart-4: oklch(0.25 0.08 240);
-  --chart-5: oklch(0.577 0.245 27.325);
+  --card-foreground: oklch(0.16 0.01 260);
+
+  --popover: oklch(0.98 0.002 260);
+  --popover-foreground: oklch(0.16 0.01 260);
+
+  --primary: oklch(0.56 0.15 195);
+  --primary-foreground: oklch(0.99 0.002 260);
+
+  --secondary: oklch(0.94 0.004 260);
+  --secondary-foreground: oklch(0.22 0.012 260);
+
+  --muted: oklch(0.92 0.004 260);
+  --muted-foreground: oklch(0.48 0.01 260);
+
+  --accent: oklch(0.58 0.13 95);
+  --accent-foreground: oklch(0.14 0.01 260);
+
+  --success: oklch(0.56 0.14 142);
+  --warning: oklch(0.66 0.16 75);
+  --destructive: oklch(0.58 0.22 27);
+
+  --border: oklch(0.88 0.002 260);
+  --input: oklch(0.94 0.002 260);
+  --ring: var(--primary);
+
   --radius: 0.625rem;
-  --sidebar: oklch(0.96 0.003 240);
-  --sidebar-foreground: oklch(0.12 0.01 240);
-  --sidebar-primary: oklch(0.25 0.08 240);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.92 0.004 240);
-  --sidebar-accent-foreground: oklch(0.12 0.01 240);
-  --sidebar-border: oklch(0.94 0.003 240);
-  --sidebar-ring: oklch(0.25 0.08 240);
+
+  --sidebar: oklch(0.96 0.002 260);
+  --sidebar-foreground: oklch(0.16 0.01 260);
+  --sidebar-border: oklch(0.9 0.002 260);
 }
 
 /* ============================================= */
 /* DARK THEME – Sweet, milky, premium & noticeable cards */
 /* ============================================= */
 .dark {
-  /* Deep but soft cosmic background */
-  --background: oklch(0.11 0.015 260);
+  /* Base background — deeper & calmer */
+  --background: oklch(0.095 0.012 260);
+  --backgroundm: oklch(0.13 0.014 260 / 0.4);
 
-  --foreground: oklch(0.95 0.01 260);
+  --foreground: oklch(0.94 0.01 260);
 
-  /* Milky glass cards – slightly lifted with inner glow + soft border */
-  --card: oklch(0.18 0.018 260);
-  --card-foreground: oklch(0.95 0.01 260);
+  /* Cards float above background */
+  --card: oklch(0.16 0.014 260);
+  --card-foreground: oklch(0.94 0.01 260);
 
-  --popover: oklch(0.18 0.018 260);
-  --popover-foreground: oklch(0.95 0.01 260);
+  --popover: oklch(0.165 0.014 260);
+  --popover-foreground: oklch(0.94 0.01 260);
 
-  /* Beautiful vibrant cyan/teal primary – same feel as light mode but richer in dark */
-  --primary: oklch(
-    0.68 0.18 195
-  ); /* ≈ rgb(0, 197, 199) but perceptually uniform */
+  /* Primary — slightly toned down for long sessions */
+  --primary: oklch(0.64 0.16 195);
+  --primary-foreground: oklch(0.1 0.012 260);
 
-  --primary-rgb: 251, 251, 251;
-  --primary-foreground: oklch(0.11 0.015 260);
+  /* Secondary layers */
+  --secondary: oklch(0.2 0.016 260);
+  --secondary-foreground: oklch(0.9 0.01 260);
 
-  /* Slightly lighter secondary for subtle buttons/cards */
-  --secondary: oklch(0.22 0.02 260);
-  --secondary-foreground: oklch(0.92 0.012 260);
+  --muted: oklch(0.22 0.018 260);
+  --muted-foreground: oklch(0.6 0.02 260);
 
-  --muted: oklch(0.24 0.022 260);
-  --muted-foreground: oklch(0.65 0.03 260);
+  /* Accent — softer, less neon */
+  --accent: oklch(0.6 0.12 95);
+  --accent-foreground: oklch(0.1 0.012 260);
 
-  /* Accent – soft gold/green glow for highlights */
-  --accent: oklch(0.65 0.14 95);
-  --accent-foreground: oklch(0.11 0.015 260);
+  --success: oklch(0.58 0.14 142);
+  --warning: oklch(0.66 0.16 75);
+  --destructive: oklch(0.6 0.2 25);
 
-  --success: oklch(0.6 0.16 142);
-  --success-foreground: oklch(0.11 0.015 260);
-
-  --warning: oklch(0.7 0.18 75);
-  --warning-foreground: oklch(0.95 0.01 260);
-
-  --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.95 0.01 260);
-
-  /* Borders a bit more visible but still soft */
-  --border: oklch(0.28 0.025 260);
-  --input: oklch(0.26 0.025 260);
+  /* Borders almost invisible — premium feel */
+  --border: oklch(0.24 0.014 260);
+  --input: oklch(0.22 0.014 260);
   --ring: var(--primary);
 
-  /* Charts – richer colors in dark */
-  --chart-1: oklch(0.72 0.18 195);
-  --chart-2: oklch(0.7 0.18 75);
-  --chart-3: oklch(0.65 0.16 142);
-  --chart-4: oklch(0.68 0.18 280);
-  --chart-5: oklch(0.62 0.22 25);
-
-  /* Sidebar – slightly deeper than cards for hierarchy */
-  --sidebar: oklch(0.13 0.018 260);
-  --sidebar-foreground: oklch(0.95 0.01 260);
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: oklch(0.24 0.022 260);
-  --sidebar-accent-foreground: oklch(0.92 0.012 260);
-  --sidebar-border: oklch(0.28 0.025 260);
-  --sidebar-ring: var(--primary);
+  /* Sidebar pushed back visually */
+  --sidebar: oklch(0.115 0.013 260);
+  --sidebar-foreground: oklch(0.9 0.01 260);
+  --sidebar-border: oklch(0.22 0.014 260);
 }
+
 @theme inline {
   /* Greek god tech aesthetic: classical elegance + modern tech */
   --font-display: "Cormorant Garamond", serif;
@@ -129,6 +109,7 @@
 
   /* These now correctly respect the new dark values */
   --color-background: var(--background);
+  --color-backgroundm: var(--backgroundm);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -306,11 +287,10 @@
     opacity: 0.02;
   }
 
-    /* Banner */
+  /* Banner */
   .banner-base {
     @apply bg-primary/10 border border-primary/20 rounded-md p-4 md:p-5;
   }
-  
 
   /* Soft card glow for modern milky aesthetic */
   .card-glow {
@@ -428,18 +408,27 @@
   .text-caption {
     @apply text-xs font-normal text-muted-foreground;
     font-family: "Outfit", system-ui, sans-serif;
+
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
   }
 
   /* Label - Uppercase labels, tags */
   .text-label {
-    @apply text-[10px] sm:text-xs font-medium uppercase tracking-widest text-foreground;
+    @apply text-[10px] sm:text-xs uppercase tracking-wide text-foreground;
     font-family: "Geist Mono", monospace;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
   }
 
   /* Mono - Numbers, values, data */
   .text-mono {
-    @apply font-mono text-sm;
+    @apply font-mono text-sm tracking-wide;
     font-family: "Geist Mono", monospace;
+
+    letter-spacing: 0.15em;
   }
 
   /* Mono Large - Large numbers */
@@ -481,7 +470,7 @@
   /* === CARD SYSTEM === */
 
   .card-base {
-    @apply relative border border-border bg-card rounded-sm;
+    @apply relative bg-card rounded-sm shadow-xs overflow-hidden;
   }
 
   .card-interactive {

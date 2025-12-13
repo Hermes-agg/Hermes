@@ -33,17 +33,17 @@ function SidebarContent({ className }: { className?: string }) {
   return (
     <div className={cn("flex flex-col gap-4 w-full", className)}>
       {/* Market Overview */}
-      <div className="card-base inline md:hidden">
-        <div className="border-b border-border/50 bg-secondary/30 px-3 py-2">
+      <div className="card-base inline ">
+        <div className="card-header border-b border-border/50 px-3 py-2">
           <div className="flex items-center gap-2">
             <Activity className="w-3.5 h-3.5 text-primary" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-foreground">
+            <span className="text-label uppercase">
               Market Overview
             </span>
           </div>
         </div>
 
-        <div className="p-3 grid grid-cols-2 gap-3">
+        <div className="p-3 grid grid-cols-2 gap-3 bg-background/30">
           {marketStats.map((stat) => (
             <div key={stat.label} className="flex flex-col gap-0.5">
               <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
@@ -73,16 +73,16 @@ function SidebarContent({ className }: { className?: string }) {
       {/* Top Protocols */}
       <div className="card-base">
 
-        <div className="border-b border-border/50 bg-secondary/30 px-3 py-2">
+        <div className="card-header border-b border-border/50 px-3 py-2">
           <div className="flex items-center gap-2">
             <BarChart3 className="w-3.5 h-3.5 text-primary" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-foreground">
+            <span className="text-label uppercase">
               Top Protocols
             </span>
           </div>
         </div>
 
-        <div className="p-2">
+        <div className="p-2 bg-background/30">
           {topProtocols.map((protocol, idx) => (
             <div
               key={protocol.name}
@@ -121,7 +121,7 @@ export function MarketSidebar() {
   return (
     <>
       {/* Desktop Sidebar - Right side */}
-      <div className="w-full max-xl:w-fit lg:w-80 h-full  lg:flex flex-col  shrink-0 hidden pt-2 sticky top-0 bg-transparent border-l border-border/50 lg:pt-4 max-sm:hidden">
+      <div className="w-full h-full  lg:flex flex-col  shrink-0 hidden pt-2 sticky top-0 bg-backgroundm backdrop-blur-sm border-l border-border/50 shadow-[-12px_0_24px_-12px_hsl(var(--foreground)/0.08)] lg:pt-4 max-sm:hidden">
         <aside className="gap-4 px-4  ">
           <SidebarContent />
         </aside>
@@ -130,7 +130,7 @@ export function MarketSidebar() {
       {/* Mobile Bottom Sheet Trigger */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <button className="lg:hidden fixed bottom-4 left-4 z-50 flex items-center gap-1.5 px-3 py-2 bg-card border border-border/50 shadow-lg backdrop-blur-sm">
+          <button className="lg:hidden fixed bottom-30 right-5 z-50 flex items-center gap-1.5 px-3 py-2 card-base shadow-md backdrop-blur-sm">
 
             <Activity className="w-3.5 h-3.5 text-primary" />
             <span className="font-mono text-[9px] uppercase tracking-wider text-foreground">
@@ -143,7 +143,7 @@ export function MarketSidebar() {
         <SheetContent side="bottom" className="h-[70vh] p-0 border-t border-border/50 bg-background">
 
           {/* Sheet Header */}
-          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border/50 bg-card/90 backdrop-blur-sm px-4 py-3">
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border/50 bg-backgroundm backdrop-blur-sm border-l shadow-[-12px_0_24px_-12px_hsl(var(--foreground)/0.08)] px-4 py-3">
             <div className="flex items-center gap-2">
               <Activity className="w-4 h-4 text-primary" />
               <span className="font-mono text-xs uppercase tracking-widest text-foreground">

@@ -2,14 +2,19 @@
 
 import { useEffect, useRef } from "react"
 
-export function CursorSpotlight() {
+interface CursorSpotlightProps {
+  children: React.ReactNode
+}
+
+export function CursorSpotlight({ children }: CursorSpotlightProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
       if (!ref.current) return
-      // Position the tracking element at cursor with center alignment
-      ref.current.style.transform = `translate(${e.clientX - 40}px, ${e.clientY - 40}px)`
+      const x = e.clientX
+      const y = e.clientY
+      ref.current.style.transform = `translate(${x - 40}px, ${y - 40}px)`
     }
 
     window.addEventListener("mousemove", move)
@@ -17,36 +22,34 @@ export function CursorSpotlight() {
   }, [])
 
   return (
-    <>
-      {/* Grid background */}
+    <div className="relative h-full"> {/* This is now relative to main */}
+      {/* Grid background - only covers this container */}
       <div
-        className="pointer-events-none fixed inset-0 bg-grid"
+        className="pointer-events-none absolute inset-0 bg-grid opacity-60"
         aria-hidden="true"
       />
 
-      {/* Spotlight effect container */}
+      {/* Spotlight mask */}
       <div
-        className="pointer-events-none fixed inset-0 z-1 overflow-hidden bg-grid"
+        className="pointer-events-none absolute inset-0 overflow-hidden z-1  bg-grid"
         style={{
           maskImage: "radial-gradient(circle closest-side, black 0%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(circle closest-side, black 0%, transparent 100%)",
 
-           opacity: 0.06,
+          opacity: 0.06,
         }}
-      />
-
-      {/* Tracking indicator - separate from spotlight */}
-      <div
-        ref={ref}
-        className="pointer-events-none fixed left-0 top-0 z-5 flex items-center justify-center rounded-full text-foreground text-xs font-medium px-3 py-1"
-        style={{
-          transform: "translate(-50%, -50%)", // Center the element on cursor
-          opacity: 0.6,
-        }}
-        aria-hidden="true"
       >
-        {/* + */}
+        <div
+          ref={ref}
+          className="absolute left-0 top-0 w-40 h-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"
+          style={{ opacity: 0.8 }}
+        />
       </div>
-    </>
+
+      {/* Actual content on top */}
+      <div className="relative z-10 h-full">
+        {children}
+      </div>
+    </div>
   )
 }

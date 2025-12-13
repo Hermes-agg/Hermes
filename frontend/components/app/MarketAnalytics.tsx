@@ -24,14 +24,14 @@ export function MarketAnalytics() {
     ];
 
     return (
-        <div className="w-full overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing select-none mx-auto max-w-3xl"
+        <div className="w-full overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing select-none mx-auto"
         >
             <div className='mb-3'>
-                <h1 className="text-label mb-1">Yield Market</h1>
+                <h1 className="text-label mb-1">Yield Market</h1> 
 
                 <div className="flex items-center gap-2">
                     <div className="w-1 h-4 bg-primary" />
-                    <h2 className="text-caption">Real-time insights into DeFi yield opportunities</h2>
+                    <h2 className="text-caption capitalize">DeFi insights </h2>
                 </div>
             </div>
 
@@ -49,9 +49,10 @@ export function MarketAnalytics() {
 
                 {/* Scrollable content */}
                 <div className="overflow-x-auto scrollbar-hide">
-                    <div className="flex gap-6 px-3 min-w-max">
+                    <div className="flex gap-4 pr-3 min-w-max">
                         <StatCard
                             label="Total Value Locked"
+                            labelShort='TVL'
                             value="$8.2B"
                             change={5.23}
                             chartData={tvlData}
@@ -61,6 +62,7 @@ export function MarketAnalytics() {
 
                         <StatCard
                             label="Average APY"
+                            labelShort='Average APY'
                             value="9.48%"
                             change={2.14}
                             chartData={apyData}
@@ -70,6 +72,7 @@ export function MarketAnalytics() {
 
                         <StatCard
                             label="24h Volume"
+                            labelShort='24h Volume'
                             value="$456M"
                             change={-1.28}
                             chartData={volumeData}
@@ -79,6 +82,18 @@ export function MarketAnalytics() {
 
                         <StatCard
                             label="Active Protocols"
+                            labelShort='Active Protocols'
+                            value="127"
+                            change={8.5}
+                            chartData={generateMockChartData(120, 30)}
+                            chartColor="#8b5cf6"
+                            icon={<PieChart className="w-5 h-5" />}
+                        />
+
+
+                        <StatCard
+                            label="Active Protocols"
+                            labelShort='Active Protocols'
                             value="127"
                             change={8.5}
                             chartData={generateMockChartData(120, 30)}

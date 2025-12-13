@@ -11,6 +11,7 @@ import { YieldTabs, type TabId } from "@/components/app/YieldTabs"
 import { useLoading } from "./loading-context"
 import { cn } from "@/lib/utils"
 import { MarketSidebar } from "./market-sidebar"
+import { CursorSpotlight } from "./decor/cursor-spotlight"
 
 export default function YieldLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -34,21 +35,23 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
       {/* Page body */}
       <div className="relative z-10">
         <div className="mx-auto h-[calc(100vh-64px)]">
-          <div className="flex flex-col lg:flex-row items-start h-full">
+          <div className="flex lg:flex-row items-start w-full h-full">
             {/* Main content */}
             <main
               className={cn(
-                "w-full flex-1 transition-opacity duration-300 h-full px-3",
+                "w-full flex-1 transition-opacity duration-300 w-full h-full",
                 isLoading ? "opacity-50" : "opacity-100"
               )}
             >
-              {children}
+              <CursorSpotlight>
+                {children}
+              </CursorSpotlight>
             </main>
 
             {/* Sidebar */}
-
-            <MarketSidebar />
-
+            <div className="w-full max-xl:w-fit lg:w-80 h-full">
+              <MarketSidebar />
+            </div>
           </div>
         </div>
       </div>

@@ -5,11 +5,11 @@ import { TokenSelector, type Token } from "./TokenSelector";
 import { YieldRoutes } from "./yield-routes";
 
 const tokens: Token[] = [
-  { symbol: "SOL", name: "Solana", icon: "/solana-logo.png", balance: 12.5 },
-  { symbol: "USDC", name: "USD Coin", icon: "/usdc-logo.png", balance: 1250.0 },
-  { symbol: "USDT", name: "Tether", icon: "/usdt-logo.png", balance: 500.0 },
-  { symbol: "jitoSOL", name: "Jito Staked SOL", icon: "/jito-logo.png", balance: 5.2 },
-  { symbol: "mSOL", name: "Marinade SOL", icon: "/marinade-logo.png", balance: 3.1 },
+  { symbol: "SOL", name: "Solana", icon: "/brand-logos/solanaLogoMark.svg", balance: 12.5 },
+  { symbol: "USDC", name: "USD Coin", icon: "/brand-logos/usdcLogoMark.svg", balance: 1250.0 },
+  { symbol: "USDT", name: "Tether", icon: "/brand-logos/tetherLogoMark.svg", balance: 500.0 },
+  // { symbol: "jitoSOL", name: "Jito Staked SOL", icon: "/brand-logos/usdcLogoMark.svg", balance: 5.2 },
+  // { symbol: "mSOL", name: "Marinade SOL", icon: "/brand-logos/usdcLogoMark.svg", balance: 3.1 },
 ];
 
 type RiskProfile = "low" | "moderate" | "high";
@@ -135,6 +135,7 @@ export function YieldPanel() {
               tokens={tokens}
               selectedToken={selectedToken}
               onSelect={setSelectedToken}
+
             />
           </div>
         </div>

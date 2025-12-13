@@ -6,20 +6,23 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-start w-full flex-1 min-sm:px-1 md:px-8 h-full mt-0 gap-6 3xl:px-20 pt-[10vh] md:pt-[15vh]">
+    <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-start w-full flex-1 h-full gap-6 mt-0 md:pt-[10vh]">
 
       {/* Banner / Ad Section */}
       <div className="w-full mx-auto max-w-2xl">
         <HermesBanner />
       </div>
-
+     {/* <div className="w-full flex shrink-0 items-center py-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
+        <MarketAnalytics />
+      </div> */}
       {/* Yield Panel */}
-      <div className="w-full flex-1 flex flex-col">
+      <div className="w-full flex-1 flex flex-col pb-6 px-3 min-sm:px-1 md:px-8 3xl:px-20 ">
+
         <YieldPanel />
       </div>
 
       {/* Bottom Analytics */}
-      <div className="w-full flex shrink-0 md:pt-6 items-center justify-end mb-6">
+      <div className="w-full flex shrink-0 items-center py-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
         <MarketAnalytics />
       </div>
 

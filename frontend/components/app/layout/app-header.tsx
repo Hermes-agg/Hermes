@@ -48,12 +48,12 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       {/* MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-background border-b border-border/50">
-        <div className="h-1.5 bg-primary">
-          <div
+      <header className="sticky top-0 z-50 bg-gradient-to-br from-background/90 to-backgroundm border-b border-border/50">
+        <div className="h-1.5 ">
+          {/* <div
             className={cn(
-              "fixed inset-0 z-80 bg-black/50 backdrop-blur-xs transition-all duration-300 opacity-50 pointer-events-auto h-3"
-            )} />
+              "fixed inset-0 z-80 bg-black/50 backdrop-blur-xs transition-all duration-300 opacity-50 pointer-events-auto h-1.5"
+            )} /> */}
         </div>
 
 
@@ -102,7 +102,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "relative px-4 py-2 font-mono text-xs font-medium uppercase tracking-wider transition-all group rounded-sm",
+                      "relative px-4 py-2 text-nav transition-all group rounded-sm",
                       active
                         ? "bg-primary/10 text-primary"
                         : "text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -122,7 +122,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
             <button
               onClick={() => setSettingsOpen(true)}
               className={cn(
-                "flex items-center justify-center w-9 h-9  border-border/50 bg-background/50",
+                "flex items-center justify-center w-9 h-9  border-border/50",
                 "transition-all hover:border-primary/50 hover:text-primary relative group"
               )}
               aria-label="Settings"
@@ -180,7 +180,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                  "nav-link text-left",
+                  "nav-link text-left text-nav",
                   // currentTab === item.id ? "nav-link-active" : "nav-link-inactive"
 
                   active

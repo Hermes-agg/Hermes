@@ -40,7 +40,7 @@ function TokenIcon({ token, size = "md" }: { token: Token; size?: "sm" | "md" | 
   const [imgError, setImgError] = useState(false)
 
   return (
-    <div className={cn("relative rounded-full overflow-hidden bg-muted flex items-center justify-center", sizeClasses[size])}>
+    <div className={cn("relative rounded-sm overflow-hidden bg-muted flex items-center justify-center p-1", sizeClasses[size])}>
       {!imgError ? (
         <Image
           src={token.icon}
@@ -95,7 +95,7 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
         <div className="absolute bottom-0 right-0 w-1 h-1 border-b-2 border-r-2 border-primary/60" /> */}
 
 
-        <TokenIcon token={selectedToken} size="sm" />
+        <TokenIcon token={selectedToken} size="md" />
         <span className="text-foreground">{selectedToken.symbol}</span>
         <ChevronDown className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform", isOpen && "rotate-180")} />
       </button>
