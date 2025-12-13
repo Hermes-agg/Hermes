@@ -6,61 +6,72 @@ interface StatCardProps {
   label: string;
   value: string;
   change?: number;
+  changeText?: string;
   chartData?: number[];
   chartColor?: string;
   icon?: React.ReactNode;
-  trend?: 'up' | 'down';
 }
 
 export function StatCard({
   label,
   value,
   change,
+  changeText,
   chartData,
-  chartColor = '#10b981',
+  chartColor = 'hsl(var(--success))',
   icon,
-  trend
 }: StatCardProps) {
-  const hasPositiveChange = change !== undefined && change >= 0;
+  const isPositive = change !== undefined && change > 0;
 
   return (
-    <div className="card-base overflow-hidden group hover:shadow-lg transition-all duration-300">
-      <div className="card-body">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              {icon && <div className="text-muted-foreground">{icon}</div>}
-              <span className="text-caption text-muted-foreground">{label}</span>
+    <div className="card-base flex-shrink-0 w-[150px] sm:w-[170px]">
+      <div className="p-3">
+        {/* Top row: icon + value */}
+        <div className="flex items-center gap-2 mb-1.5">
+          {icon && (
+            <div className="text-primary/80 [&>svg]:w-4 [&>svg]:h-4 flex-shrink-0">
+              {icon}
             </div>
-            <div className="text-mono text-2xl font-semibold tracking-tight">
-              {value}
-            </div>
-          </div>
+          )}
+          <span className="text-mono text-sm font-bold text-foreground">
+            {value}
+          </span>
+        </div>
+
+        {/* Bottom row: label + change */}
+        <div className="flex items-center gap-1.5 text-[10px]">
+          <span className="text-muted-foreground truncate">{label}</span>
+
           {change !== undefined && (
-            <div
-              className={cn(
-                'flex items-center gap-1 px-2 py-1 rounded-sm text-xs font-medium',
-                hasPositiveChange
-                  ? 'bg-green-500/10 text-green-600'
-                  : 'bg-red-500/10 text-red-600'
-              )}
-            >
-              {hasPositiveChange ? (
-                <TrendingUp className="w-3 h-3" />
-              ) : (
-                <TrendingDown className="w-3 h-3" />
-              )}
-              <span>{Math.abs(change).toFixed(2)}%</span>
-            </div>
+            <>
+              <span className="text-muted-foreground/50">•</span>
+              <span
+                className={cn(
+                  'flex items-center gap-0.5 font-medium flex-shrink-0',
+                  isPositive ? 'text-success' : 'text-destructive'
+                )}
+              >
+                {isPositive ? (
+                  <TrendingUp className="w-3 h-3" />
+                ) : (
+                  <TrendingDown className="w-3 h-3" />
+                )}
+                {Math.abs(change).toFixed(1)}%
+                {changeText && (
+                  <span className="text-muted-foreground/70 ml-0.5">{changeText}</span>
+                )}
+              </span>
+            </>
           )}
         </div>
 
+        {/* Optional chart */}
         {chartData && chartData.length > 0 && (
-          <div className="mt-2 -mx-2 -mb-2">
+          <div className="mt-2 -mx-3 -mb-3">
             <MiniLineChart
               data={chartData}
               color={chartColor}
-              height={50}
+              height={32}
               showGradient={true}
             />
           </div>

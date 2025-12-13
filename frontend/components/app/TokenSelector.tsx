@@ -83,7 +83,7 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
           "relative flex items-center gap-2 px-2.5 py-1.5",
           "bg-transparent hover:bg-secondary/50 transition-all",
           "font-mono text-sm font-medium",
-          "text-primary border border-border/30 rounded-sm hover:bg-primary/20 hover:border-primary/50 transition-all",
+          "text-primary rounded-sm hover:border-primary/50 transition-all",
           isOpen && "bg-secondary/50 border-primary/30"
         )}
       >

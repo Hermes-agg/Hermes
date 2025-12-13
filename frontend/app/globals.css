@@ -306,7 +306,10 @@
     opacity: 0.02;
   }
 
-  
+    /* Banner */
+  .banner-base {
+    @apply bg-primary/10 border border-primary/20 rounded-md p-4 md:p-5;
+  }
   
 
   /* Soft card glow for modern milky aesthetic */

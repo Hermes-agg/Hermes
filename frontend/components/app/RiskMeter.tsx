@@ -33,20 +33,22 @@ export function RiskMeter({ value, onChange }: RiskMeterProps) {
               onClick={() => onChange(level.value)}
               className={cn(
                 "relative flex flex-col items-center transition-all duration-200",
-                "focus:outline-none focus:ring-1 focus:ring-primary/50"
+                "focus:outline-none focus:ring-1 focus:ring-primary/50",
+
+                "w-4.5"
               )}
               aria-label={`Set risk to ${level.label}`}
             >
               {/* Bar segment */}
               <div
                 className={cn(
-                  "risk-bar",
+                  "risk-bar w-4.5",
                   isActive
                     ? level.value === "low"
                       ? "risk-low"
                       : level.value === "moderate"
-                      ? "risk-moderate"
-                      : "risk-high"
+                        ? "risk-moderate"
+                        : "risk-high"
                     : "risk-inactive",
                   index === 0 && "rounded-l-sm",
                   index === riskLevels.length - 1 && "rounded-r-sm"
@@ -57,16 +59,15 @@ export function RiskMeter({ value, onChange }: RiskMeterProps) {
               <span
                 className={cn(
                   "absolute -bottom-4 text-[8px] font-mono uppercase tracking-wide transition-opacity duration-200",
-                  isSelected ? "opacity-100" : "opacity-0",
-                  level.value === "low"
-                    ? "text-success"
-                    : level.value === "moderate"
-                    ? "text-warning"
-                    : "text-destructive"
+                  isSelected ? "opacity-100" : "opacity-30 text-muted-foreground lowercase",
+                  isSelected && level.value === "low" && "text-success",
+                  isSelected && level.value === "moderate" && "text-warning",
+                  isSelected && level.value === "high" && "text-destructive"
                 )}
               >
                 {level.label}
               </span>
+
             </button>
           );
         })}

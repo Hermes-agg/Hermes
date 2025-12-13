@@ -8,7 +8,7 @@ import useAppLogo from "@/asssets/image";
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { CustomConnectButton } from "../connect/CustomConnectButton"
+import { CustomConnectButton } from "../wallet-connect/CustomConnectButton"
 
 interface AppHeaderProps {
   isLoading?: boolean
@@ -49,7 +49,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
     <>
       {/* MAIN HEADER */}
       <header className="sticky top-0 z-50 bg-background border-b border-border/50">
-        <div className="h-3 bg-primary">
+        <div className="h-1.5 bg-primary">
           <div
             className={cn(
               "fixed inset-0 z-80 bg-black/50 backdrop-blur-xs transition-all duration-300 opacity-50 pointer-events-auto h-3"
@@ -57,7 +57,7 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
         </div>
 
 
-        <div className="mx-auto flex h-12 md:h-14 max-w-6xl items-center justify-between px-2.5 pb-1">
+        <div className="mx-auto flex h-12 md:h-14 items-center justify-between px-2.5 pb-1 md:px-4">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-1 md:gap-8">
             {/* Mobile Menu Toggle */}
