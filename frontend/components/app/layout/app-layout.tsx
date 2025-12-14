@@ -12,6 +12,7 @@ import { WalletProvider } from "../providers/WalletProvider"
 import { cn } from "@/lib/utils"
 import YieldLayout from "./yield-layout"
 import { CursorSpotlight } from "./decor/cursor-spotlight"
+import { AppFooter } from "./app-footer"
 
 
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
@@ -49,6 +50,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 
                     </main>
                 </div>
+                <AppFooter />
             </CursorSpotlight>
         </div>
     )
