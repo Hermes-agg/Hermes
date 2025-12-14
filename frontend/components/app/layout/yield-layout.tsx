@@ -12,6 +12,7 @@ import { useLoading } from "./loading-context"
 import { cn } from "@/lib/utils"
 import { MarketSidebar } from "./market-sidebar"
 import { CursorSpotlight } from "./decor/cursor-spotlight"
+import { AppFooter } from "./app-footer"
 
 export default function YieldLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -30,31 +31,38 @@ export default function YieldLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <AppHeader isLoading={false} />
+      <CursorSpotlight>
+        <AppHeader isLoading={false} />
 
-      {/* Page body */}
-      <div className="relative z-10">
-        <div className="mx-auto h-[calc(100vh-64px)]">
-          <div className="flex lg:flex-row items-start w-full h-full">
-            {/* Main content */}
-            <main
-              className={cn(
-                "w-full flex-1 transition-opacity duration-300 w-full h-full",
-                isLoading ? "opacity-50" : "opacity-100"
-              )}
-            >
-              <CursorSpotlight>
+        {/* Page body */}
+        <div className="relative z-10">
+          <div className="mx-auto h-[calc(100vh-128px)]">
+            <div className="flex lg:flex-row items-start w-full h-full">
+              {/* Main content */}
+              <main
+                className={cn(
+                  "w-full flex-1 transition-opacity duration-300 w-full h-full",
+                  isLoading ? "opacity-50" : "opacity-100"
+                )}
+              >
+
                 {children}
-              </CursorSpotlight>
-            </main>
 
-            {/* Sidebar */}
-            <div className="w-full max-xl:w-fit lg:w-80 h-full bg-backgroundm">
-              <MarketSidebar />
+              </main>
+
+
+
+
+              {/* Sidebar */}
+              {/* <div className="w-full max-xl:w-fit lg:w-80 h-full">
+                <MarketSidebar />
+              </div> */}
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
+        <AppFooter />
+      </CursorSpotlight>
+    </div >
   )
 }

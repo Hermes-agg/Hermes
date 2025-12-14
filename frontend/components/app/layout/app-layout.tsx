@@ -32,22 +32,24 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 
     return (
         <div className="min-h-screen bg-background relative"> {/* relative for positioning */}
-            <AppHeader isLoading={isLoading} />
+            <CursorSpotlight>
 
-            {/* Main Content Wrapper - where the magic happens */}
-            <div className="relative z-10">
-                <main
-                    className={cn(
-                        "mx-3 md:mx-auto max-w-7xl py-6 md:py-10 transition-opacity duration-300",
-                        isLoading ? "opacity-50" : "opacity-100"
-                    )}
-                >
-                    {/* NOW the spotlight + grid is ONLY inside main */}
-                    <CursorSpotlight>
+                <AppHeader isLoading={isLoading} />
+
+                {/* Main Content Wrapper - where the magic happens */}
+                <div className="relative z-10">
+                    <main
+                        className={cn(
+                            "mx-3 md:mx-auto max-w-7xl py-6 md:py-10 transition-opacity duration-300",
+                            isLoading ? "opacity-50" : "opacity-100"
+                        )}
+                    >
+                        {/* NOW the spotlight + grid is ONLY inside main */}
                         {children}
-                    </CursorSpotlight>
-                </main>
-            </div>
+
+                    </main>
+                </div>
+            </CursorSpotlight>
         </div>
     )
 }

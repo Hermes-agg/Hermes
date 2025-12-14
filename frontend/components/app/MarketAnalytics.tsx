@@ -91,15 +91,7 @@ export function MarketAnalytics() {
                         />
 
 
-                        <StatCard
-                            label="Active Protocols"
-                            labelShort='Active Protocols'
-                            value="127"
-                            change={8.5}
-                            chartData={generateMockChartData(120, 30)}
-                            chartColor="#8b5cf6"
-                            icon={<PieChart className="w-5 h-5" />}
-                        />
+                      
                     </div>
                 </div>
 

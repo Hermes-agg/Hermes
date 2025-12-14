@@ -22,9 +22,9 @@ export default function Home() {
       </div>
 
       {/* Bottom Analytics */}
-      <div className="w-full flex shrink-0 items-center py-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
+      {/* <div className="w-full flex shrink-0 items-center py-6 px-4 min-sm:px-1 md:px-8 3xl:px-20">
         <MarketAnalytics />
-      </div>
+      </div> */}
 
     </div>
   );

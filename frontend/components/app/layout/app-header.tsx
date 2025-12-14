@@ -22,6 +22,22 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   const app_logo = useAppLogo()
 
 
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
+
+
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false)
@@ -48,7 +64,14 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
   return (
     <>
       {/* MAIN HEADER */}
-      <header className="sticky top-0 z-50 bg-gradient-to-br from-background/60 to-background/50 backdrop-blur-md border-b border-border/50">
+      <header
+        className={cn(
+          "sticky top-0 z-50 transition-all duration-300",
+          isScrolled &&
+          "bg-gradient-to-br from-background/60 to-background/50 backdrop-blur-md supports-[backdrop-filter]:bg-background/40 border-b border-border/50"
+        )}
+      >
+
         <div className="h-1.5 ">
           {/* <div
             className={cn(

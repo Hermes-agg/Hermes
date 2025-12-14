@@ -121,7 +121,7 @@ export function MarketSidebar() {
   return (
     <>
       {/* Desktop Sidebar - Right side */}
-      <div className="w-full h-full  lg:flex flex-col  shrink-0 hidden pt-2 sticky top-0 bg-background/90 backdrop-blur-md border-l border-border/50 lg:pt-4 max-sm:hidden">
+      <div className="w-full h-full  lg:flex flex-col  shrink-0 hidden pt-2 sticky top-0 lg:pt-4 max-sm:hidden">
         <aside className="gap-4 px-4  ">
           <SidebarContent />
         </aside>
