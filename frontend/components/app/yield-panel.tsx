@@ -79,17 +79,7 @@ export function YieldPanel() {
             </div>
 
              <div className="flex flex-col items-end gap-2">
-              
-            </div> 
-          </div> 
-        </div>
-
-        
-
-        {/* Input Section */}
-        <div className="card-body">
-          <div className="flex flex-col items-end justify-end mb-2 gap-2">
-            <button
+              <button
                 onClick={() => setAmount(formatNumber(selectedToken.balance))}
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
               >
@@ -101,7 +91,15 @@ export function YieldPanel() {
                   {selectedToken.symbol}
                 </span>
               </button>
-            </div>
+            </div> 
+          </div> 
+        </div>
+
+        
+
+        {/* Input Section */}
+        <div className="card-body">
+          
           {/* Quick Amount Row */}
           <div className="flex items-center justify-between gap-2 mb-3">
             <span className="text-label">Amount</span>
