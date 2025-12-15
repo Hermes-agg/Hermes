@@ -79,7 +79,22 @@ export function YieldPanel() {
             </div>
 
              <div className="flex flex-col items-end gap-2">
-              <button
+              
+             <RiskMeter value={riskProfile} onChange={setRiskProfile} />
+            </div> 
+          </div> 
+        </div>
+
+        
+
+        {/* Input Section */}
+        <div className="card-body">
+          {/* Quick Amount Row */}
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <span className="text-label">Deposit</span>
+
+            <div className="flex flex-col items-end gap-2">
+            <button
                 onClick={() => setAmount(formatNumber(selectedToken.balance))}
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
               >
@@ -91,24 +106,6 @@ export function YieldPanel() {
                   {selectedToken.symbol}
                 </span>
               </button>
-             {/* <RiskMeter value={riskProfile} onChange={setRiskProfile} />*/}
-            </div> 
-          </div> 
-        </div>
-
-        <div className="flex items-center justify-end p-3">
-
-            
-              
-              <RiskMeter value={riskProfile} onChange={setRiskProfile} />
-            
-          </div>
-
-        {/* Input Section */}
-        <div className="card-body">
-          {/* Quick Amount Row */}
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <span className="text-label">Deposit</span>
             <div className="flex items-center gap-1">
               {quickAmounts.map((pct, index) => {
                 const isActive = getActiveQuickAmount(pct);
@@ -127,6 +124,7 @@ export function YieldPanel() {
                   </button>
                 );
               })}
+            </div>
             </div>
           </div>
 
