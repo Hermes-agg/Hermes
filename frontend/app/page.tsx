@@ -29,19 +29,19 @@ export default function Home() {
         </div>
 
         {/* Powerful H1 and Description */}
-        <section className="w-full py-12 px-3 min-sm:px-1 md:px-8 3xl:px-20 bg-background">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+            <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
               Earn the Highest Yields on Solana Automatically with Hermes
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="mt-1 text-muted-foreground">
               Hermes is a powerful yield aggregator built exclusively for Solana DeFi. Deposit once into auto-optimizing vaults — we handle the rest, shifting your funds to the best lending, staking, and farming opportunities for maximum APY.
             </p>
           </div>
         </section>
 
         {/* Concise FAQ Section - Updated for aggregator reality */}
-        <section className="w-full py-16 px-3 min-sm:px-1 md:px-8 3xl:px-20 bg-muted/50">
+        <section className="w-full py-16 px-3 min-sm:px-1 md:px-8 3xl:px-20">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
             <div className="space-y-8">
