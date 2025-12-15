@@ -20,7 +20,7 @@ export function RiskMeter({ value, onChange }: RiskMeterProps) {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-label">Risk</span>
+      <span className="text-label hidden">Risk</span>
       <div className="flex items-center gap-0.5">
         {riskLevels.map((level, index) => {
           const activeIndex = getActiveIndex();
