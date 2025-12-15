@@ -93,9 +93,9 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                 <X className="h-5 w-5" strokeWidth={2.5} />
               ) : (
                 <div className="flex flex-col gap-1">
-                  <span className="w-4 h-[2px] bg-foreground" />
-                  <span className="w-2 h-[2px] bg-foreground" />
-                  <span className="w-3 h-[2px] bg-foreground" />
+                  <span className="w-4 h-[2px] bg-muted-foreground hover:bg-primary" />
+                  <span className="w-2 h-[2px] bg-muted-foreground" />
+                  <span className="w-3 h-[2px] bg-muted-foreground" />
                 </div>
               )}
             </button>
