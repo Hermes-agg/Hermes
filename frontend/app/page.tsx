@@ -31,39 +31,39 @@ export default function Home() {
         {/* Powerful H1 and Description */}
         <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
         <div>
-            <h1 className="text-heading text-xl text-foreground sm:text-2xl">
+            <h1 className="text-xl fint-bold text-foreground sm:text-2xl">
               Earn the Highest Yields Interest on Solana
             </h1>
             <p className="mt-1 text-muted-foreground">
-              Discover best yield opportunities – Deposit once into Hermes auto-optimizing vaults.
+              Discover best yield opportunities – Deposit once into auto-optimizing vaults.
             </p>
           </div>
         </section>
 
         {/* Concise FAQ Section - Updated for aggregator reality */}
         <section className="w-full py-16 px-3 min-sm:px-1 md:px-8 3xl:px-20">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+          <div>
+            <h2 className="text-xl fint-bold text-foreground sm:text-2xl mb-12">FAQs</h2>
             <div className="space-y-8">
               <div className="border-b pb-8">
-                <h3 className="text-xl font-semibold mb-3">What is Hermes?</h3>
-                <p className="text-muted-foreground">Hermes is a yield aggregator on Solana — think Yearn Finance but optimized for Solana's speed and low fees. It automatically maximizes your returns by deploying deposits into the best DeFi strategies.</p>
+                <h3 className="text-heading mb-3">What is Hermes?</h3>
+                <p className="text-caption">Hermes is a yield aggregator on Solana — think Yearn Finance but optimized for Solana's speed and low fees. It automatically maximizes your returns by deploying deposits into the best DeFi strategies.</p>
               </div>
               <div className="border-b pb-8">
-                <h3 className="text-xl font-semibold mb-3">How does yield aggregation work?</h3>
-                <p className="text-muted-foreground">You deposit assets into Hermes vaults. Smart contracts then auto-compound and rebalance across top protocols (like Kamino, Marginfi, Jito) to chase the highest real-time APYs.</p>
+                <h3 className="text-heading mb-3">How does yield aggregation work?</h3>
+                <p className="text-caption">You deposit assets into Hermes vaults. Smart contracts then auto-compound and rebalance across top protocols (like Kamino, Marginfi, Jito) to chase the highest real-time APYs.</p>
               </div>
               <div className="border-b pb-8">
-                <h3 className="text-xl font-semibold mb-3">Is my money safe?</h3>
-                <p className="text-muted-foreground">Hermes is non-custodial — you always control your funds via your wallet. Vaults are audited, but DeFi carries risks like smart contract bugs. DYOR and start small.</p>
+                <h3 className="text-heading mb-3">Is my money safe?</h3>
+                <p className="text-caption">Hermes is non-custodial — you always control your funds via your wallet. Vaults are audited, but DeFi carries risks like smart contract bugs. DYOR and start small.</p>
               </div>
               <div className="border-b pb-8">
-                <h3 className="text-xl font-semibold mb-3">What assets and strategies are supported?</h3>
-                <p className="text-muted-foreground">SOL, jitoSOL, mSOL, stablecoins (USDC, USDT), and more. Strategies include lending, liquid staking, leveraged loops, and liquidity provision.</p>
+                <h3 className="text-heading mb-3">What assets and strategies are supported?</h3>
+                <p className="text-caption">SOL, jitoSOL, mSOL, stablecoins (USDC, USDT), and more. Strategies include lending, liquid staking, leveraged loops, and liquidity provision.</p>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-3">Why choose Hermes on Solana?</h3>
-                <p className="text-muted-foreground">Solana's fast, cheap transactions enable frequent rebalancing and compounding — delivering higher net yields than on other chains.</p>
+                <h3 className="text-heading mb-3">Why choose Hermes on Solana?</h3>
+                <p className="text-caption">Solana's fast, cheap transactions enable frequent rebalancing and compounding — delivering higher net yields than on other chains.</p>
               </div>
             </div>
           </div>
