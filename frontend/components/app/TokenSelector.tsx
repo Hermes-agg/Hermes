@@ -81,7 +81,7 @@ export function TokenSelector({ tokens, selectedToken, onSelect }: TokenSelector
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           "relative flex items-center gap-2 p-[11px] px-3",
-          "border border-l-0 bg-primary/10 text-primary border-primary/5 hover:border-primary/5 transition-all",
+          "border border-l-0 bg-secondary/10 text-primary border-primary/5 hover:border-primary/5 transition-all",
           "font-mono text-sm font-medium",
           "text-primary rounded-r-xl transition-all",
           isOpen && "bg-secondary/50 border-primary/30"

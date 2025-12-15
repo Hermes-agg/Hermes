@@ -127,7 +127,7 @@ export function YieldPanel() {
 
           {/* Input + Token Selector */}
           <div className="flex items-center gap-0">
-          <div className="input-wrapper flex items-center gap-2 rounded-l-xl min-h-[48px]">
+          <div className="input-wrapper flex items-center gap-2 rounded-l-xl border-primary/5 min-h-[48px]">
             <input
               type="text"
               value={amount}
