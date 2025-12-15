@@ -96,6 +96,25 @@ export function YieldPanel() {
           </div>
         </div>
 
+        <div className="flex items-center justify-end mb-1">
+
+            <div className="flex flex-col items-end gap-2">
+              <button
+                onClick={() => setAmount(formatNumber(selectedToken.balance))}
+                className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
+              >
+                <span className="text-caption">Balance:</span>
+                <span className="text-mono text-xs text-foreground">
+                  {formatNumber(selectedToken.balance)}
+                </span>
+                <span className="text-caption max-w-[60px] truncate">
+                  {selectedToken.symbol}
+                </span>
+              </button>
+              <RiskMeter value={riskProfile} onChange={setRiskProfile} />
+            </div>
+          </div>
+
         {/* Input Section */}
         <div className="card-body">
           {/* Quick Amount Row */}
