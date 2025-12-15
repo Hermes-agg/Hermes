@@ -32,12 +32,13 @@ export function CustomConnectButton({ className, small }: Props) {
     <div className="relative">
       <Button
         size={small ? "sm" : "default"}
+        variant={"lite_primary"}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "flex items-center gap-2 px-2 py-2 text-xs font-mono uppercase tracking-wider border rounded-sm",
+          "flex items-center gap-2 px-2 py-2 text-xs font-mono tracking-wider",
           connected
-            ? "bg-primary/10 text-primary border-primary/30"
-            : "bg-secondary text-foreground border-border/50 hover:border-primary/50",
+            ? ""
+            : "",
           className
         )}
       >

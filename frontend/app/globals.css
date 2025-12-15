@@ -394,8 +394,12 @@
 
   /* Heading - Card/panel headings (H3) */
   .text-heading {
-    @apply text-base sm:text-lg font-semibold;
+    @apply text-xs sm:text-sm capitalize tracking-wide text-foreground;
     font-family: "Outfit", system-ui, sans-serif;
+
+    /* font-size: 0.75rem; */
+    font-weight: 700;
+    letter-spacing: 0.12em;
   }
 
   /* Body - Regular text */
@@ -415,11 +419,11 @@
 
   /* Label - Uppercase labels, tags */
   .text-label {
-    @apply text-[10px] sm:text-xs uppercase tracking-wide text-foreground;
+    @apply text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground;
     font-family: "Geist Mono", monospace;
 
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.12em;
   }
 
@@ -456,7 +460,7 @@
   }
 
   .nav-link {
-    @apply relative px-3 py-2 font-mono text-xs font-medium uppercase tracking-wider transition-all rounded-sm;
+    @apply relative py-4 px-4 font-mono text-xs font-medium uppercase tracking-wider transition-all rounded-sm;
   }
 
   .nav-link-active {
@@ -470,7 +474,7 @@
   /* === CARD SYSTEM === */
 
   .card-base {
-    @apply relative bg-card rounded-sm shadow-xs overflow-hidden;
+    @apply relative rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden;
   }
 
   .card-interactive {
@@ -629,7 +633,7 @@
   }
 
   .input-wrapper {
-    @apply bg-secondary/30 p-1.5 pl-3;
+    @apply bg-secondary/30 p-1.5 px-3;
     @apply focus-within:border-primary/50;
     @apply transition-colors duration-200;
   }
@@ -719,8 +723,6 @@
     box-shadow: 0 12px 40px hsl(0 0% 0% / 0.18), 0 4px 12px hsl(0 0% 0% / 0.12),
       inset 0 1px 0 hsl(0 0% 100% / 0.08);
   }
-
-
 }
 
 /* Hide scrollbar but keep scrolling */
@@ -732,6 +734,3 @@
   -ms-overflow-style: none; /* IE & Edge */
   scrollbar-width: none; /* Firefox */
 }
-
-
-

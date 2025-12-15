@@ -71,7 +71,7 @@ export function YieldPanel() {
         <div className="card-header">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-label mb-1">Yield Explorer</h1>
+              <h3 className="text-heading mb-1">Yield Explorer</h3>
               <div className="flex items-center gap-2">
                 <div className="w-1 h-4 bg-primary" />
                 <h2 className="text-caption">Discover Best Yields</h2>
@@ -126,8 +126,8 @@ export function YieldPanel() {
           </div>
 
           {/* Input + Token Selector */}
-          <div className="flex items-center gap-2">
-          <div className="input-wrapper flex items-center gap-2 rounded-md">
+          <div className="flex items-center gap-0">
+          <div className="input-wrapper flex items-center gap-2 rounded-l-xl min-h-[48px]">
             <input
               type="text"
               value={amount}
