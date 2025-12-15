@@ -98,7 +98,7 @@ export function YieldPanel() {
 
         <div className="flex items-center justify-end p-3 mb-1">
 
-            <div className="flex flex-col items-end gap-2">
+            
               <button
                 onClick={() => setAmount(formatNumber(selectedToken.balance))}
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
@@ -112,7 +112,7 @@ export function YieldPanel() {
                 </span>
               </button>
               <RiskMeter value={riskProfile} onChange={setRiskProfile} />
-            </div>
+            
           </div>
 
         {/* Input Section */}
