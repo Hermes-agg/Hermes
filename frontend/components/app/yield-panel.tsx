@@ -78,7 +78,7 @@ export function YieldPanel() {
               </div>
             </div>
 
-             <div className="flex flex-col items-end gap-2">
+             <div className="flex flex-col items-end justify-end gap-2">
               <button
                 onClick={() => setAmount(formatNumber(selectedToken.balance))}
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
@@ -102,7 +102,7 @@ export function YieldPanel() {
           
           {/* Quick Amount Row */}
           <div className="flex items-center justify-between gap-2 mb-3">
-            <span className="text-label">Amount</span>
+            <span className="text-label">Deposit</span>
             <div className="flex items-center gap-1">
               {quickAmounts.map((pct, index) => {
                 const isActive = getActiveQuickAmount(pct);
