@@ -80,7 +80,6 @@ export function YieldPanel() {
 
              <div className="flex flex-col items-end gap-2">
               
-             <RiskMeter value={riskProfile} onChange={setRiskProfile} />
             </div> 
           </div> 
         </div>
@@ -105,7 +104,7 @@ export function YieldPanel() {
             </div>
           {/* Quick Amount Row */}
           <div className="flex items-center justify-between gap-2 mb-3">
-            <span className="text-label">Deposit</span>
+            <span className="text-label">Amount</span>
             <div className="flex items-center gap-1">
               {quickAmounts.map((pct, index) => {
                 const isActive = getActiveQuickAmount(pct);
@@ -137,12 +136,17 @@ export function YieldPanel() {
               placeholder="0.00"
               className="input-lg flex-1 min-w-0"
             />
+            <div className="flex items-center gap-2">
+              
+             <RiskMeter value={riskProfile} onChange={setRiskProfile} />
+              
             <TokenSelector
               tokens={tokens}
               selectedToken={selectedToken}
               onSelect={setSelectedToken}
 
             />
+            </div>
           </div>
         </div>
       </div>
