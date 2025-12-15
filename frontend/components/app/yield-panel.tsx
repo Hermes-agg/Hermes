@@ -92,8 +92,8 @@ export function YieldPanel() {
                 </span>
               </button>
               <RiskMeter value={riskProfile} onChange={setRiskProfile} />
-            </div>
-          </div> */}
+            </div> */}
+          </div> 
         </div>
 
         <div className="flex items-center justify-end p-3 mb-1">
