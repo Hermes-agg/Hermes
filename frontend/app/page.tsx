@@ -31,7 +31,7 @@ export default function Home() {
         {/* Powerful H1 and Description */}
         <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
         <div>
-            <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
+            <h1 className="text-xl font-bold text-foreground sm:text-2xl">
               Earn the Highest Yields interest on Solana
             </h1>
             <p className="mt-1 text-muted-foreground">
