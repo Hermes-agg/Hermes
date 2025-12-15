@@ -128,6 +128,7 @@ export function YieldPanel() {
           </div>
 
           {/* Input + Token Selector */}
+          <div className="flex items-center gap-2">
           <div className="input-wrapper flex items-center gap-2 rounded-md">
             <input
               type="text"
@@ -136,17 +137,18 @@ export function YieldPanel() {
               placeholder="0.00"
               className="input-lg flex-1 min-w-0"
             />
-            <div className="flex items-center gap-2">
+            
               
              <RiskMeter value={riskProfile} onChange={setRiskProfile} />
               
+            
+            </div>
             <TokenSelector
               tokens={tokens}
               selectedToken={selectedToken}
               onSelect={setSelectedToken}
 
             />
-            </div>
           </div>
         </div>
       </div>
