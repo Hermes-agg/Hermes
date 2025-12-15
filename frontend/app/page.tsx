@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-start w-full flex-1 h-full gap-6 mt-0 md:pt-[10vh]">
+    <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-start w-full flex-1 h-full mt-0 md:pt-[10vh]">
 
       {/* Banner / Ad Section */}
       <div className="w-full mx-auto max-w-2xl">

@@ -3,8 +3,9 @@ import Image from "next/image"
 
 export function AppFooter() {
   return (
-    <footer className="">
+    <footer className="w-full">
       <div className="container max-w-7xl mx-auto flex items-center justify-between gap-3 py-4 px-4 sm:px-6">
+        
         {/* Left side - Logo, Copyright, Links */}
         <div className="flex items-center gap-4">
           {/* Logo and Copyright - hidden on mobile */}

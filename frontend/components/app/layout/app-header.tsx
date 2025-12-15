@@ -8,7 +8,7 @@ import useAppLogo from "@/asssets/image";
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { CustomConnectButton } from "../wallet-connect/CustomConnectButton"
+import { CustomConnectButton } from "../wallet-connect/CustomConnectKit"
 
 interface AppHeaderProps {
   isLoading?: boolean
@@ -127,8 +127,8 @@ export function AppHeader({ isLoading = false }: AppHeaderProps) {
                     className={cn(
                       "relative px-4 py-2 text-nav transition-all group rounded-sm",
                       active
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
                     )}
                   >
 

@@ -59,7 +59,7 @@ export function RiskMeter({ value, onChange }: RiskMeterProps) {
               <span
                 className={cn(
                   "absolute -bottom-4 text-[8px] font-mono uppercase tracking-wide transition-opacity duration-200",
-                  isSelected ? "opacity-100" : "opacity-30 text-muted-foreground lowercase",
+                  isSelected ? "opacity-100" : "opacity-30 text-muted-foreground",
                   isSelected && level.value === "low" && "text-success",
                   isSelected && level.value === "moderate" && "text-warning",
                   isSelected && level.value === "high" && "text-destructive"

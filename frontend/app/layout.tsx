@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Cormorant_Garamond, Geist_Mono, Outfit } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import "./styles/wallet-adapter.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import AppLayout from "@/components/app/layout/app-layout"
 
