@@ -123,7 +123,7 @@ export function FaqSection() {
                 <div className="w-1 h-4 bg-primary" />
                 <h3 className="text-caption">Frequently Asked Questions</h3>
               </div>
-        
+        </div>
         <Accordion type="single" collapsible className="w-full space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem 
