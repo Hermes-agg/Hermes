@@ -35,7 +35,7 @@ export default function Home() {
             <h1 className="text-lg fint-bold text-foreground sm:text-xl">
               Earn the Best Yields on Solana
             </h1>
-            <p className="mt-1 text-caption">
+            <p className="mt-2 text-caption">
               Discover yields – Deposit once into Hermes auto-optimizing vaults.
             </p>
           </div>
@@ -115,8 +115,9 @@ export function FaqSection() {
   return (
     <section className="w-full py-16">
       <div className="max-w-3xl mx-auto">
-        <div>
-        <h2 className="text-lg fint-bold text-foreground sm:text-xl mb-8">
+        
+        <div className="mb-8">
+        <h2 className="text-lg fint-bold text-foreground sm:text-xl mb-1">
           FAQs
         </h2>
         <div className="flex items-center gap-2">
