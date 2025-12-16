@@ -21,7 +21,7 @@ export default function Home() {
         <link rel="canonical" href="https://yourdomain.com/" /> {/* Replace with your actual URL */}
       </Head>
 
-      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col gab-6 items-center justify-start w-full flex-1 h-full mt-0 md:pt-[5vh]">
+      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col gap-6 items-center justify-start w-full flex-1 h-full mt-0 md:pt-[5vh]">
 
         
         {/* Main Yield Panel - Users see vaults/opportunities first */}
@@ -30,8 +30,8 @@ export default function Home() {
         </div>
 
         {/* Powerful H1 and Description */}
-        <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-y px-3 min-sm:px-1 md:px-8 3xl:px-20">
-        <div className="mt-16 mb-8 text-center max-w-2xl mx-auto">
+        <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-b px-3 min-sm:px-1 md:px-8 3xl:px-20">
+        <div className="mb-3 text-center max-w-2xl mx-auto">
             <h1 className="text-lg fint-bold text-foreground sm:text-xl">
               Auto-Earn the Best Yields on Solana DeFi
             </h1>
