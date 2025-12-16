@@ -21,7 +21,7 @@ export default function Home() {
         <link rel="canonical" href="https://yourdomain.com/" /> {/* Replace with your actual URL */}
       </Head>
 
-      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-start w-full flex-1 h-full mt-0 md:pt-[10vh]">
+      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-start w-full flex-1 h-full mt-0 md:pt-[50vh]">
 
         {/* Main Yield Panel - Users see vaults/opportunities first */}
         <div className="w-full flex-1 flex flex-col pb-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
@@ -29,12 +29,12 @@ export default function Home() {
         </div>
 
         {/* Powerful H1 and Description */}
-        <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
-        <div>
-            <h1 className="text-xl fint-bold text-foreground sm:text-2xl">
+        <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-b px-3 min-sm:px-1 md:px-8 3xl:px-20">
+        <div className="flex flex-col md:items-center md:justify-center">
+            <h1 className="text-lg fint-bold text-foreground sm:text-xl">
               Earn the Highest Yields Interest on Solana
             </h1>
-            <p className="mt-1 text-muted-foreground">
+            <p className="mt-1 text-caption">
               Discover best yield opportunities – Deposit once into auto-optimizing vaults.
             </p>
           </div>
@@ -43,7 +43,7 @@ export default function Home() {
         {/* Concise FAQ Section - Updated for aggregator reality */}
         <section className="w-full py-16 px-3 min-sm:px-1 md:px-8 3xl:px-20">
           <div>
-            <h2 className="text-xl fint-bold text-foreground sm:text-2xl mb-12">FAQs</h2>
+            <h2 className="text-lg fint-bold text-foreground sm:text-xl mb-12">FAQs</h2>
             <div className="space-y-8">
               <div className="border-b pb-8">
                 <h3 className="text-heading mb-3">What is Hermes?</h3>
