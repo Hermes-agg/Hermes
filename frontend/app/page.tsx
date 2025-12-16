@@ -21,7 +21,7 @@ export default function Home() {
         <link rel="canonical" href="https://yourdomain.com/" /> {/* Replace with your actual URL */}
       </Head>
 
-      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col gap-6 items-center justify-start w-full flex-1 h-full mt-0 md:pt-[5vh]">
+      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col gap-6 items-center justify-start w-full flex-1 h-full mt-0 md:pt-[3vh]">
 
         
         {/* Main Yield Panel - Users see vaults/opportunities first */}
@@ -31,9 +31,9 @@ export default function Home() {
 
         {/* Powerful H1 and Description */}
         <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-b px-3 min-sm:px-1 md:px-8 3xl:px-20">
-        <div className="mb-3 text-center max-w-2xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto">
             <h1 className="text-lg fint-bold text-foreground sm:text-xl">
-              Auto-Earn the Best Yields on Solana DeFi
+              Earn the Best Yields on Solana
             </h1>
             <p className="mt-1 text-caption">
               Discover yields – Deposit once into Hermes auto-optimizing vaults.
@@ -115,9 +115,14 @@ export function FaqSection() {
   return (
     <section className="w-full py-16">
       <div className="max-w-3xl mx-auto">
+        <div>
         <h2 className="text-lg fint-bold text-foreground sm:text-xl mb-8">
           FAQs
         </h2>
+        <div className="flex items-center gap-2">
+                <div className="w-1 h-4 bg-primary" />
+                <h3 className="text-caption">Frequently Asked Questions</h3>
+              </div>
         
         <Accordion type="single" collapsible className="w-full space-y-3">
           {faqs.map((faq, index) => (
