@@ -1,110 +1,135 @@
 "use client";
 
-import { useRef } from "react";
-import { TrendingUp, TrendingDown, DollarSign, Percent, Activity, Users } from "lucide-react";
+import { useRef, useEffect } from "react";
+import {
+  TrendingUp,
+  TrendingDown,
+  DollarSign,
+  Percent,
+  Activity,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Stat = {
-  label: string;
-  value: string;
-  change?: number;
-  changeText?: string;
-  icon: React.ElementType;
-};
-
-const stats: Stat[] = [
-  { label: "Solana DeFi TVL", value: "$8.42B", change: 4.2, icon: DollarSign },
-  { label: "Avg Staking APY", value: "7.8%", change: -0.3, icon: Percent },
-  { label: "Avg Lending APY", value: "5.2%", change: 1.1, icon: TrendingUp },
-  { label: "Active Protocols", value: "127", change: 3, changeText: "new", icon: Activity },
-  { label: "Unique Depositors", value: "892K", change: 8.5, icon: Users },
+const stats = [
+  { label: "TVL", value: "$8.42B", change: 4.2, icon: DollarSign },
+  { label: "Avg APY", value: "7.8%", change: -0.3, icon: Percent },
+  { label: "Active Protocols", value: "127", change: 3, icon: Activity },
+  { label: "TVL", value: "$8.42B", change: 4.2, icon: DollarSign },
+  { label: "Avg APY", value: "7.8%", change: -0.3, icon: Percent },
+  { label: "Active Protocols", value: "127", change: 3, icon: Activity },
 ];
 
 export function MarketStats() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  let isDown = false;
-  let startX = 0;
-  let scrollLeft = 0;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
+  const isDragging = useRef(false);
+  const autoScroll = useRef(true); // ✅ FIX: declare it
+  const startX = useRef(0);
+  const scrollStart = useRef(0);
+  const setWidth = useRef(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const track = trackRef.current;
+    if (!container || !track) return;
+
+    // width of ONE full set
+    setWidth.current = track.scrollWidth / 2;
+
+    let rafId: number;
+
+    const loop = () => {
+      if (autoScroll.current && !isDragging.current) {
+        container.scrollLeft += 0.6;
+      }
+
+      // 🔁 TRUE infinite seamless loop
+      if (container.scrollLeft >= setWidth.current) {
+        container.scrollLeft -= setWidth.current;
+      }
+
+      rafId = requestAnimationFrame(loop);
+    };
+
+    rafId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
+  // 🖱 Drag handlers
   const onMouseDown = (e: React.MouseEvent) => {
-    isDown = true;
-    startX = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    scrollLeft = scrollRef.current?.scrollLeft || 0;
-  };
-
-  const onMouseLeave = () => {
-    isDown = false;
-  };
-
-  const onMouseUp = () => {
-    isDown = false;
+    isDragging.current = true;
+    autoScroll.current = false;
+    startX.current = e.pageX;
+    scrollStart.current = containerRef.current?.scrollLeft || 0;
   };
 
   const onMouseMove = (e: React.MouseEvent) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 1.2; // scroll speed
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollLeft - walk;
-    }
+    if (!isDragging.current || !containerRef.current) return;
+    const walk = (e.pageX - startX.current) * 1.2;
+    containerRef.current.scrollLeft = scrollStart.current - walk;
+  };
+
+  const stopDrag = () => {
+    isDragging.current = false;
+    autoScroll.current = true;
   };
 
   return (
+    <section className="w-full px-3 min-sm:px-1 md:px-8 2xl:px-20 bg-primary/0.5 backdrop-blur-sm py-3">
+      <div
+        ref={containerRef}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={stopDrag}
+        onMouseLeave={stopDrag}
+        className="w-full max-w-2xl overflow-x-hidden px-3 cursor-grab active:cursor-grabbing select-none"
+      >
+        <div ref={trackRef} className="flex gap-4 min-w-max">
+          {/* ORIGINAL SET */}
+          {stats.map((stat, i) => (
+            <StatCard key={`a-${i}`} stat={stat} />
+          ))}
+
+          {/* CLONE SET */}
+          {stats.map((stat, i) => (
+            <StatCard key={`b-${i}`} stat={stat} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StatCard({ stat }: { stat: any }) {
+  const positive = stat.change > 0;
+
+  return (
     <div
-      ref={scrollRef}
-      onMouseDown={onMouseDown}
-      onMouseLeave={onMouseLeave}
-      onMouseUp={onMouseUp}
-      onMouseMove={onMouseMove}
-      className="w-full overflow-x-auto scrollbar-hide px-3 backdrop-blur-sm cursor-grab active:cursor-grabbing select-none max-w-3xl"
+      className={cn(
+        "flex items-center gap-3 px-4 py-2 rounded-sm flex-shrink-0",
+        "card-base backdrop-blur-xl"
+      )}
     >
-      <div className="flex gap-4 whitespace-nowrap min-w-max">
-        {stats.map((stat, i) => {
-          const isPositive = stat.change !== undefined && stat.change > 0;
+      <span className="font-mono text-sm font-bold">{stat.value}</span>
 
-          return (
-            <div
-              key={stat.label}
-              className={cn(
-                "flex items-center gap-3 py-2 px-4 card-base backdrop-blur-xl",
-                "rounded-sm flex-shrink-0",
-                "animate-in slide-in-from-right-12 fade-in duration-700 shadow-none"
-              )}
-              style={{
-                animationDelay: `${i * 100 + 100}ms`,
-                animationFillMode: "backwards",
-              }}
-            >
-              <div className="flex items-center gap-2.5">
-                <stat.icon className="w-4 h-4 text-primary/80 flex-shrink-0" />
-                <span className="font-mono text-sm font-bold text-foreground">{stat.value}</span>
-              </div>
+      <div className="flex items-center gap-1 text-[10px]">
+        <span className="text-muted-foreground">{stat.label}</span>
+        <span className="text-muted-foreground/40">•</span>
 
-              <div className="flex items-center gap-1.5 text-[10px]">
-                <span className="text-muted-foreground">{stat.label}</span>
-
-                {stat.change !== undefined && (
-                  <>
-                    <span className="text-muted-foreground/50">•</span>
-                    <span
-                      className={cn(
-                        "flex items-center gap-0.5 font-medium",
-                        isPositive ? "text-success" : "text-destructive"
-                      )}
-                    >
-                      {isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                      {Math.abs(stat.change).toFixed(1)}%
-                      {stat.changeText && (
-                        <span className="text-muted-foreground/70 ml-0.5">{stat.changeText}</span>
-                      )}
-                    </span>
-                  </>
-                )}
-              </div>
-            </div>
-          );
-        })}
+        <span
+          className={cn(
+            "flex items-center gap-0.5 font-medium",
+            positive ? "text-success" : "text-destructive"
+          )}
+        >
+          {positive ? (
+            <TrendingUp className="w-3 h-3" />
+          ) : (
+            <TrendingDown className="w-3 h-3" />
+          )}
+          {Math.abs(stat.change).toFixed(1)}%
+        </span>
       </div>
     </div>
   );
