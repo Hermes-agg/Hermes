@@ -21,8 +21,9 @@ export default function Home() {
         <link rel="canonical" href="https://yourdomain.com/" /> {/* Replace with your actual URL */}
       </Head>
 
-      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col items-center justify-start w-full flex-1 h-full mt-0 md:pt-[5vh]">
+      <div className="mx-auto max-w-7xl transition-opacity duration-300 flex flex-col gab-6 items-center justify-start w-full flex-1 h-full mt-0 md:pt-[5vh]">
 
+        
         {/* Main Yield Panel - Users see vaults/opportunities first */}
         <div className="w-full flex-1 flex flex-col pb-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
           <YieldPanel />
@@ -39,7 +40,8 @@ export default function Home() {
             </p>
           </div>
         </section>
-
+        
+         
         {/* Concise FAQ Section - Updated for aggregator reality */}
         <section className="w-full py-16 px-3 min-sm:px-1 md:px-8 3xl:px-20">
           <div>
