@@ -41,8 +41,9 @@ export default function Home() {
           </div>
         </section>
         
-         
-        {/* Concise FAQ Section - Updated for aggregator reality */}
+         {/* FAQ Section */}
+          <FaqSection />
+        {/* Concise FAQ Section - Updated for aggregator reality 
         <section className="w-full py-16 px-3 min-sm:px-1 md:px-8 3xl:px-20">
           <div>
             <h2 className="text-lg fint-bold text-foreground sm:text-xl mb-12">FAQs</h2>
@@ -69,9 +70,71 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
       </div>
     </>
   );
 }
+
+
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+const faqs = [
+  {
+    question: "What is Hermes?",
+    answer: "Hermes is a yield aggregator on Solana — think Yearn Finance but optimized for Solana's speed and low fees. It automatically maximizes your returns by deploying deposits into the best DeFi strategies."
+  },
+  {
+    question: "How does yield aggregation work?",
+    answer: "You deposit assets into Hermes vaults. Smart contracts then auto-compound and rebalance across top protocols (like Kamino, Marginfi, Jito) to chase the highest real-time APYs."
+  },
+  {
+    question: "Is my money safe?",
+    answer: "Hermes is non-custodial — you always control your funds via your wallet. Vaults are audited, but DeFi carries risks like smart contract bugs. DYOR and start small."
+  },
+  {
+    question: "What assets and strategies are supported?",
+    answer: "SOL, jitoSOL, mSOL, stablecoins (USDC, USDT), and more. Strategies include lending, liquid staking, leveraged loops, and liquidity provision."
+  },
+  {
+    question: "Why choose Hermes on Solana?",
+    answer: "Solana's fast, cheap transactions enable frequent rebalancing and compounding — delivering higher net yields than on other chains."
+  }
+]
+
+export function FaqSection() {
+  return (
+    <section className="w-full py-16">
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-2xl font-semibold text-foreground mb-8">
+          FAQLs
+        </h2>
+        
+        <Accordion type="single" collapsible className="w-full space-y-3">
+          {faqs.map((faq, index) => (
+            <AccordionItem 
+              key={index} 
+              value={`item-${index}`}
+              className="bg-card border border-border px-5 py-1 data-[state=open]:bg-secondary/50 transition-colors"
+            >
+              <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline py-4 text-base font-medium">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
+  )
+}
+
