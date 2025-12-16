@@ -31,12 +31,12 @@ export default function Home() {
 
         {/* Powerful H1 and Description */}
         <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-b px-3 min-sm:px-1 md:px-8 3xl:px-20">
-        <div className="flex flex-col md:items-center md:justify-center">
+        <div className="flex flex-col md:items-center md:jcccustify-center">
             <h1 className="text-lg fint-bold text-foreground sm:text-xl">
-              Earn the Highest Yields Interest on Solana
+              Auto-Earn the Best Yields on Solana DeFi
             </h1>
             <p className="mt-1 text-caption">
-              Discover best yield opportunities – Deposit once into auto-optimizing vaults.
+              Discover yields – Deposit once into Hermes auto-optimizing vaults.
             </p>
           </div>
         </section>
