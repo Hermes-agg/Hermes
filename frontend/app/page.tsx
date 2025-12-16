@@ -31,7 +31,7 @@ export default function Home() {
 
         {/* Powerful H1 and Description */}
         <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-b px-3 min-sm:px-1 md:px-8 3xl:px-20">
-        <div className="flex flex-col md:items-center md:jcccustify-center">
+        <div className="mt-16 mb-8 text-center max-w-2xl mx-auto">
             <h1 className="text-lg fint-bold text-foreground sm:text-xl">
               Auto-Earn the Best Yields on Solana DeFi
             </h1>
