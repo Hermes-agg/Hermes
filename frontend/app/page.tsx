@@ -42,7 +42,9 @@ export default function Home() {
         </section>
         
          {/* FAQ Section */}
+        <div className="w-full flex-1 flex flex-col pb-6 px-3 min-sm:px-1 md:px-8 3xl:px-20">
           <FaqSection />
+        </div>
         {/* Concise FAQ Section - Updated for aggregator reality 
         <section className="w-full py-16 px-3 min-sm:px-1 md:px-8 3xl:px-20">
           <div>
@@ -113,8 +115,8 @@ export function FaqSection() {
   return (
     <section className="w-full py-16">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-semibold text-foreground mb-8">
-          FAQLs
+        <h2 className="text-lg fint-bold text-foreground sm:text-xl mb-8">
+          FAQs
         </h2>
         
         <Accordion type="single" collapsible className="w-full space-y-3">
