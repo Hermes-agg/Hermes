@@ -1,0 +1,34 @@
+import type React from "react"
+import type { Metadata } from "next"
+import { Outfit, Geist_Mono } from "next/font/google"
+import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
+import { WaitlistHeader } from "@/components/waitlist-header"
+import { WaitlistFooter } from "@/components/waitlist-footer"
+
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-body" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
+
+export const metadata: Metadata = {
+  title: "Hermes Waitlist - Join the Future of Yield",
+  description: "Join the Hermes waitlist. Be the first to access the best DeFi yield strategies on Solana.",
+  icons: { icon: "/icon.svg" },
+}
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${outfit.variable} ${geistMono.variable} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="min-h-screen bg-background flex flex-col">
+            <WaitlistHeader />
+            <main className="flex-1 mx-3 md:mx-auto max-w-7xl w-full py-8 md:py-16">
+              {children}
+            </main>
+            <WaitlistFooter />
+          </div>
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
