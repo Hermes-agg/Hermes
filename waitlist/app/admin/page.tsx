@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { Users, Loader2, LogOut, ArrowLeft, Download } from "lucide-react"
 import { useAppLogo } from "@/hooks/use-app-logo"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 type WaitlistEntry = {
   id: string
@@ -121,16 +122,19 @@ export default function AdminPage() {
 
   if (!authenticated && !loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="w-full max-w-sm rounded-2xl border border-border/40 bg-card/95 p-10 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)]">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4 sm:p-6 relative">
+        <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
+          <ThemeToggle />
+        </div>
+        <div className="w-full max-w-sm rounded-2xl border border-border/40 bg-card/95 p-6 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)] mx-2">
           <div className="flex justify-center mb-6">
             <Image src={logoSrc} alt="Hermes" width={100} height={40} className="h-10 w-auto object-contain" priority />
           </div>
           <p className="text-center text-muted-foreground mb-8 text-[15px] tracking-tight">
             Enter the 6-digit passcode to continue
           </p>
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="flex justify-center gap-2.5">
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            <div className="flex justify-center gap-1.5 sm:gap-2.5">
               {digits.map((d, i) => (
                 <input
                   key={i}
@@ -141,7 +145,7 @@ export default function AdminPage() {
                   value={d}
                   onChange={(e) => handleDigitChange(i, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(i, e)}
-                  className="size-12 text-center text-xl font-semibold rounded-xl border border-input/80 bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                  className="size-10 sm:size-12 text-center text-lg sm:text-xl font-semibold rounded-lg sm:rounded-xl border border-input/80 bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all shrink-0"
                   aria-label={`Digit ${i + 1}`}
                 />
               ))}
@@ -161,21 +165,23 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="mx-auto max-w-5xl">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">Waitlist Dashboard</h1>
-            <p className="text-muted-foreground">Hermes signups</p>
+    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8 overflow-x-hidden">
+      <div className="mx-auto max-w-5xl min-w-0">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+          <div className="min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground truncate">Waitlist Dashboard</h1>
+            <p className="text-sm text-muted-foreground">Hermes signups</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <ThemeToggle />
             <a
               href="/"
-              className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors text-sm font-medium"
+              className="inline-flex items-center gap-1.5 sm:gap-2 h-9 px-2.5 sm:px-3 rounded-md border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors text-xs sm:text-sm font-medium shrink-0"
               aria-label="Back to site"
             >
-              <ArrowLeft className="size-4" />
-              Back to site
+              <ArrowLeft className="size-4 shrink-0" />
+              <span className="sm:hidden">Back</span>
+              <span className="hidden sm:inline">Back to site</span>
             </a>
             <button
               onClick={handleLogout}
@@ -193,8 +199,8 @@ export default function AdminPage() {
           </div>
         ) : (
           <>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-              <div className="rounded-xl border border-border/50 bg-card p-6 flex-1 max-w-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+              <div className="rounded-xl border border-border/50 bg-card p-4 sm:p-6 flex-1 min-w-0 max-w-full sm:max-w-xs">
                 <div className="flex items-center gap-3">
                   <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center">
                     <Users className="size-5 text-primary" />
@@ -208,22 +214,22 @@ export default function AdminPage() {
               <button
                 onClick={exportCSV}
                 disabled={entries.length === 0}
-                className="inline-flex items-center gap-2 h-10 px-4 rounded-md border border-border/50 bg-card text-foreground hover:bg-muted/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium"
+                className="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-md border border-border/50 bg-card text-foreground hover:bg-muted/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium w-full sm:w-auto"
               >
                 <Download className="size-4" />
                 Export CSV
               </button>
             </div>
 
-            <div className="rounded-xl border border-border/50 bg-card overflow-hidden">
+            <div className="rounded-xl border border-border/50 bg-card overflow-hidden -mx-4 sm:mx-0">
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full min-w-[320px]">
                   <thead>
                     <tr className="border-b border-border/50 bg-muted/30">
-                      <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">#</th>
-                      <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Name / Alias</th>
-                      <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Email</th>
-                      <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Joined</th>
+                      <th className="text-left py-3 px-3 sm:px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider whitespace-nowrap">#</th>
+                      <th className="text-left py-3 px-3 sm:px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Name / Alias</th>
+                      <th className="text-left py-3 px-3 sm:px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">Email</th>
+                      <th className="text-left py-3 px-3 sm:px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider whitespace-nowrap">Joined</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -234,10 +240,10 @@ export default function AdminPage() {
                     ) : (
                       entries.map((entry, i) => (
                         <tr key={entry.id} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
-                          <td className="py-3 px-4 text-sm text-muted-foreground">{i + 1}</td>
-                          <td className="py-3 px-4 text-sm font-medium text-foreground">{entry.alias}</td>
-                          <td className="py-3 px-4 text-sm text-foreground">{entry.email}</td>
-                          <td className="py-3 px-4 text-sm text-muted-foreground">{new Date(entry.created_at).toLocaleDateString()}</td>
+                          <td className="py-3 px-3 sm:px-4 text-sm text-muted-foreground">{i + 1}</td>
+                          <td className="py-3 px-3 sm:px-4 text-sm font-medium text-foreground">{entry.alias}</td>
+                          <td className="py-3 px-3 sm:px-4 text-sm text-foreground break-all">{entry.email}</td>
+                          <td className="py-3 px-3 sm:px-4 text-sm text-muted-foreground whitespace-nowrap">{new Date(entry.created_at).toLocaleDateString()}</td>
                         </tr>
                       ))
                     )}

@@ -29,10 +29,10 @@ export function WaitlistHeader() {
         isScrolled && "bg-background/90 backdrop-blur-md border-b border-border/50 shadow-sm"
       )}
     >
-      <div className="mx-auto flex h-12 md:h-14 items-center justify-between px-4 max-w-6xl">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center">
-            <Image src={logoSrc} alt="Hermes" width={90} height={36} className="h-8 md:h-9 w-auto object-contain" priority />
+      <div className="mx-auto flex h-12 md:h-14 items-center justify-between px-4 max-w-6xl min-w-0">
+        <div className="flex items-center gap-4 sm:gap-6 min-w-0 flex-1">
+          <Link href="/" className="flex items-center shrink-0 min-w-0">
+            <Image src={logoSrc} alt="Hermes" width={90} height={36} className="h-7 sm:h-8 md:h-9 w-auto object-contain" priority />
           </Link>
           <a href="#waitlist" className="hidden md:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Waitlist

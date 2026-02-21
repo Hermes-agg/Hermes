@@ -3,7 +3,7 @@ import { FooterLogo } from "./footer-logo"
 export function WaitlistFooter() {
   return (
     <footer className="w-full border-t border-border/50 mt-auto">
-      <div className="mx-auto max-w-6xl flex items-center justify-between py-4 px-4">
+      <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-3 py-4 px-4">
         <div className="flex items-center gap-3">
           <FooterLogo />
           <span className="text-xs text-muted-foreground uppercase tracking-wider">© 2026</span>

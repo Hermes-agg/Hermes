@@ -31,9 +31,9 @@ export function FaqAccordion() {
         >
           <button
             onClick={() => setOpen(open === i ? null : i)}
-            className="flex w-full cursor-pointer list-none items-center justify-between p-4 text-left font-medium text-foreground transition-colors hover:bg-muted/30"
+            className="flex w-full cursor-pointer list-none items-center justify-between gap-3 p-4 text-left font-medium text-foreground transition-colors hover:bg-muted/30 min-w-0"
           >
-            {item.q}
+            <span className="flex-1 min-w-0">{item.q}</span>
             <ChevronDown
               className={cn(
                 "size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-out",
@@ -48,7 +48,7 @@ export function FaqAccordion() {
             }}
           >
             <div className="overflow-hidden">
-              <p className="px-4 pb-4 text-sm text-muted-foreground">{item.a}</p>
+              <p className="px-4 pb-4 text-sm text-muted-foreground break-words">{item.a}</p>
             </div>
           </div>
         </div>

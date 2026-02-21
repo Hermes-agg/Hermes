@@ -5,7 +5,7 @@ import { Zap, Shield, Route, BarChart3 } from "lucide-react"
 
 export default function WaitlistPage() {
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden">
       {/* Background: grid + rich hero overlay */}
       <div className="fixed inset-0 -z-10 bg-grid opacity-[0.04] dark:opacity-[0.08]" />
       <div
@@ -27,19 +27,19 @@ export default function WaitlistPage() {
       />
 
       {/* Hero - form BESIDE content, not below */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-        <div className="flex flex-col lg:flex-row lg:items-start gap-10 lg:gap-14">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12 md:py-20">
+        <div className="flex flex-col lg:flex-row lg:items-start gap-8 sm:gap-10 lg:gap-14">
           {/* Left: Copy */}
-          <div className="flex-1 min-w-0 space-y-6">
-            <p className="text-sm font-medium text-primary uppercase tracking-wider">
+          <div className="flex-1 min-w-0 space-y-5 sm:space-y-6">
+            <p className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wider">
               • Yield Intelligence for Solana
             </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.15]">
               One Click,
               <br />
-              <span className="text-primary">Discover Yield <br /> You Can Trust</span>
+              <span className="text-primary">Discover Yield <br className="hidden sm:block" /> You Can Trust</span>
             </h1>
-            <p className="text-base text-muted-foreground max-w-xl">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl">
               Real-time yield aggregation across every protocol on Solana. No tab switching. No digging through docs. Just the best risk-adjusted APY.
             </p>
             <a href="#waitlist" className="btn-primary inline-flex">
@@ -50,7 +50,7 @@ export default function WaitlistPage() {
           {/* Right: Waitlist form - SIDE BY SIDE */}
           <div
             id="waitlist"
-            className="flex-shrink-0 w-full lg:w-[380px] rounded-xl border border-border/50 bg-card/95 backdrop-blur-sm p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-primary/20"
+            className="flex-shrink-0 w-full min-w-0 lg:w-[380px] rounded-xl border border-border/50 bg-card/95 backdrop-blur-sm p-4 sm:p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-primary/20"
           >
             <h3 className="text-lg font-semibold text-foreground mb-1">Join the waitlist</h3>
             <p className="text-sm text-muted-foreground mb-5">Be first to know when access opens.</p>
@@ -61,13 +61,13 @@ export default function WaitlistPage() {
       </section>
 
       {/* How it works */}
-      <section className="border-t border-border/50 py-16 md:py-24">
+      <section className="border-t border-border/50 py-12 sm:py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">How it works</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-12">
+          <p className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wider mb-2">How it works</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-12">
             Deposit to route. One click.
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <div className="space-y-4 rounded-xl p-4 transition-all duration-300 hover:bg-muted/30">
               <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center transition-colors duration-300">
                 <Route className="size-5 text-primary" />
@@ -109,12 +109,12 @@ export default function WaitlistPage() {
       </section>
 
       {/* The problem & solution - condensed */}
-      <section className="border-t border-border/50 py-16 md:py-24 bg-muted/30">
+      <section className="border-t border-border/50 py-12 sm:py-16 md:py-24 bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
             <div>
               <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">The problem</p>
-              <h2 className="text-2xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">
                 100+ protocols. 6% real APY.
               </h2>
               <p className="text-muted-foreground">
@@ -123,7 +123,7 @@ export default function WaitlistPage() {
             </div>
             <div>
               <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Our solution</p>
-              <h2 className="text-2xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">
                 Hermes. Like Google Maps for yield.
               </h2>
               <p className="text-muted-foreground">
@@ -135,10 +135,10 @@ export default function WaitlistPage() {
       </section>
 
       {/* Powered by Solana */}
-      <section className="border-t border-border/50 py-16 md:py-24">
+      <section className="border-t border-border/50 py-12 sm:py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">Natively built on</p>
-          <h2 className="text-3xl font-bold text-foreground mb-4">Solana</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Solana</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Hermes aggregates across Marinade, Jito, Kamino, Solend, Orca, Jupiter, and 10+ more.
           </p>
@@ -146,18 +146,18 @@ export default function WaitlistPage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t border-border/50 py-16 md:py-24 bg-muted/30">
+      <section className="border-t border-border/50 py-12 sm:py-16 md:py-24 bg-muted/30">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">FAQ</p>
-          <h2 className="text-3xl font-bold text-foreground mb-10">Common questions</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-10">Common questions</h2>
           <FaqAccordion />
         </div>
       </section>
 
       {/* CTA */}
-      <section className="border-t border-border/50 py-16 md:py-20">
+      <section className="border-t border-border/50 py-12 sm:py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3 sm:mb-4">
             Read the news with the yields.
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
