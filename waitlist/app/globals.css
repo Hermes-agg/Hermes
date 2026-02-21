@@ -81,12 +81,27 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground antialiased;
   }
 }
 
+.bg-grid {
+  background-image: linear-gradient(var(--primary) 1px, transparent 1px),
+    linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
 @layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium transition-all duration-200 hover:bg-primary/90 rounded-sm;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 border border-border/50 bg-transparent text-foreground text-sm font-medium transition-all duration-200 hover:border-primary/50 hover:text-primary rounded-sm;
+  }
   .text-display {
     @apply text-3xl sm:text-4xl font-bold tracking-tight;
     font-family: "Outfit", system-ui, sans-serif;

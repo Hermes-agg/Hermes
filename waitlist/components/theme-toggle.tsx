@@ -1,48 +1,44 @@
-"use client";
+"use client"
 
-import { useTheme } from "next-themes";
-import { MoonStar, Sun } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes"
+import { Moon, Sun } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-interface ThemeToggleProps {
-  className?: string;
-}
-
-export function ThemeToggle({ className }: ThemeToggleProps) {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === "dark";
+export function ThemeToggle({ className }: { className?: string }) {
+  const { theme, setTheme } = useTheme()
+  const isDark = theme === "dark"
 
   return (
-    <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      role="switch"
-      aria-checked={isDark}
-      aria-label="Toggle dark mode"
+    <div
+      role="group"
+      aria-label="Theme"
       className={cn(
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm overflow-hidden",
+        "flex items-center rounded-md border border-border/50 bg-secondary/30 p-1 gap-0.5",
         className
       )}
     >
-      <div className="relative flex items-center justify-center w-12 h-7 bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 hover:border-primary/50 transition-all duration-300">
-        <MoonStar
-          size={16}
-          strokeWidth={0}
-          fill="currentColor"
-          className={cn(
-            "absolute text-foreground transition-all duration-300",
-            isDark ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-          )}
-        />
-        <Sun
-          size={16}
-          strokeWidth={0}
-          fill="currentColor"
-          className={cn(
-            "absolute text-primary transition-all duration-300",
-            !isDark ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-          )}
-        />
-      </div>
-    </button>
-  );
+      <button
+        type="button"
+        onClick={() => setTheme("light")}
+        aria-pressed={!isDark}
+        className={cn(
+          "p-1.5 rounded transition-colors",
+          !isDark ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        <Sun className="size-4" strokeWidth={2} />
+      </button>
+      <button
+        type="button"
+        onClick={() => setTheme("dark")}
+        aria-pressed={isDark}
+        className={cn(
+          "p-1.5 rounded transition-colors",
+          isDark ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        <Moon className="size-4" strokeWidth={2} />
+      </button>
+    </div>
+  )
 }

@@ -19,10 +19,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${outfit.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <div className="min-h-screen bg-background flex flex-col">
             <WaitlistHeader />
-            <main className="flex-1 mx-3 md:mx-auto max-w-7xl w-full py-8 md:py-16">
+            <main className="flex-1">
               {children}
             </main>
             <WaitlistFooter />
