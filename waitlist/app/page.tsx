@@ -160,7 +160,7 @@ export default function WaitlistPage() {
       <section className="border-t border-border/50 py-12 sm:py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3 sm:mb-4">
-            Read the news with the yields.
+           Ride With Hermes Today
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
             Join the waitlist to be first when we launch.
