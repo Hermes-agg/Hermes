@@ -21,7 +21,7 @@ function Button({
       data-slot="button"
       disabled={disabled || isLoading}
       className={cn(
-        "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors duration-300 ease-out disabled:pointer-events-none disabled:opacity-50 rounded-sm outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors duration-300 ease-out disabled:pointer-events-none disabled:opacity-50 rounded-sm outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] touch-manipulation",
         variant === "default" && "bg-primary text-primary-foreground border border-border hover:border-primary/90",
         variant === "outline" && "border bg-background shadow-xs hover:bg-input/5 dark:bg-input/30 dark:border-input text-foreground",
         variant === "ghost" && "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",

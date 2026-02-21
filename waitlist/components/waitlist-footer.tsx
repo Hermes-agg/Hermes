@@ -6,7 +6,7 @@ export function WaitlistFooter() {
       <div className="mx-auto max-w-6xl flex items-center justify-between py-4 px-4">
         <div className="flex items-center gap-3">
           <FooterLogo />
-          <span className="text-xs text-muted-foreground uppercase tracking-wider">© 2025</span>
+          <span className="text-xs text-muted-foreground uppercase tracking-wider">© 2026</span>
         </div>
         <div className="flex gap-2">
           <a href="https://discord.gg/Hermes_agg" target="_blank" rel="noopener noreferrer" className="size-8 flex items-center justify-center rounded border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors" aria-label="Discord">

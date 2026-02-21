@@ -12,7 +12,11 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
 export const metadata: Metadata = {
   title: "Hermes Waitlist - Join the Future of Yield",
   description: "Join the Hermes waitlist. Be the first to access the best DeFi yield strategies on Solana.",
-  icons: { icon: "/icon.svg" },
+  icons: {
+    icon: "/hermes-icon-light-32x32.png",
+    shortcut: "/hermes-icon-light-32x32.png",
+    apple: "/hermes-icon-light-32x32.png",
+  },
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -22,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <div className="min-h-screen bg-background flex flex-col">
             <WaitlistHeader />
-            <main className="flex-1">
+            <main className="flex-1 relative">
               {children}
             </main>
             <WaitlistFooter />

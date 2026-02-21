@@ -1,18 +1,30 @@
 import { WaitlistForm } from "@/components/waitlist-form"
-import {
-  Zap,
-  Shield,
-  Route,
-  BarChart3,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react"
+import { ScrollArrow } from "@/components/scroll-arrow"
+import { FaqAccordion } from "@/components/faq-accordion"
+import { Zap, Shield, Route, BarChart3 } from "lucide-react"
 
 export default function WaitlistPage() {
   return (
     <div className="relative">
-      {/* Background grid from Hermes frontend */}
+      {/* Background: grid + rich hero overlay */}
       <div className="fixed inset-0 -z-10 bg-grid opacity-[0.04] dark:opacity-[0.08]" />
+      <div
+        className="fixed inset-0 -z-10 opacity-[0.5] dark:opacity-[0.3]"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 50% at 50% -20%, var(--primary) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 100% 50%, var(--primary) 0%, transparent 40%),
+            radial-gradient(ellipse 60% 40% at 0% 80%, var(--primary) 0%, transparent 40%)
+          `,
+        }}
+      />
+      <div
+        className="fixed inset-0 -z-10 opacity-[0.03] dark:opacity-[0.05]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, var(--primary) 1px, transparent 0)`,
+          backgroundSize: "24px 24px",
+        }}
+      />
 
       {/* Hero - form BESIDE content, not below */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 md:py-20">
@@ -23,9 +35,9 @@ export default function WaitlistPage() {
               • Yield Intelligence for Solana
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1]">
-              The news,
+              One Click,
               <br />
-              <span className="text-primary">with the yields.</span>
+              <span className="text-primary">Discover Yield <br /> You Can Trust</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-xl">
               Real-time yield aggregation across every protocol on Solana. No tab switching. No digging through docs. Just the best risk-adjusted APY.
@@ -38,7 +50,7 @@ export default function WaitlistPage() {
           {/* Right: Waitlist form - SIDE BY SIDE */}
           <div
             id="waitlist"
-            className="flex-shrink-0 w-full lg:w-[380px] rounded-xl border border-border/50 bg-card/95 backdrop-blur-sm p-6 shadow-lg"
+            className="flex-shrink-0 w-full lg:w-[380px] rounded-xl border border-border/50 bg-card/95 backdrop-blur-sm p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-primary/20"
           >
             <h3 className="text-lg font-semibold text-foreground mb-1">Join the waitlist</h3>
             <p className="text-sm text-muted-foreground mb-5">Be first to know when access opens.</p>
@@ -56,8 +68,8 @@ export default function WaitlistPage() {
             Deposit to route. One click.
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <div className="space-y-4 rounded-xl p-4 transition-all duration-300 hover:bg-muted/30">
+              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center transition-colors duration-300">
                 <Route className="size-5 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">Browse protocols</h3>
@@ -65,8 +77,8 @@ export default function WaitlistPage() {
                 50–80 yield-bearing protocols exist on Solana. Hermes indexes them so you don&apos;t have to.
               </p>
             </div>
-            <div className="space-y-4">
-              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <div className="space-y-4 rounded-xl p-4 transition-all duration-300 hover:bg-muted/30">
+              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center transition-colors duration-300">
                 <BarChart3 className="size-5 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">Spot the best APY</h3>
@@ -74,8 +86,8 @@ export default function WaitlistPage() {
                 Our engine compares yield, risk, and fees. You see the optimal route — not 6% after slippage, the real number.
               </p>
             </div>
-            <div className="space-y-4">
-              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <div className="space-y-4 rounded-xl p-4 transition-all duration-300 hover:bg-muted/30">
+              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center transition-colors duration-300">
                 <Zap className="size-5 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">Click to deposit</h3>
@@ -83,8 +95,8 @@ export default function WaitlistPage() {
                 One deposit. Hermes routes liquidity to the best protocol. Smart routing, zero legwork.
               </p>
             </div>
-            <div className="space-y-4">
-              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <div className="space-y-4 rounded-xl p-4 transition-all duration-300 hover:bg-muted/30">
+              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center transition-colors duration-300">
                 <Shield className="size-5 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">Track & rebalance</h3>
@@ -127,17 +139,9 @@ export default function WaitlistPage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">Natively built on</p>
           <h2 className="text-3xl font-bold text-foreground mb-4">Solana</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
-            Hermes aggregates across Marinade, Jito, Kamino, Solend, Orca, Jupiter, and 10+ more. One routing engine. Best execution.
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Hermes aggregates across Marinade, Jito, Kamino, Solend, Orca, Jupiter, and 10+ more.
           </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm font-mono text-muted-foreground">
-            <span>Marinade</span>
-            <span>Jito</span>
-            <span>Kamino</span>
-            <span>Solend</span>
-            <span>Orca</span>
-            <span>Jupiter</span>
-          </div>
         </div>
       </section>
 
@@ -146,35 +150,7 @@ export default function WaitlistPage() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">FAQ</p>
           <h2 className="text-3xl font-bold text-foreground mb-10">Common questions</h2>
-          <div className="space-y-4">
-            <details className="group rounded-lg border border-border/50 bg-card p-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-foreground">
-                What is Hermes?
-                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
-              </summary>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Hermes is the first meta yield aggregator natively built on Solana. We aggregate yield across every protocol and present the best risk-adjusted option via our smart routing engine.
-              </p>
-            </details>
-            <details className="group rounded-lg border border-border/50 bg-card p-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-foreground">
-                How does routing work?
-                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
-              </summary>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Our backend decides where your liquidity is most productive (yield), safest (risk scoring), instantly deployable (pathing), and gets the best execution (price aggregation). You deposit once — we handle the rest.
-              </p>
-            </details>
-            <details className="group rounded-lg border border-border/50 bg-card p-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-foreground">
-                Is it safe?
-                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
-              </summary>
-              <p className="mt-4 text-sm text-muted-foreground">
-                We index established, audited protocols. Our risk engine scores each route. No shady APYs — you see the real numbers before you deposit.
-              </p>
-            </details>
-          </div>
+          <FaqAccordion />
         </div>
       </section>
 
@@ -187,11 +163,13 @@ export default function WaitlistPage() {
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
             Join the waitlist to be first when we launch.
           </p>
-          <a href="#waitlist" className="btn-primary inline-flex">
+          <a href="#waitlist" className="btn-primary inline-flex transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
             Join the waitlist →
           </a>
         </div>
       </section>
+
+      <ScrollArrow />
     </div>
   )
 }
