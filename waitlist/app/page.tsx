@@ -1,6 +1,7 @@
 import { WaitlistForm } from "@/components/waitlist-form"
 import { ScrollArrow } from "@/components/scroll-arrow"
 import { FaqAccordion } from "@/components/faq-accordion"
+import { ProtocolMarquee } from "@/components/protocol-marquee"
 import { Zap, Shield, Route, BarChart3 } from "lucide-react"
 
 export default function WaitlistPage() {
@@ -31,8 +32,13 @@ export default function WaitlistPage() {
         <div className="flex flex-col lg:flex-row lg:items-start gap-8 sm:gap-10 lg:gap-14">
           {/* Left: Copy */}
           <div className="flex-1 min-w-0 space-y-5 sm:space-y-6">
-            <p className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wider">
-              • Yield Intelligence for Solana
+            <p className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wider inline-flex items-center gap-2">
+              <span
+                className="size-2 rounded-full bg-[oklch(0.58_0.14_142)] shrink-0"
+                style={{ animation: "status-blink 1.5s ease-in-out infinite" }}
+                aria-hidden
+              />
+              Yield Intelligence for Solana
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.15]">
               One Click,
@@ -134,14 +140,10 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* Powered by Solana */}
+      {/* Powered by Solana - protocol logos marquee */}
       <section className="border-t border-border/50 py-12 sm:py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">Natively built on</p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Solana</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Hermes aggregates across Marinade, Jito, Kamino, Solend, Orca, Jupiter, and 10+ more.
-          </p>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <ProtocolMarquee />
         </div>
       </section>
 
